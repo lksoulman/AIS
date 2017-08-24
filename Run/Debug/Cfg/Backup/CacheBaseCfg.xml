@@ -1,0 +1,372 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Tables>
+	<SysTable>
+		<Name>SysTable<Name>
+		<Version>0</Version>
+		<UpdateMem>0</UpdateMem>
+		<UpdateMemFieldKey><UpdateMemFieldKey>
+		<CreateSql>
+			CREATE TABLE IF NOT EXISTS SysTable(
+				"TableName" VARCHAR(50) NOT NULL PRIMARY KEY,
+				"Storage" INT NOT NULL DEFAULT 1,
+				"Version" INT NOT NULL DEFAULT 0,
+				"MaxJSID" BIGINT NOT NULL DEFAULT 0,
+				"DelJSID" BIGINT NOT NULL DEFAULT 0
+			)
+		</CreateSql>
+		<InsertSql>
+			INSERT OR REPLACE INTO SysTable(TableName,Storage,Version,MaxJSID,DelJSID) VALUES ("%s",%d,%d,%d,%d)
+		</InsertSql>
+		<DeleteSql></DeleteSql>
+		<Indicator></Indicator>
+		<DeleteIndicator></DeleteIndicator>
+		<ColFields></ColFields>
+	</SysTable>
+	<Table>
+		<Name>ZQZB</Name>
+		<Version>0</Version>
+		<UpdateMem>1</UpdateMem>
+		<UpdateMemFieldKey>innerCode<UpdateMemFieldKey>
+		<CreateSql>
+			DROP TABLE IF EXISTS ZQZB;
+			CREATE TABLE IF NOT EXISTS ZQZB(
+				"ID" BIGINT PRIMARY KEY, 
+				"NBBM" INT NOT NULL,
+				"GSDM" INT NULL,
+				"GPDM" VARCHAR(50) NULL,
+				"Suffix" VARCHAR(10), 
+				"ZQJC" VARCHAR(200) NULL,
+				"ZQSC" INT NULL, 
+				"oZQLB" INT NULL,
+				"PYDM" VARCHAR(100) NULL,
+				"HYDM" VARCHAR(20) NULL, 
+				"SSZT" INT NULL,
+				"SSRQ" DATETIME NULL,
+				"FormerName" VARCHAR(200) NULL,
+				"FormerNameCode" VARCHAR(200) NULL,
+				"targetCategory" INT NULL,
+				"ggt" INT NULL
+			);
+			CREATE INDEX IF NOT EXISTS IX_ZQZB_NBBM ON ZQZB(NBBM);
+			CREATE INDEX IF NOT EXISTS IX_ZQZB_GPDM ON ZQZB(GPDM);
+			CREATE INDEX IF NOT EXISTS IX_ZQZB_oZQLB ON ZQZB(oZQLB);
+		</CreateSql>
+		<InsertSql>
+			INSERT OR REPLACE INTO #TableName VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);
+		</InsertSql>
+		<DeleteSql></DeleteSql>
+		<Indicator>DW_SecuMain(!JSID)</Indicator>
+		<DeleteIndicator>C_CLIENT_DELETERECDATA_DW(!JSID,"DW_SecuMain")</DeleteIndicator>
+		<ColFields>
+			id,innerCode,companyCode,secuCode,suffix,secuAbbr,secuMarket,bSecuCategory,chiSpelling,industryCode,listedState,listedDate,formerName,FormerNameCode,targetCategory,ggt
+		</ColFields>
+	</Table>
+	<Table>
+		<Name>QT_AdjustingFactor</Name>
+		<Version>0</Version>
+		<UpdateMem>0</UpdateMem>
+		<UpdateMemFieldKey><UpdateMemFieldKey>
+		<CreateSql>
+			DROP TABLE IF EXISTS QT_AdjustingFactor;
+			CREATE TABLE IF NOT EXISTS QT_AdjustingFactor(
+				"ID" BIGINT PRIMARY KEY, 
+				"NBBM" INT NOT NULL,
+				"AB" DATETIME NULL,
+				"AC" FLOAT NULL
+			);
+			CREATE INDEX IF NOT EXISTS IX_QT_AdjustingFactor_NBBM ON QT_AdjustingFactor(NBBM ASC);
+		</CreateSql>
+		<InsertSql>
+			INSERT OR REPLACE INTO #TableName VALUES (?,?,?,?);
+		</InsertSql>
+		<DeleteSql></DeleteSql>
+		<Indicator>QT_AdjustingFactor(!JSID)</Indicator>
+		<DeleteIndicator>C_CLIENT_DELETERECDATA(!JSID,"QT_AdjustingFactor")</DeleteIndicator>
+		<ColFields>
+			id,innerCode,exDiviDate,ratioAdjustingFactor
+		</ColFields>
+	</Table>
+	<Table>
+		<Name>HK_AdjustingFactor</Name>
+		<Version>0</Version>
+		<UpdateMem>0</UpdateMem>
+		<UpdateMemFieldKey><UpdateMemFieldKey>
+		<CreateSql>
+			DROP TABLE IF EXISTS HK_AdjustingFactor;
+			CREATE TABLE IF NOT EXISTS HK_AdjustingFactor(
+				"ID" BIGINT PRIMARY KEY, 
+				"NBBM" INT NOT NULL,
+				"AB" DATETIME NULL,
+				"AC" FLOAT NULL
+			);
+			CREATE INDEX IF NOT EXISTS IX_HK_AdjustingFactor_NBBM ON HK_AdjustingFactor(NBBM ASC);
+		</CreateSql>
+		<InsertSql>
+			INSERT OR REPLACE INTO #TableName VALUES (?,?,?,?);
+		</InsertSql>
+		<DeleteSql></DeleteSql>
+		<Indicator>HK_AdjustingFactor(!JSID)</Indicator>
+		<DeleteIndicator>C_CLIENT_DELETERECDATA(!JSID,"HK_AdjustingFactor")</DeleteIndicator>
+		<ColFields>
+			id,innerCode,exDate,adjustingFactor
+		</ColFields>
+	</Table>
+	<Table>
+		<Name>NQ_AdjustFactor</Name>
+		<Version>0</Version>
+		<UpdateMem>0</UpdateMem>
+		<UpdateMemFieldKey><UpdateMemFieldKey>
+		<CreateSql>
+			DROP TABLE IF EXISTS NQ_AdjustFactor;
+			CREATE TABLE IF NOT EXISTS NQ_AdjustFactor(
+				"ID" BIGINT PRIMARY KEY, 
+				"NBBM" INT NOT NULL,
+				"AB" DATETIME NULL,
+				"AC" FLOAT NULL
+			);
+			CREATE INDEX IF NOT EXISTS IX_NQ_AdjustFactor_NBBM ON NQ_AdjustFactor(NBBM ASC);
+		</CreateSql>
+		<InsertSql>
+			INSERT OR REPLACE INTO #TableName VALUES (?,?,?,?);
+		</InsertSql>
+		<DeleteSql></DeleteSql>
+		<Indicator>NQ_AdjustFactor(!JSID)</Indicator>
+		<DeleteIndicator>C_CLIENT_NQDELETERECDATA(!JSID,"NQ_AdjustFactor")</DeleteIndicator>
+		<ColFields>
+			id,innerCode,exDiviDate,ratioAdjustingFactor
+		</ColFields>
+	</Table>
+	<Table>
+		<Name>HSCODE</Name>
+		<Version>0</Version>
+		<UpdateMem>0</UpdateMem>
+		<UpdateMemFieldKey><UpdateMemFieldKey>
+		<CreateSql>
+			DROP TABLE IF EXISTS HSCODE;
+			CREATE TABLE IF NOT EXISTS HSCODE(
+				"ID" BIGINT PRIMARY KEY,
+				"InnerCode" INT NOT NULL, 
+				"CodeByAgent" VARCHAR(50) NOT NULL
+			);
+			CREATE INDEX IF NOT EXISTS IX_HSCODE_NBBM ON HSCODE(InnerCode ASC);
+		</CreateSql>
+		<InsertSql>
+			INSERT OR REPLACE INTO #TableName VALUES (?,?,?);
+		</InsertSql>
+		<DeleteSql></DeleteSql>
+		<Indicator>CD_AgentMatchingCode(!JSID)</Indicator>
+		<DeleteIndicator>C_CLIENT_DELETERECDATA_DW(!JSID,"CD_AgentMatchingCode")</DeleteIndicator>
+		<ColFields>
+			id,innerCode,codeByAgent
+		</ColFields>
+	</Table>
+	<Table>
+		<Name>SecuMain</Name>
+		<Version>0</Version>
+		<UpdateMem>0</UpdateMem>
+		<UpdateMemFieldKey><UpdateMemFieldKey>
+		<CreateSql>
+			DROP TABLE IF EXISTS SecuMain;
+			CREATE TABLE IF NOT EXISTS SecuMain(
+				"ID" BIGINT PRIMARY KEY, 
+				"InnerCode" INT NOT NULL,
+				"CompanyCode" INT NULL, 
+				"SecuCode" VARCHAR(50) NULL,
+				"Suffix" VARCHAR(10), 
+				"SecuAbbr" VARCHAR(200) NULL,
+				"SecuMarket" INT NULL,
+				"BSecuCategory" INT NULL,
+				"ChiSpelling" VARCHAR(100) NULL,
+				"IndustryCode" VARCHAR(20) NULL,
+				"ListedState" INT NULL,
+				"ListedDate" DATETIME NULL,
+				"FormerName" VARCHAR(200) NULL,
+				"FormerNameCode" VARCHAR(200) NULL,
+				"TargetCategory" INT NULL,
+				"ggt" INT NULL
+			);
+			CREATE INDEX IF NOT EXISTS IX_SecuMain_InnerCode ON SecuMain(InnerCode);
+			CREATE INDEX IF NOT EXISTS IX_SecuMain_SecuCode ON SecuMain(SecuCode);
+			CREATE INDEX IF NOT EXISTS IX_SecuMain_BSecuCategory ON SecuMain(BSecuCategory);
+		</CreateSql>
+		<InsertSql>
+			INSERT OR REPLACE INTO #TableName VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);
+		</InsertSql>
+		<DeleteSql></DeleteSql>
+		<Indicator>DW_SecuMain(!JSID)</Indicator>
+		<DeleteIndicator>C_CLIENT_DELETERECDATA_DW(!JSID,"DW_SecuMain")</DeleteIndicator>
+		<ColFields>
+			id,innerCode,companyCode,secuCode,suffix,secuAbbr,secuMarket,bSecuCategory,chiSpelling,industryCode,listedState,listedDate,formerName,FormerNameCode,targetCategory,ggt
+		</ColFields>
+	</Table>
+	<Table>
+		<Name>DW_PlateInfo</Name>
+		<Version>0</Version>
+		<UpdateMem>0</UpdateMem>
+		<UpdateMemFieldKey><UpdateMemFieldKey>
+		<CreateSql>
+			DROP TABLE IF EXISTS DW_PlateInfo;
+			CREATE TABLE IF NOT EXISTS DW_PlateInfo(
+				"ID" BIGINT PRIMARY KEY,  
+				"PlateCode" BIGINT, 
+				"ParentPlateCode" INT,
+				"PlateName"  VARCHAR(500), 
+				"OrderNumber" INT, 
+				"PlateLevel" INT, 
+				"IndustryNum" INT,
+				"Standard" INT,
+				"Flag" INT
+			);
+			CREATE INDEX IF NOT EXISTS IX_DW_PlateInfo_PlateCode ON DW_PlateInfo(PlateCode);
+		</CreateSql>
+		<InsertSql>
+			INSERT OR REPLACE INTO #TableName VALUES (?,?,?,?,?,?,?,?,?);
+		</InsertSql>
+		<DeleteSql></DeleteSql>
+		<Indicator>DW_PlateInfo(!JSID)</Indicator>
+		<DeleteIndicator>C_CLIENT_DELETERECDATA_DW(!JSID,"DW_PlateInfo")</DeleteIndicator>
+		<ColFields>
+			id,plateCode,parentPlateCode,plateName,orderNumber,plateLevel,industryNum,standard,flag
+		</ColFields>
+	</Table>
+	<Table>
+		<Name>DW_PlateComponent</Name>
+		<Version>0</Version>
+		<UpdateMem>0</UpdateMem>
+		<UpdateMemFieldKey><UpdateMemFieldKey>
+		<CreateSql>
+			DROP TABLE IF EXISTS DW_PlateComponent;
+			CREATE TABLE IF NOT EXISTS DW_PlateComponent(
+				"ID" PRIMARY KEY,
+				"PlateCode" BIGINT, 
+				"InnerCode" BIGINT,
+				"Flag" INT
+			);
+			CREATE INDEX IF NOT EXISTS IX_DW_PlateComponent_PlateCode ON DW_PlateComponent(PlateCode);
+		</CreateSql>
+		<InsertSql>
+			INSERT OR REPLACE INTO #TableName VALUES (?,?,?,?);
+		</InsertSql>
+		<DeleteSql></DeleteSql>
+		<Indicator>DW_PlateComponent(!JSID)</Indicator>
+		<DeleteIndicator>C_CLIENT_DELETERECDATA_DW(!JSID,"DW_PlateComponent")</DeleteIndicator>
+		<ColFields>
+			id,plateCode,innerCode,flag
+		</ColFields>
+	</Table>
+	<Table>
+		<Name>DW_SecuBasicInfo</Name>
+		<Version>0</Version>
+		<UpdateMem>0</UpdateMem>
+		<UpdateMemFieldKey><UpdateMemFieldKey>
+		<CreateSql>
+			DROP TABLE IF EXISTS DW_SecuBasicInfo;
+			CREATE TABLE IF NOT EXISTS DW_SecuBasicInfo(
+				"InnerCode" BIGINT PRIMARY KEY, 
+				"EndDate" DATETIME,
+				"TotalShares" FLOAT,
+				"FloatShare"  FLOAT,
+				"EPS"  FLOAT,
+				"EPSTTM" FLOAT,
+				"NewBPS" FLOAT,
+				"ForecastEPS" FLOAT,
+				"ListedSector" VARCHAR(50),
+				"ControllerName" VARCHAR(50),
+				"SWFirstIndustryName" VARCHAR(50), 
+				"SWSecondIndustryName" VARCHAR(50),
+				"ZXFirstIndustryName" VARCHAR(50),
+				"ZXSecondIndustryName" VARCHAR(50),
+				"CSRCFirstIndustryName" VARCHAR(50),
+				"CSRCSecondIndustryName" VARCHAR(50)  			
+			);
+			CREATE INDEX IF NOT EXISTS IX_DW_SecuBasicInfo_InnerCode ON DW_SecuBasicInfo(InnerCode);
+		</CreateSql>
+		<InsertSql>
+			INSERT OR REPLACE INTO #TableName VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);
+		</InsertSql>
+		<DeleteSql></DeleteSql>
+		<Indicator>DW_SecuBasicInfo()</Indicator>
+		<DeleteIndicator></DeleteIndicator>
+		<ColFields>
+			InnerCode,EndDate,TotalShares,FloatShare,EPS,EPSTTM,NewBPS,ForecastEPS,ListedSector,ControllerName,SWFirstIndustryName,SWSecondIndustryName,ZXFirstIndustryName,ZXSecondIndustryName,CSRCFirstIndustryName,CSRCSecondIndustryName
+		</ColFields>
+	</Table>
+	<Table>
+		<Name>DW_DerivativeQT</Name>
+		<Version>0</Version>
+		<UpdateMem>0</UpdateMem>
+		<UpdateMemFieldKey><UpdateMemFieldKey>
+		<CreateSql>
+			DROP TABLE IF EXISTS DW_DerivativeQT;
+			CREATE TABLE IF NOT EXISTS DW_DerivativeQT(
+				"InnerCode" BIGINT PRIMARY KEY, 
+				"TradingDate" DATETIME,
+				"LastAdjustingClosePrice" FLOAT,
+				"AdjustingBasisPrice5D"  FLOAT,
+				"AdjustingBasisPrice10D"  FLOAT,
+				"AdjustingBasisPrice20D" FLOAT,
+				"AdjustingBasisPrice60D" FLOAT,
+				"AdjustingBasisPrice120D" FLOAT,
+				"AdjustingBasisPrice250D" VARCHAR(50),
+				"HighPrice52W" FLOAT,
+				"LowPrice52W" VARCHAR(50),
+				"ChangeDays"  BIGINT,		
+				"TurnoverVolumeLW" FLOAT,
+				"TurnoverVolumeTW" FLOAT,
+				"TurnoverVolumeLM" FLOAT,
+				"TurnoverVolumeTM" FLOAT,
+				"TurnoverVolumeLQ" FLOAT,
+				"TurnoverVolumeTQ" FLOAT,
+				"InvestLevel"  	VACHAR(50),
+				"InstitutionsNumberR" BIGINT,
+				"EventProcedure" VACHAR(50),
+				"IssueMethod"  VACHAR(50),
+				"FinanceValue" FLOAT,
+				"SecurityValue"	FLOAT
+			);
+			CREATE INDEX IF NOT EXISTS IX_DW_DerivativeQT_InnerCode ON DW_DerivativeQT(InnerCode);
+		</CreateSql>
+		<InsertSql>
+			INSERT OR REPLACE INTO #TableName VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);
+		</InsertSql>
+		<DeleteSql></DeleteSql>
+		<Indicator>DW_DerivativeQT()</Indicator>
+		<DeleteIndicator></DeleteIndicator>
+		<ColFields>
+			InnerCode,TradingDate,LastAdjustingClosePrice,AdjustingBasisPrice5D,AdjustingBasisPrice10D,AdjustingBasisPrice20D,AdjustingBasisPrice60D,AdjustingBasisPrice120D,AdjustingBasisPrice250D,HighPrice52W,LowPrice52W,ChangeDays,TurnoverVolumeLW,TurnoverVolumeTW,TurnoverVolumeLM,TurnoverVolumeTM,TurnoverVolumeLQ,TurnoverVolumeTQ,InvestLevel,InstitutionsNumberR,EventProcedure,IssueMethod,FinanceValue,SecurityValue	
+		</ColFields>
+	</Table>
+	<Table>
+		<Name>DW_Superimposedvariety</Name>
+		<Version>0</Version>
+		<UpdateMem>0</UpdateMem>
+		<UpdateMemFieldKey><UpdateMemFieldKey>
+		<CreateSql>
+			DROP TABLE IF EXISTS DW_Superimposedvariety;
+			CREATE TABLE IF NOT EXISTS DW_Superimposedvariety(
+				"ID" BIGINT PRIMARY KEY, 
+				"InnerCode" INTEGER NOT NULL,
+				"IndexInnerCode" INTEGER,
+				"SWFirstIndexCode" INTEGER,
+				"SWSecondIndexCode" INTEGER,
+				"ZXFirstIndexCode"  INTEGER,
+				"ZXSecondIndexCode" INTEGER
+			);
+			CREATE INDEX IF NOT EXISTS IX_DW_Superimposedvariety_InnerCode ON DW_Superimposedvariety(InnerCode);
+			CREATE INDEX IF NOT EXISTS IX_DW_Superimposedvariety_IndexInnerCode ON DW_Superimposedvariety(IndexInnerCode);
+			CREATE INDEX IF NOT EXISTS IX_DW_Superimposedvariety_SWFirstIndexCode ON DW_Superimposedvariety(SWFirstIndexCode);
+			CREATE INDEX IF NOT EXISTS IX_DW_Superimposedvariety_SWSecondIndexCode ON DW_Superimposedvariety(SWSecondIndexCode);
+			CREATE INDEX IF NOT EXISTS IX_DW_Superimposedvariety_ZXFirstIndexCode ON DW_Superimposedvariety(ZXFirstIndexCode);
+			CREATE INDEX IF NOT EXISTS IX_DW_Superimposedvariety_ZXSecondIndexCode ON DW_Superimposedvariety(ZXSecondIndexCode);
+		</CreateSql>
+		<InsertSql>
+			INSERT OR REPLACE INTO #TableName VALUES (?,?,?,?,?,?,?);
+		</InsertSql>
+		<DeleteSql></DeleteSql>
+		<Indicator>DW_Superimposedvariety(!JSID)</Indicator>
+		<DeleteIndicator>C_CLIENT_DELETERECDATA_DW(!JSID,"DW_Superimposedvariety")</DeleteIndicator>
+		<ColFields>
+			id,innerCode,indexInnerCode,sWFirstIndexCode,sWSecondIndexCode,zXFirstIndexCode,zXSecondIndexCode	
+		</ColFields>
+	</Table>
+</Tables>
