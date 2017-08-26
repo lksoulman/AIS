@@ -68,6 +68,7 @@ implementation
 uses
   Utils,
   Config,
+  LoginMgr,
   FastLogLevel,
   WNDataSetInf,
   ServiceConst;
@@ -219,7 +220,7 @@ begin
   if FAppContext = nil then Exit;
 
   if FAppContext.GetLoginMgr <> nil then begin
-    FAppContext.GetLoginMgr.BaseGFUserLogin(ACode, AValue);
+    (FAppContext.GetLoginMgr as ILoginMgr).BaseGFUserLogin(ACode, AValue);
   end;
 end;
 

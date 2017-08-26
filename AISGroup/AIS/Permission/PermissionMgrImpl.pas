@@ -65,6 +65,7 @@ implementation
 
 uses
   LoginMgr,
+  ServiceType,
   LoginGFType,
   FastLogLevel;
 
@@ -101,7 +102,7 @@ end;
 procedure TPermissionMgrImpl.SyncExecute;
 begin
   if (FAppContext.GetLoginMgr <> nil) then begin
-    if FAppContext.GetLoginMgr.IsLoginGF(lGFBase) then begin
+    if (FAppContext.GetLoginMgr as ILoginMgr).IsLoginGF(lGFBase) then begin
       DoGetPermissionData;
     end else begin
       FAppContext.AppLog(llERROR, '[TPermissionMgrImpl][SyncExecute] GetLoginMgr.IsLoginGF(lGFBase) return is false, permission is not load.');
@@ -132,7 +133,7 @@ begin
 {$IFDEF DEBUG}
   LTick := GetTickCount;
 {$ENDIF}
-  LDataSet := FAppContext.GFSyncQueryHighData(gtBaseData, 'USER_QX', 0, 100000);
+  LDataSet := FAppContext.GFSyncQueryHighData(stBase, 'USER_QX', 0, 100000);
   if (LDataSet <> nil) and (LDataSet.RecordCount > 0) then begin
     LPermNoField := LDataSet.FieldByName('mkid');
     LPermNameField := LDataSet.FieldByName('qx');

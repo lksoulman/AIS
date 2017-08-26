@@ -108,8 +108,6 @@ type
   private
     // 配置接口
     FConfig: IConfig;
-    // 登录接口
-    FLoginMgr: ILoginMgr;
     // 应用程序上下文接口
     FAppContext: IAppContext;
     // 登录回调方法
@@ -188,13 +186,11 @@ procedure TLoginMainUI.Initialize(AContext: IAppContext);
 begin
   FAppContext := AContext;
   FConfig := FAppContext.GetConfig as IConfig;
-  FLoginMgr := FAppContext.GetLoginMgr;
   DoInitWindowImages;
 end;
 
 procedure TLoginMainUI.UnInitialize;
 begin
-  FLoginMgr := nil;
   FConfig := nil;
   FAppContext := nil;
 end;

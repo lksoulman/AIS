@@ -15,20 +15,14 @@ uses
   Windows,
   Classes,
   SysUtils,
-  LoginMgr,
-  CipherMgr,
   CacheType,
+  ServiceType,
   FastLogLevel,
   WNDataSetInf,
-  PermissionMgr,
   GFDataMngr_TLB;
 
 type
 
-  // GF 请求数据类型
-  TGFType = (gtBaseData,       // 基础数据
-             gtAssetData       // 资产数据
-             );
 
   IAppContext = Interface(IInterface)
     ['{919A20C7-3242-4DBB-81F7-18EF05813380}']
@@ -69,11 +63,11 @@ type
     // Cache数据获取接口
     function SyncCacheQueryData(ACacheType: TCacheType; ASql: WideString): IWNDataSet; safecall;
     // GF 异步数据查询方法
-    function GFASyncQueryData(AGFType: TGFType; ASql: WideString; ADataArrive: Int64; ATag: Int64): IGFData; safecall;
+    function GFASyncQueryData(AServiceType: TServiceType; ASql: WideString; ADataArrive: Int64; ATag: Int64): IGFData; safecall;
     // GF 同步数据查询方法
-    function GFSyncQueryData(AGFType: TGFType; ASQL: WideString; ATag: Int64; AWaitTime: DWORD): IWNDataSet; safecall;
+    function GFSyncQueryData(AServiceType: TServiceType; ASQL: WideString; ATag: Int64; AWaitTime: DWORD): IWNDataSet; safecall;
     // GF 同步高优先级数据查询方法
-    function GFSyncQueryHighData(AGFType: TGFType; ASQL: WideString; ATag: Int64; AWaitTime: DWORD): IWNDataSet; safecall;
+    function GFSyncQueryHighData(AServiceType: TServiceType; ASQL: WideString; ATag: Int64; AWaitTime: DWORD): IWNDataSet; safecall;
   end;
 
 implementation

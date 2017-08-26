@@ -21,8 +21,7 @@ uses
   LoginMgr,
   SyncAsync,
   AppContext,
-  LoginGFType,
-  LoginMainUI;
+  LoginGFType;
 
 type
 

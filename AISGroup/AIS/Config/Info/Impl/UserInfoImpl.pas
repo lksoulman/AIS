@@ -141,7 +141,8 @@ type
 implementation
 
 uses
-  Config;
+  Config,
+  CipherMgr;
 
 { TUserInfoImpl }
 
@@ -200,10 +201,10 @@ begin
     if FAppContext.GetConfig <> nil then begin
       if FAppContext.GetCipherMgr <> nil then begin
         if GetSavePassword then begin
-          LUserPassword := FAppContext.GetCipherMgr.AES_Encrypt128(AnsiString(FUserPassword));
-          LAssetUserPassword := FAppContext.GetCipherMgr.AES_Encrypt128(FAssetUserPassword);
+          LUserPassword := (FAppContext.GetCipherMgr as ICipherMgr).AES_Encrypt128(AnsiString(FUserPassword));
+          LAssetUserPassword := (FAppContext.GetCipherMgr as ICipherMgr).AES_Encrypt128(FAssetUserPassword);
         end;
-        LBindOrgSign := FAppContext.GetCipherMgr.AES_Encrypt128(FBindOrgSign);
+        LBindOrgSign :=  (FAppContext.GetCipherMgr as ICipherMgr).AES_Encrypt128(FBindOrgSign);
       end;
       LValue := Format('SavePassword=%d;UserName=%s;UserPassword=%s;AssetUserName=%s;AssetUserPassword=%s;BindLicense=%s;BindOrgSign=%s;PasswordExpireHintDate=%s',
         [FSavePassword, FUserName, LUserPassword, FAssetUserName, LAssetUserPassword, FBindLicense, LBindOrgSign, FPasswordExpireHintDate]);
@@ -235,11 +236,11 @@ begin
           if FAppContext.GetCipherMgr <> nil then begin
             if GetSavePassword then begin
               LAssetUserPassword := LStringList.Values['AssetUserPassword'];
-              FAssetUserPassword := FAppContext.GetCipherMgr.AES_Decrypt128(AnsiString(LAssetUserPassword));
+              FAssetUserPassword := (FAppContext.GetCipherMgr as ICipherMgr).AES_Decrypt128(AnsiString(LAssetUserPassword));
             end else begin
               FAssetUserPassword := '';
             end;
-            FBindOrgSign := FAppContext.GetCipherMgr.AES_Decrypt128(AnsiString(FBindOrgSign));
+            FBindOrgSign := (FAppContext.GetCipherMgr as ICipherMgr).AES_Decrypt128(AnsiString(FBindOrgSign));
           end else begin
             FAssetUserPassword := '';
             FBindOrgSign := '';
@@ -348,7 +349,7 @@ var
 begin
   if (FAppContext <> nil) and (FAppContext.GetCipherMgr <> nil) then begin
     LCiperPassword := AnsiString(FUserPassword);
-    LCiperPassword := FAppContext.GetCipherMgr.RSA_EncryptAndBase64(LCiperPassword);
+    LCiperPassword := (FAppContext.GetCipherMgr as ICipherMgr).RSA_EncryptAndBase64(LCiperPassword);
   end else begin
     LCiperPassword := '';
   end;
@@ -381,7 +382,7 @@ var
 begin
   if (FAppContext <> nil) and (FAppContext.GetCipherMgr <> nil) then begin
     LCiperPassword := AnsiString(FAssetUserPassword);
-    LCiperPassword := FAppContext.GetCipherMgr.RSA_EncryptAndBase64(LCiperPassword);
+    LCiperPassword := (FAppContext.GetCipherMgr as ICipherMgr).RSA_EncryptAndBase64(LCiperPassword);
   end else begin
     LCiperPassword := '';
   end;

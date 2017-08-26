@@ -19,6 +19,7 @@ uses
   GFDataSet,
   CacheTable,
   AppContext,
+  ServiceType,
   CommonQueue,
   CacheGFData,
   LiteCallUni,
@@ -44,7 +45,7 @@ type
     // 配置文件
     FCfgFile: string;
     // GF 请求数据类型
-    FGFType: TGFType;
+    FServiceType: TServiceType;
     // 系统表
     FSysTable: TCacheTable;
     // 基础数据表
@@ -181,7 +182,7 @@ constructor TCacheMgr.Create;
 begin
   inherited;
   FIsInit := False;
-  FGFType := gtBaseData;
+  FServiceType := stBase;
   FTables := TList<TCacheTable>.Create;
   FTableDic := TDictionary<string, TCacheTable>.Create;
   FCacheGFDataQueue := TSafeSemaphoreQueue<TCacheGFData>.Create;
@@ -640,7 +641,7 @@ begin
         if LTable.Indicator <> '' then begin
           LIndicator := StringReplace(LTable.Indicator, REPLACE_STR_JSID,
             IntToStr(LTable.MaxJSID), [rfReplaceAll]);
-          LDataSet := FAppContext.GFSyncQueryHighData(FGFType, LIndicator, LTable.IndexID, INFINITE);
+          LDataSet := FAppContext.GFSyncQueryHighData(FServiceType, LIndicator, LTable.IndexID, INFINITE);
           if LDataSet <> nil then begin
             DoUpdateCacheData(LTable, LDataSet);
             DoAfterSyncUpdateCacheData(LTable, LDataSet);
@@ -688,7 +689,7 @@ begin
         if LTable.DeleteIndicator <> '' then begin
           LIndicator := StringReplace(LTable.DeleteIndicator, REPLACE_STR_JSID,
             IntToStr(LTable.DelJSID), [rfReplaceAll]);
-          LDataSet := FAppContext.GFSyncQueryHighData(FGFType, LIndicator, LTable.IndexID, INFINITE);
+          LDataSet := FAppContext.GFSyncQueryHighData(FServiceType, LIndicator, LTable.IndexID, INFINITE);
           if LDataSet <> nil then begin
             DoDeleteCacheData(LTable, LDataSet);
             DoAfterSyncDeleteCacheData(LTable, LDataSet);
@@ -740,7 +741,7 @@ begin
       if LTable.Indicator <> '' then begin
         LIndicator := StringReplace(LTable.Indicator, REPLACE_STR_JSID,
           IntToStr(LTable.MaxJSID), [rfReplaceAll]);
-        FAppContext.GFASyncQueryData(FGFType, LIndicator, LEvent, LTable.IndexID);
+        FAppContext.GFASyncQueryData(FServiceType, LIndicator, LEvent, LTable.IndexID);
       end;
     end;
 
@@ -773,7 +774,7 @@ begin
       if LTable.DeleteIndicator <> '' then begin
         LIndicator := StringReplace(LTable.DeleteIndicator, REPLACE_STR_JSID,
           IntToStr(LTable.DelJSID), [rfReplaceAll]);
-        FAppContext.GFASyncQueryData(gtBaseData, LIndicator, LEvent, LTable.IndexID);
+        FAppContext.GFASyncQueryData(FServiceType, LIndicator, LEvent, LTable.IndexID);
       end;
     end;
 

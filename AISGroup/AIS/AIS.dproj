@@ -52,7 +52,7 @@
         <DCC_K>false</DCC_K>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base_Win32)'!=''">
-        <DCC_UnitSearchPath>..\..\Common\;..\..\Common\Common;..\..\Common\Interface;..\..\Common\OldInterface;..\..\Common\Thread;..\..\Common\Thread\Impl;..\..\Common\FastLog;..\..\Common\FastLog\Impl;..\..\Common\SyncAsync;..\..\Common\Cipher;..\..\Common\Cipher\AES;..\..\Common\Cipher\RSA;..\..\Common\Cipher\MD5;..\..\Common\Cipher\CRC;..\..\Common\Cipher\Base64;..\..\Common\Cipher\Impl;..\..\Common\Delphi3rd\NativeXML;..\..\Common\Delphi3rd\UniDAC5_5_12\Source\UniProviders\SQLite;..\..\Common\Delphi3rd\UniDAC5_5_12\Source;..\..\Common\Delphi3rd\UniDAC5_5_12\Lib\Delphi21\Win32;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
+        <DCC_UnitSearchPath>..\..\Common\;..\..\Common\Common;..\..\Common\AppContext;..\..\Common\Config;..\..\Common\OldInterface;..\..\Common\Thread;..\..\Common\Thread\Impl;..\..\Common\Cache;..\..\Common\Service;..\..\Common\FastLog;..\..\Common\FastLog\Impl;..\..\Common\SyncAsync;..\..\Common\Cipher;..\..\Common\Cipher\AES;..\..\Common\Cipher\RSA;..\..\Common\Cipher\MD5;..\..\Common\Cipher\CRC;..\..\Common\Cipher\Base64;..\..\Common\Cipher\Impl;..\..\Common\Delphi3rd\NativeXML;..\..\Common\Delphi3rd\UniDAC5_5_12\Source\UniProviders\SQLite;..\..\Common\Delphi3rd\UniDAC5_5_12\Source;..\..\Common\Delphi3rd\UniDAC5_5_12\Lib\Delphi21\Win32;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
         <VerInfo_Locale>1033</VerInfo_Locale>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
         <Manifest_File>$(BDS)\bin\default_app.manifest</Manifest_File>
@@ -108,9 +108,8 @@
         <DCCReference Include="Login\LoginMgrImpl.pas"/>
         <DCCReference Include="Utils\Utils.pas"/>
         <DCCReference Include="Utils\DllComLib.pas"/>
-        <DCCReference Include="AppContext\AppContextImpl.pas"/>
+        <DCCReference Include="AppContext\Impl\AppContextImpl.pas"/>
         <DCCReference Include="Cache\CacheMgr.pas"/>
-        <DCCReference Include="Cache\CacheType.pas"/>
         <DCCReference Include="Cache\CacheTable.pas"/>
         <DCCReference Include="Cache\CacheGFData.pas"/>
         <DCCReference Include="Cache\WNComDataSet.pas"/>

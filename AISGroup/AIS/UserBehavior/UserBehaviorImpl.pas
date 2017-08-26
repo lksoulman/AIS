@@ -76,6 +76,7 @@ implementation
 
 uses
   Config,
+  ServiceType,
   FastLogLevel,
   WNDataSetInf;
 
@@ -205,7 +206,7 @@ begin
     LBehaviorStrs := '("{""Fields"":[""ModuleID"",""ClickTime"",""Screen""],""Data"":['
       + LBehaviorStrs
       + ']}")';
-    LDataSet := FAppContext.GFSyncQueryHighData(gtAssetData , 'LOG_MODULE' + LBehaviorStrs, 0, INFINITE);
+    LDataSet := FAppContext.GFSyncQueryHighData(stAsset, 'LOG_MODULE' + LBehaviorStrs, 0, INFINITE);
     if (LDataSet <> nil)
       and (LDataSet.FieldCount >= 1)
       and (LDataSet.RecordCount > 0)
@@ -223,7 +224,7 @@ begin
         Dec(LCount);
       end;
       FBehaviorStrs.SaveToFile(FFile);
-      LDataSet := FAppContext.GFSyncQueryHighData(gtBaseData, 'CLOUD_LOG_MODULE2' + LBehaviorStrs, 0, INFINITE);
+      LDataSet := FAppContext.GFSyncQueryHighData(stBase, 'CLOUD_LOG_MODULE2' + LBehaviorStrs, 0, INFINITE);
       if LDataSet <> nil then begin
         LDataSet := nil;
       end;

@@ -68,6 +68,7 @@ implementation
 
 uses
   Config,
+  LoginMgr,
   FastLogLevel,
   ServiceConst;
 
@@ -257,7 +258,7 @@ begin
   if FAppContext = nil then Exit;
   LValue := AValue;
   if FAppContext.GetLoginMgr <> nil then begin
-    FAppContext.GetLoginMgr.AssetGFUserLogin(AErrorCode, LValue);
+    (FAppContext.GetLoginMgr as ILoginMgr).AssetGFUserLogin(AErrorCode, LValue);
   end;
 end;
 

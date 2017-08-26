@@ -88,7 +88,7 @@ end;
 procedure TCommandMgrImpl.Initialize(AContext: IAppContext);
 begin
   FAppContext := AContext;
-  FPermissionMgr := FAppContext.GetPermissionMgr;
+  FPermissionMgr := FAppContext.GetPermissionMgr as IPermissionMgr;
 end;
 
 procedure TCommandMgrImpl.UnInitialize;
