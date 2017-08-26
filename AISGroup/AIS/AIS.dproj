@@ -112,9 +112,6 @@
         <DCCReference Include="SyncAsync\SyncAsync.pas"/>
         <DCCReference Include="AppContext\AppContext.pas"/>
         <DCCReference Include="AppContext\AppContextImpl.pas"/>
-        <DCCReference Include="Command\Command.pas"/>
-        <DCCReference Include="Command\CommandMgr.pas"/>
-        <DCCReference Include="Command\CommandConst.pas"/>
         <DCCReference Include="Cache\CacheMgr.pas"/>
         <DCCReference Include="Cache\CacheType.pas"/>
         <DCCReference Include="Cache\CacheTable.pas"/>
@@ -236,12 +233,31 @@
         <DCCReference Include="PlugIn\Impl\CacheBaseDataPlugInImpl.pas"/>
         <DCCReference Include="PlugIn\Impl\PermissionMgrPlugInImpl.pas"/>
         <DCCReference Include="PlugIn\Impl\CacheUserDataPlugInImpl.pas"/>
-        <DCCReference Include="PlugIn\Impl\GFServiceBasePlugInImpl.pas"/>
+        <DCCReference Include="PlugIn\Impl\ServiceBasePlugInImpl.pas"/>
         <DCCReference Include="PlugIn\Impl\SectorUserMgrPlugInImpl.pas"/>
-        <DCCReference Include="PlugIn\Impl\GFServiceAssetPlugInImpl.pas"/>
+        <DCCReference Include="PlugIn\Impl\ServiceAssetPlugInImpl.pas"/>
         <DCCReference Include="IPC\IPCMsg.pas"/>
         <DCCReference Include="O32\O32Com.pas"/>
         <DCCReference Include="O32\O32ComImpl.pas"/>
+        <DCCReference Include="KeyFairy\KeyFairy.pas"/>
+        <DCCReference Include="KeyFairy\KeyFairyMgr.pas"/>
+        <DCCReference Include="KeyFairy\KeyFairyPool.pas"/>
+        <DCCReference Include="KeyFairy\KeyFairyMgrImpl.pas"/>
+        <DCCReference Include="Command\Command.pas"/>
+        <DCCReference Include="Command\CommandMgr.pas"/>
+        <DCCReference Include="Command\CommandPerm.pas"/>
+        <DCCReference Include="Command\CommandConst.pas"/>
+        <DCCReference Include="Command\Impl\CommandImpl.pas"/>
+        <DCCReference Include="Command\Impl\CommandMgrImpl.pas"/>
+        <DCCReference Include="Command\CommandRegisterClassMgr.pas"/>
+        <DCCReference Include="Command\Impl\CommandMsgReceiverImpl.pas"/>
+        <DCCReference Include="Command\Impl\CommandRegisterClassMgrImpl.pas"/>
+        <DCCReference Include="AIUI\UI\FormUI.pas"/>
+        <DCCReference Include="AIUI\UI\ControlUI.pas"/>
+        <DCCReference Include="AIUI\UI\ButtonUI.pas"/>
+        <DCCReference Include="AIUI\UI\ImageUI.pas"/>
+        <DCCReference Include="AIUI\UI\PanelUI.pas"/>
+        <DCCReference Include="AIUI\UI\PageControlUI.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>
@@ -285,6 +301,12 @@
                     </Platform>
                 </DeployFile>
                 <DeployFile LocalName="..\Bin\Debug\AIS.exe" Configuration="Debug" Class="ProjectOutput">
+                    <Platform Name="Win32">
+                        <RemoteName>AIS.exe</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="..\..\Run\Debug\Bin\AIS.exe" Configuration="Debug" Class="ProjectOutput">
                     <Platform Name="Win32">
                         <RemoteName>AIS.exe</RemoteName>
                         <Overwrite>true</Overwrite>

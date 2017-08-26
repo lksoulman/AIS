@@ -12,11 +12,11 @@ unit ConfigImpl;
 interface
 
 uses
+  Config,
+  WebInfo,
   Windows,
   Classes,
   SysUtils,
-  IniFiles,
-  Config,
   CfgCache,
   UserInfo,
   DllComLib,
@@ -27,7 +27,8 @@ uses
   ServerInfo,
   SyscfgInfo,
   UpdateInfo,
-  CompanyInfo;
+  CompanyInfo,
+  Generics.Collections;
 
 type
 
@@ -48,9 +49,13 @@ type
     FSysCfgCache: ICfgCache;
     // 用户的配置缓存
     FUserCfgCache: ICfgCache;
+    // 服务器字典
+    FServerInfoDic: TDictionary<string, IServerInfo>;
 
     { Gildata }
 
+    // Web 信息
+    FWebInfo: IWebInfo;
     // 用户信息
     FUserInfo: IUserInfo;
     // 代理信息
@@ -64,22 +69,12 @@ type
     // 公司配置
     FCompanyInfo: ICompanyInfo;
 
-    { web }
+    { Indicators }
 
-    // FOF服务器信息
-    FFOFServerInfo: IServerInfo;
-    // 个股F10服务器信息
-    FF10ServerInfo: IServerInfo;
-    // 资讯服务器信息
-    FNewsServerInfo: IServerInfo;
-    // 资讯文件服务器信息
-    FNewsFileServerInfo: IServerInfo;
-    // 资产服务器信息
-    FAssetWebServerInfo: IServerInfo;
-    // 模拟组合服务器信息
-    FSimulationServerInfo: IServerInfo;
-    // 中科服务器信息
-    FZhongKeServerInfo: IServerInfo;
+    // 公网指标服务器信息
+    FBaseIndicatorServerInfo: IServerInfo;
+    // 资产指标服务器信息
+    FAssetIndicatorServerInfo: IServerInfo;
 
     { HQ }
 
@@ -98,12 +93,26 @@ type
     // 港股延时服务器信息
     FHKDelayServerInfo: IServerInfo;
 
-    { Indicators }
+    { web }
 
-    // 公网指标服务器信息
-    FBaseIndicatorServerInfo: IServerInfo;
-    // 资产指标服务器信息
-    FAssetIndicatorServerInfo: IServerInfo;
+    // FOF服务器信息
+    FFOFServerInfo: IServerInfo;
+    // 个股F10服务器信息
+    FF10ServerInfo: IServerInfo;
+    // 资讯服务器信息
+    FNewsServerInfo: IServerInfo;
+    // 资讯文件服务器信息
+    FNewsFileServerInfo: IServerInfo;
+    // 资产服务器信息
+    FAssetWebServerInfo: IServerInfo;
+    // 模拟组合服务器信息
+    FSimulationServerInfo: IServerInfo;
+    // 中科服务器信息
+    FZhongKeServerInfo: IServerInfo;
+    // 银行间报价
+    FInterBankPriceServerInfo: IServerInfo;
+    // Fly量化
+    FFlyQuantificationServerInfo: IServerInfo;
 
     { Update }
 
@@ -115,12 +124,21 @@ type
     // 用户行为分析
     FActionAnalysisServerInfo: IServerInfo;
   protected
+    // 初始化web信息
+    procedure DoInitWebInfos;
     // 初始化基础信息
     procedure DoInitBaseInfos;
     // 初始化服务器信息
     procedure DoInitServerInfos;
+    // 初始化服务器信息字典
+    procedure DoInitServerInfoDic;
     // 读取Json文件数据
     procedure DoReadJsonFileData;
+
+    // 初始化需要的资源
+    procedure DoInitialize;
+    // 释放不需要的对象
+    procedure DoUnInitialize;
   public
     // 构造方法
     constructor Create;
@@ -177,38 +195,15 @@ type
     function GetUserCfgPath: WideString;
     // 获取用户私有的缓存目录
     function GetUserCachePath: WideString;
+    // 获取服务器 IP
+    function GetServerIP(AServerName: WideString): WideString;
 
-    { Info }
+    { Indicators }
 
-    // 获取用户信息
-    function GetUserInfo: IUserInfo;
-    // 获取代理信息
-    function GetProxyInfo: IProxyInfo;
-    // 获取登录信息
-    function GetLoginInfo: ILoginInfo;
-    // 获取系统配置信息
-    function GetSyscfgInfo: ISyscfgInfo;
-    // 获取更新信息
-    function GetUpdateInfo: IUpdateInfo;
-    // 获取公司信息
-    function GetCompanyInfo: ICompanyInfo;
-
-    { web}
-
-    // FOF服务器信息
-    function GetFOFServerInfo: IServerInfo;
-    // 个股F10服务器信息
-    function GetF10ServerInfo: IServerInfo;
-    // 资讯服务器信息
-    function GetNewsServerInfo: IServerInfo;
-    // 中科服务器信息
-    function GetZhongKeServerInfo: IServerInfo;
-    // 资讯文件服务器信息
-    function GetNewsFileServerInfo: IServerInfo;
-    // 资产服务器信息
-    function GetAssetWebServerInfo: IServerInfo;
-    // 模拟组合服务器信息
-    function GetSimulationServerInfo: IServerInfo;
+    // 公网指标服务器信息
+    function GetBaseIndicatorServerInfo: IServerInfo;
+    // 资产指标服务器信息
+    function GetAssetIndicatorServerInfo: IServerInfo;
 
     { HQ }
 
@@ -227,21 +222,52 @@ type
     // 港股延时服务器信息
     function GetHKDelayServerInfo: IServerInfo;
 
-    { Indicators }
+    { Info }
 
-    // 公网指标服务器信息
-    function GetBaseIndicatorServerInfo: IServerInfo;
-    // 资产指标服务器信息
-    function GetAssetIndicatorServerInfo: IServerInfo;
+    // 获取 web 信息
+    function GetWebInfo: IWebInfo;
+    // 获取用户信息
+    function GetUserInfo: IUserInfo;
+    // 获取代理信息
+    function GetProxyInfo: IProxyInfo;
+    // 获取登录信息
+    function GetLoginInfo: ILoginInfo;
+    // 获取系统配置信息
+    function GetSyscfgInfo: ISyscfgInfo;
+    // 获取更新信息
+    function GetUpdateInfo: IUpdateInfo;
+    // 获取公司信息
+    function GetCompanyInfo: ICompanyInfo;
+
+    { web}
+
+    // 获取FOF服务器信息
+    function GetFOFServerInfo: IServerInfo;
+    // 获取个股F10服务器信息
+    function GetF10ServerInfo: IServerInfo;
+    // 获取获取资讯服务器信息
+    function GetNewsServerInfo: IServerInfo;
+    // 获取中科服务器信息
+    function GetZhongKeServerInfo: IServerInfo;
+    // 获取资讯文件服务器信息
+    function GetNewsFileServerInfo: IServerInfo;
+    // 获取资产服务器信息
+    function GetAssetWebServerInfo: IServerInfo;
+    // 获取模拟组合服务器信息
+    function GetSimulationServerInfo: IServerInfo;
+    // 获取银行间报价
+    function GetInterBankPriceServerInfo: IServerInfo;
+    // 获取Fly量化
+    function GetFlyQuantificationServerInfo: IServerInfo;
 
     { Update}
 
-    // 升级终端服务器
+    // 获取升级终端服务器
     function GetUpdateServerInfo: IServerInfo;
 
     { hundsun}
 
-    // 用户行为服务器信息
+    // 获取用户行为服务器信息
     function GetActionAnalysisServerInfo: IServerInfo;
   end;
 
@@ -250,6 +276,9 @@ implementation
 uses
   Json,
   Utils,
+  IniFiles,
+  NativeXml,
+  WebInfoImpl,
   CfgCacheImpl,
   UserInfoImpl,
   ProxyInfoImpl,
@@ -280,6 +309,7 @@ begin
   FSysCfgCache := TCfgCacheImpl.Create as ICfgCache;
   FUserCfgCache := TCfgCacheImpl.Create as ICfgCache;
 
+  FWebInfo := TWebInfoImpl.Create as IWebInfo;
   FUserInfo := TUserInfoImpl.Create as IUserInfo;
   FProxyInfo := TProxyInfoImpl.Create as IProxyInfo;
   FLoginInfo := TLoginInfoImpl.Create as ILoginInfo;
@@ -287,6 +317,7 @@ begin
   FUpdateInfo := TUpdateInfoImpl.Create as IUpdateInfo;
   FCompanyInfo := TCompanyInfoImpl.Create as ICompanyInfo;
 
+  FServerInfoDic := TDictionary<string, IServerInfo>.Create(25);
   {web}
 
   FFOFServerInfo := TServerInfoImpl.Create('FOF') as IServerInfo;
@@ -296,6 +327,8 @@ begin
   FAssetWebServerInfo := TServerInfoImpl.Create('AssetWeb') as IServerInfo;
   FSimulationServerInfo := TServerInfoImpl.Create('Simulation') as IServerInfo;
   FZhongKeServerInfo := TServerInfoImpl.Create('ZhongKe') as IServerInfo;
+  FInterBankPriceServerInfo := TServerInfoImpl.Create('InterBankPrice') as IServerInfo;
+  FFlyQuantificationServerInfo := TServerInfoImpl.Create('FlyQuantification') as IServerInfo;
 
   { HQ }
 
@@ -323,22 +356,18 @@ end;
 
 destructor TConfigImpl.Destroy;
 begin
-  FCompanyInfo := nil;
+  FWebInfo := nil;
+  FUserINfo := nil;
   FProxyInfo := nil;
   FLoginInfo := nil;
   FSyscfgInfo := nil;
   FUpdateInfo := nil;
   FCompanyInfo := nil;
 
-  {web}
+  { Indicators }
 
-  FFOFServerInfo := nil;
-  FF10ServerInfo := nil;
-  FNewsServerInfo := nil;
-  FNewsFileServerInfo := nil;
-  FAssetWebServerInfo := nil;
-  FSimulationServerInfo := nil;
-  FZhongKeServerInfo := nil;
+  FBaseIndicatorServerInfo := nil;
+  FAssetIndicatorServerInfo := nil;
 
   { HQ }
 
@@ -350,10 +379,17 @@ begin
   FLevelIIServerInfo := nil;
   FHKDelayServerInfo := nil;
 
-  { Indicators }
+  {web}
 
-  FBaseIndicatorServerInfo := nil;
-  FAssetIndicatorServerInfo := nil;
+  FFOFServerInfo := nil;
+  FF10ServerInfo := nil;
+  FNewsServerInfo := nil;
+  FNewsFileServerInfo := nil;
+  FAssetWebServerInfo := nil;
+  FSimulationServerInfo := nil;
+  FZhongKeServerInfo := nil;
+  FInterBankPriceServerInfo := nil;
+  FFlyQuantificationServerInfo := nil;
 
   { Update }
 
@@ -366,8 +402,39 @@ begin
   FUserCfgCache := nil;
   FSysCfgCache := nil;
 
+  FServerInfoDic.Free;
+
   FDllComLib.Free;
   inherited;
+end;
+
+procedure TConfigImpl.DoInitWebInfos;
+var
+  LFile: string;
+  LNode: TXmlNode;
+  LXml: TNativeXml;
+  LNodeList: TList;
+begin
+  if FAppContext.GetConfig <> nil then begin
+    LFile := (FAppContext.GetConfig as IConfig).GetCfgPath + 'WebCfg.xml';
+    if FileExists(LFile) then begin
+      LXml := TNativeXml.Create(nil);
+      try
+        LXml.LoadFromFile(LFile);
+        LXml.XmlFormat := xfReadable;
+        LNode := LXml.Root;
+        LNodeList := TList.Create;
+        try
+          LNode.FindNodes('UrlInfo', LNodeList);
+          FWebInfo.LoadXmlNodes(LNodeList);
+        finally
+          LNodeList.Free;
+        end;
+      finally
+        LXml.Free;
+      end;
+    end;
+  end;
 end;
 
 procedure TConfigImpl.DoInitBaseInfos;
@@ -383,12 +450,6 @@ begin
     FSyscfgInfo.LoadByIniFile(LIniFile);
     FUpdateInfo.LoadByIniFile(LIniFile);
     FCompanyInfo.LoadByIniFile(LIniFile);
-    FUserInfo.Initialize(FAppContext);
-    FProxyInfo.Initialize(FAppContext);
-    FLoginInfo.Initialize(FAppContext);
-    FSyscfgInfo.Initialize(FAppContext);
-    FUpdateInfo.Initialize(FAppContext);
-    FCompanyInfo.Initialize(FAppContext);
   finally
     LIniFile.Free;
   end;
@@ -424,6 +485,8 @@ begin
     FNewsFileServerInfo.LoadByIniFile(LIniFile);
     FAssetWebServerInfo.LoadByIniFile(LIniFile);
     FSimulationServerInfo.LoadByIniFile(LIniFile);
+    FInterBankPriceServerInfo.LoadByIniFile(LIniFile);
+    FFlyQuantificationServerInfo.LoadByIniFile(LIniFile);
 
     { Update }
 
@@ -435,6 +498,44 @@ begin
   finally
     LIniFile.Free;
   end;
+end;
+
+procedure TConfigImpl.DoInitServerInfoDic;
+begin
+  { Indicators }
+
+  FServerInfoDic.AddOrSetValue(FBaseIndicatorServerInfo.GetServerName, FBaseIndicatorServerInfo);
+  FServerInfoDic.AddOrSetValue(FAssetIndicatorServerInfo.GetServerName, FAssetIndicatorServerInfo);
+
+  { HQ }
+
+  FServerInfoDic.AddOrSetValue(FDDEServerInfo.GetServerName, FDDEServerInfo);
+  FServerInfoDic.AddOrSetValue(FUSAServerInfo.GetServerName, FUSAServerInfo);
+  FServerInfoDic.AddOrSetValue(FFutuesServerInfo.GetServerName, FFutuesServerInfo);
+  FServerInfoDic.AddOrSetValue(FHKRealServerInfo.GetServerName, FHKRealServerInfo);
+  FServerInfoDic.AddOrSetValue(FLevelIServerInfo.GetServerName, FLevelIServerInfo);
+  FServerInfoDic.AddOrSetValue(FLevelIIServerInfo.GetServerName, FLevelIIServerInfo);
+  FServerInfoDic.AddOrSetValue(FHKDelayServerInfo.GetServerName, FHKDelayServerInfo);
+
+  { web }
+
+  FServerInfoDic.AddOrSetValue(FFOFServerInfo.GetServerName, FFOFServerInfo);
+  FServerInfoDic.AddOrSetValue(FF10ServerInfo.GetServerName, FF10ServerInfo);
+  FServerInfoDic.AddOrSetValue(FNewsServerInfo.GetServerName, FNewsServerInfo);
+  FServerInfoDic.AddOrSetValue(FNewsFileServerInfo.GetServerName, FNewsFileServerInfo);
+  FServerInfoDic.AddOrSetValue(FAssetWebServerInfo.GetServerName, FAssetWebServerInfo);
+  FServerInfoDic.AddOrSetValue(FSimulationServerInfo.GetServerName, FSimulationServerInfo);
+  FServerInfoDic.AddOrSetValue(FZhongKeServerInfo.GetServerName, FZhongKeServerInfo);
+  FServerInfoDic.AddOrSetValue(FInterBankPriceServerInfo.GetServerName, FInterBankPriceServerInfo);
+  FServerInfoDic.AddOrSetValue(FFlyQuantificationServerInfo.GetServerName, FFlyQuantificationServerInfo);
+
+  { Update }
+
+  FServerInfoDic.AddOrSetValue(FUpdateServerInfo.GetServerName, FUpdateServerInfo);
+
+  { HS }
+
+  FServerInfoDic.AddOrSetValue(FActionAnalysisServerInfo.GetServerName, FActionAnalysisServerInfo);
 end;
 
 procedure TConfigImpl.DoReadJsonFileData;
@@ -493,19 +594,115 @@ begin
   end;
 end;
 
+procedure TConfigImpl.DoInitialize;
+begin
+  FSysCfgCache.Initialize(FAppContext);
+  FUserCfgCache.Initialize(FAppContext);
+
+  FWebInfo.Initialize(FAppContext);
+  FUserInfo.Initialize(FAppContext);
+  FProxyInfo.Initialize(FAppContext);
+  FLoginInfo.Initialize(FAppContext);
+  FSyscfgInfo.Initialize(FAppContext);
+  FUpdateInfo.Initialize(FAppContext);
+  FCompanyInfo.Initialize(FAppContext);
+
+  { Indicators }
+
+  FBaseIndicatorServerInfo.Initialize(FAppContext);
+  FAssetIndicatorServerInfo.Initialize(FAppContext);
+
+  { HQ }
+
+  FDDEServerInfo.Initialize(FAppContext);
+  FUSAServerInfo.Initialize(FAppContext);
+  FFutuesServerInfo.Initialize(FAppContext);
+  FHKRealServerInfo.Initialize(FAppContext);
+  FLevelIServerInfo.Initialize(FAppContext);
+  FLevelIIServerInfo.Initialize(FAppContext);
+  FHKDelayServerInfo.Initialize(FAppContext);
+
+  {web}
+
+  FFOFServerInfo.Initialize(FAppContext);
+  FF10ServerInfo.Initialize(FAppContext);
+  FNewsServerInfo.Initialize(FAppContext);
+  FNewsFileServerInfo.Initialize(FAppContext);
+  FAssetWebServerInfo.Initialize(FAppContext);
+  FSimulationServerInfo.Initialize(FAppContext);
+  FInterBankPriceServerInfo.Initialize(FAppContext);
+  FFlyQuantificationServerInfo.Initialize(FAppContext);
+
+  { Update }
+
+  FUpdateServerInfo.Initialize(FAppContext);
+
+  { HS }
+
+  FActionAnalysisServerInfo.Initialize(FAppContext);
+end;
+
+procedure TConfigImpl.DoUnInitialize;
+begin
+  FWebInfo.UnInitialize;
+  FUserInfo.UnInitialize;
+  FProxyInfo.UnInitialize;
+  FLoginInfo.UnInitialize;
+  FSyscfgInfo.UnInitialize;
+  FUpdateInfo.UnInitialize;
+  FCompanyInfo.UnInitialize;
+
+  { Indicators }
+
+  FBaseIndicatorServerInfo.UnInitialize;
+  FAssetIndicatorServerInfo.UnInitialize;
+
+  { HQ }
+
+  FDDEServerInfo.UnInitialize;
+  FUSAServerInfo.UnInitialize;
+  FFutuesServerInfo.UnInitialize;
+  FHKRealServerInfo.UnInitialize;
+  FLevelIServerInfo.UnInitialize;
+  FLevelIIServerInfo.UnInitialize;
+  FHKDelayServerInfo.UnInitialize;
+
+  {web}
+
+  FFOFServerInfo.UnInitialize;
+  FF10ServerInfo.UnInitialize;
+  FNewsServerInfo.UnInitialize;
+  FNewsFileServerInfo.UnInitialize;
+  FAssetWebServerInfo.UnInitialize;
+  FSimulationServerInfo.UnInitialize;
+  FInterBankPriceServerInfo.UnInitialize;
+  FFlyQuantificationServerInfo.UnInitialize;
+
+  { Update }
+
+  FUpdateServerInfo.UnInitialize;
+
+  { HS }
+
+  FActionAnalysisServerInfo.UnInitialize;
+
+  FServerInfoDic.Clear;
+
+  FUserCfgCache.UnInitialize;
+  FSysCfgCache.UnInitialize;
+end;
+
 procedure TConfigImpl.Initialize(AContext: IAppContext);
 begin
   FAppContext := AContext;
-  FSysCfgCache.Initialize(FAppContext);
-  FUserCfgCache.Initialize(FAppContext);
+  ForceInitSysDirectories;
   DoInitBaseInfos;
   DoInitServerInfos;
+  DoInitServerInfoDic;
 end;
 
 procedure TConfigImpl.UnInitialize;
 begin
-  FUserCfgCache.UnInitialize;
-  FSysCfgCache.UnInitialize;
   FAppContext := nil;
 end;
 
@@ -516,7 +713,6 @@ end;
 
 procedure TConfigImpl.SyncExecute;
 begin
-  ForceInitSysDirectories;
   FUserInfo.LoadCache;
   FProxyInfo.LoadCache;
   FLoginInfo.LoadCache;
@@ -564,8 +760,6 @@ begin
 
   FUserCfgCache.SetCfgCachePath(GetUserCachePath);
   FUserCfgCache.LoadCfgCacheData;
-
-
 end;
 
 function TConfigImpl.GetDllComLib: TDllComLib;
@@ -648,6 +842,23 @@ begin
   end;
 end;
 
+function TConfigImpl.GetServerIP(AServerName: WideString): WideString;
+var
+  LServerInfo: IServerInfo;
+begin
+  if FServerInfoDic.TryGetValue(AServerName, LServerInfo)
+    and (LServerInfo <> nil) then begin
+    Result := LServerInfo.GetServerUrl;
+  end else begin
+    Result := '';
+  end;
+end;
+
+function TConfigImpl.GetWebInfo: IWebInfo;
+begin
+  Result := FWebInfo;
+end;
+
 function TConfigImpl.GetUserInfo: IUserInfo;
 begin
   Result := FUserInfo;
@@ -678,39 +889,14 @@ begin
   Result := FCompanyInfo;
 end;
 
-function TConfigImpl.GetFOFServerInfo: IServerInfo;
+function TConfigImpl.GetBaseIndicatorServerInfo: IServerInfo;
 begin
-  Result := FFOFServerInfo;
+  Result := FBaseIndicatorServerInfo;
 end;
 
-function TConfigImpl.GetF10ServerInfo: IServerInfo;
+function TConfigImpl.GetAssetIndicatorServerInfo: IServerInfo;
 begin
-  Result := FF10ServerInfo;
-end;
-
-function TConfigImpl.GetNewsServerInfo: IServerInfo;
-begin
-  Result := FNewsServerInfo;
-end;
-
-function TConfigImpl.GetZhongKeServerInfo: IServerInfo;
-begin
-  Result := FZhongKeServerInfo;
-end;
-
-function TConfigImpl.GetNewsFileServerInfo: IServerInfo;
-begin
-  Result := FNewsFileServerInfo;
-end;
-
-function TConfigImpl.GetAssetWebServerInfo: IServerInfo;
-begin
-  Result := FNewsFileServerInfo;
-end;
-
-function TConfigImpl.GetSimulationServerInfo: IServerInfo;
-begin
-  Result := FNewsFileServerInfo;
+  Result := FAssetIndicatorServerInfo;
 end;
 
 function TConfigImpl.GetDDEServerInfo: IServerInfo;
@@ -748,14 +934,49 @@ begin
   Result := FHKDelayServerInfo;
 end;
 
-function TConfigImpl.GetBaseIndicatorServerInfo: IServerInfo;
+function TConfigImpl.GetFOFServerInfo: IServerInfo;
 begin
-  Result := FBaseIndicatorServerInfo;
+  Result := FFOFServerInfo;
 end;
 
-function TConfigImpl.GetAssetIndicatorServerInfo: IServerInfo;
+function TConfigImpl.GetF10ServerInfo: IServerInfo;
 begin
-  Result := FAssetIndicatorServerInfo;
+  Result := FF10ServerInfo;
+end;
+
+function TConfigImpl.GetNewsServerInfo: IServerInfo;
+begin
+  Result := FNewsServerInfo;
+end;
+
+function TConfigImpl.GetZhongKeServerInfo: IServerInfo;
+begin
+  Result := FZhongKeServerInfo;
+end;
+
+function TConfigImpl.GetNewsFileServerInfo: IServerInfo;
+begin
+  Result := FNewsFileServerInfo;
+end;
+
+function TConfigImpl.GetAssetWebServerInfo: IServerInfo;
+begin
+  Result := FNewsFileServerInfo;
+end;
+
+function TConfigImpl.GetSimulationServerInfo: IServerInfo;
+begin
+  Result := FNewsFileServerInfo;
+end;
+
+function TConfigImpl.GetInterBankPriceServerInfo: IServerInfo;
+begin
+  Result := FInterBankPriceServerInfo;
+end;
+
+function TConfigImpl.GetFlyQuantificationServerInfo: IServerInfo;
+begin
+  Result := FFlyQuantificationServerInfo;
 end;
 
 function TConfigImpl.GetUpdateServerInfo: IServerInfo;

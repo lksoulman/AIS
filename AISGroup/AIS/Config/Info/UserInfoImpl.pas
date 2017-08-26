@@ -49,6 +49,8 @@ type
     FPasswordExpireDays: Integer;
     // 上次系统提示N天密码过期日期
     FPasswordExpireHintDate: string;
+    // 验证码
+    FVerifyCode: Integer;    // 0 表示没有验证码服务  1 表示有验证码服务
     // 登录类型
     FLoginType: TLoginType;
     // 应用程序上下文接口
@@ -146,6 +148,7 @@ uses
 constructor TUserInfoImpl.Create;
 begin
   inherited;
+  FVerifyCode := 0;
   FSavePassword := 0;
   FPasswordExpire := 0;
   FPasswordExpireDays := 0;

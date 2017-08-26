@@ -20,6 +20,7 @@ uses
   CacheType,
   FastLogLevel,
   WNDataSetInf,
+  PermissionMgr,
   GFDataMngr_TLB;
 
 type
@@ -41,10 +42,14 @@ type
     function GetLoginMgr: ILoginMgr; safecall;
     // 获取加密解密接口
     function GetCipherMgr: ICipherMgr; safecall;
+    // 获取系统消息服务接口
+    function GetMsgServices: IInterface; safecall;
     // 获取基础服务
     function GetServiceBase: IInterface; safecall;
     // 获取资产服务
     function GetServiceAsset: IInterface; safecall;
+    // 获取权限管理接口
+    function GetPermissionMgr: IPermissionMgr; safecall;
     // 注册接口
     procedure RegisterInterface(AGUID: TGUID; const AObj: IUnknown); safecall;
     // 卸载接口

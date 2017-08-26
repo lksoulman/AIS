@@ -20,6 +20,7 @@ uses
   CipherMgr,
   CacheType,
   AppContext,
+  MsgServices,
   ServiceBase,
   ServiceAsset,
   UserBehavior,
@@ -27,6 +28,7 @@ uses
   WNDataSetInf,
   CacheBaseData,
   CacheUserData,
+  PermissionMgr,
   GFDataMngr_TLB,
   Generics.Collections;
 
@@ -40,6 +42,8 @@ type
     FLoginMgr: ILoginMgr;
     // 加密解密接口
     FCipherMgr: ICipherMgr;
+    // 系统消息服务接口
+    FMsgServices: IMsgServices;
     // 基础服务
     FServiceBase: IServiceBase;
     // 资产服务
@@ -50,6 +54,8 @@ type
     FCacheBaseData: ICacheBaseData;
     // 用户 cache 数据接口
     FCacheUserData: ICacheUserData;
+    // 权限管理接口
+    FPermissionMgr: IPermissionMgr;
     // 基础数据服务接口
     FBaseGFDataManager: IGFDataManager;
     // 资产数据服务接口
@@ -83,10 +89,14 @@ type
     function GetLoginMgr: ILoginMgr; safecall;
     // 获取加密解密接口
     function GetCipherMgr: ICipherMgr; safecall;
+    // 获取系统消息服务接口
+    function GetMsgServices: IInterface; safecall;
     // 获取基础服务
     function GetServiceBase: IInterface; safecall;
     // 获取资产服务
     function GetServiceAsset: IInterface; safecall;
+    // 获取权限管理接口
+    function GetPermissionMgr: IPermissionMgr; safecall;
     // 注册接口
     procedure RegisterInterface(AGUID: TGUID; const AObj: IUnknown); safecall;
     // 卸载接口
@@ -166,6 +176,16 @@ begin
   Result := FServiceAsset;
 end;
 
+function TAppContextImpl.GetMsgServices: IInterface;
+begin
+  Result := FMsgServices;
+end;
+
+function TAppContextImpl.GetPermissionMgr: IPermissionMgr;
+begin
+  Result := FPermissionMgr;
+end;
+
 procedure TAppContextImpl.RegisterInterface(AGUID: TGUID; const AObj: IUnknown);
 var
   LGUID: string;
@@ -179,6 +199,8 @@ begin
     FLoginMgr := AObj as ILoginMgr;
   end else if LGUID = GUIDToString(ICipherMgr) then begin
     FCipherMgr := AObj as ICipherMgr;
+  end else if LGUID = GUIDToString(IMsgServices) then begin
+    FMsgServices := AObj as IMsgServices;
   end else if LGUID = GUIDToString(IUserBehavior) then begin
     FUserBehavior := AObj as IUserBehavior;
   end else if LGUID = GUIDToString(ICacheBaseData) then begin
@@ -191,6 +213,8 @@ begin
   end else if LGUID = GUIDToString(IServiceAsset) then begin
     FServiceAsset := AObj as IServiceAsset;
     FAssetGFDataManager := FServiceAsset.GetGFDataManager;
+  end else if LGUID = GUIDToString(IPermissionMgr) then begin
+    FPermissionMgr := AObj as IPermissionMgr;
   end;
 end;
 

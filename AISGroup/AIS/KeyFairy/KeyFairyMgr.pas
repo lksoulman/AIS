@@ -1,10 +1,10 @@
-unit CommandMgr;
+unit KeyFairyMgr;
 
 ////////////////////////////////////////////////////////////////////////////////
 //
 // Description£∫
 // Author£∫      lksoulman
-// Date£∫        2017-8-6
+// Date£∫        2017-8-24
 // Comments£∫
 //
 ////////////////////////////////////////////////////////////////////////////////
@@ -18,10 +18,8 @@ uses
 
 type
 
-  ICommandMgr = Interface(IInterface)
-    ['{A9E3235B-AA29-4812-BD9B-6FCCE303488A}']
-    // √¸¡Ó÷¥––∑Ω∑®
-    procedure ExecCommand(ACommandID: Integer; ACommandParams: string); safecall;
+  IKeyFairyMgr = Interface(IInterface)
+    ['{D7D7DEB8-9D5D-4C2F-9995-3C761E938249}']
   end;
 
 implementation

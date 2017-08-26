@@ -19,11 +19,11 @@ uses
 type
 
   // Int64 动态数组
-  TInt64DynArray = array of Int64;
-
+  TInt64DynArray = array Of Int64;
+  // Doule 动态数组
+  TDoubleDynArray = Array Of Double;
   // Integer 动态数组
   TIntegerDynArray = array of Integer;
-
   // String 动态数组
   TStringDynArray = array of string;
 

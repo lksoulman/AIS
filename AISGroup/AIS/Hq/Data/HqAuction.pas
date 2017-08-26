@@ -1,10 +1,10 @@
-unit CommandMgr;
+unit HqAuction;
 
 ////////////////////////////////////////////////////////////////////////////////
 //
 // Description：
 // Author：      lksoulman
-// Date：        2017-8-6
+// Date：        2017-8-25
 // Comments：
 //
 ////////////////////////////////////////////////////////////////////////////////
@@ -18,10 +18,9 @@ uses
 
 type
 
-  ICommandMgr = Interface(IInterface)
-    ['{A9E3235B-AA29-4812-BD9B-6FCCE303488A}']
-    // 命令执行方法
-    procedure ExecCommand(ACommandID: Integer; ACommandParams: string); safecall;
+  // 集合竞价
+  IHqAuction = Interface(IInterface)
+    ['{60045267-45A9-4D66-940C-2481AD41C45E}']
   end;
 
 implementation

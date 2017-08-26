@@ -12,6 +12,7 @@ unit Config;
 interface
 
 uses
+  WebInfo,
   Windows,
   Classes,
   SysUtils,
@@ -64,38 +65,15 @@ type
     function GetUserCfgPath: WideString;
     // 获取用户私有的缓存目录
     function GetUserCachePath: WideString;
+    // 获取服务器 IP
+    function GetServerIP(AServerName: WideString): WideString;
 
-    { Info }
+    { Indicators }
 
-    // 获取用户信息
-    function GetUserInfo: IUserInfo;
-    // 获取代理信息
-    function GetProxyInfo: IProxyInfo;
-    // 获取登录信息
-    function GetLoginInfo: ILoginInfo;
-    // 获取系统配置信息
-    function GetSyscfgInfo: ISyscfgInfo;
-    // 获取更新信息
-    function GetUpdateInfo: IUpdateInfo;
-    // 获取公司信息
-    function GetCompanyInfo: ICompanyInfo;
-
-    { web}
-
-    // FOF服务器信息
-    function GetFOFServerInfo: IServerInfo;
-    // 个股F10服务器信息
-    function GetF10ServerInfo: IServerInfo;
-    // 资讯服务器信息
-    function GetNewsServerInfo: IServerInfo;
-    // 中科服务器信息
-    function GetZhongKeServerInfo: IServerInfo;
-    // 资讯文件服务器信息
-    function GetNewsFileServerInfo: IServerInfo;
-    // 资产服务器信息
-    function GetAssetWebServerInfo: IServerInfo;
-    // 模拟组合服务器信息
-    function GetSimulationServerInfo: IServerInfo;
+    // 公网指标服务器信息
+    function GetBaseIndicatorServerInfo: IServerInfo;
+    // 资产指标服务器信息
+    function GetAssetIndicatorServerInfo: IServerInfo;
 
     { HQ }
 
@@ -114,21 +92,52 @@ type
     // 港股延时服务器信息
     function GetHKDelayServerInfo: IServerInfo;
 
-    { Indicators }
+    { Info }
 
-    // 公网指标服务器信息
-    function GetBaseIndicatorServerInfo: IServerInfo;
-    // 资产指标服务器信息
-    function GetAssetIndicatorServerInfo: IServerInfo;
+    // 获取 web 信息
+    function GetWebInfo: IWebInfo;
+    // 获取用户信息
+    function GetUserInfo: IUserInfo;
+    // 获取代理信息
+    function GetProxyInfo: IProxyInfo;
+    // 获取登录信息
+    function GetLoginInfo: ILoginInfo;
+    // 获取系统配置信息
+    function GetSyscfgInfo: ISyscfgInfo;
+    // 获取更新信息
+    function GetUpdateInfo: IUpdateInfo;
+    // 获取公司信息
+    function GetCompanyInfo: ICompanyInfo;
+
+    { web}
+
+    // 获取FOF服务器信息
+    function GetFOFServerInfo: IServerInfo;
+    // 获取个股F10服务器信息
+    function GetF10ServerInfo: IServerInfo;
+    // 获取获取资讯服务器信息
+    function GetNewsServerInfo: IServerInfo;
+    // 获取中科服务器信息
+    function GetZhongKeServerInfo: IServerInfo;
+    // 获取资讯文件服务器信息
+    function GetNewsFileServerInfo: IServerInfo;
+    // 获取资产服务器信息
+    function GetAssetWebServerInfo: IServerInfo;
+    // 获取模拟组合服务器信息
+    function GetSimulationServerInfo: IServerInfo;
+    // 获取银行间报价
+    function GetInterBankPriceServerInfo: IServerInfo;
+    // 获取Fly量化
+    function GetFlyQuantificationServerInfo: IServerInfo;
 
     { Update}
 
-    // 升级终端服务器
+    // 获取升级终端服务器
     function GetUpdateServerInfo: IServerInfo;
 
     { hundsun}
 
-    // 用户行为服务器信息
+    // 获取用户行为服务器信息
     function GetActionAnalysisServerInfo: IServerInfo;
   end;
 

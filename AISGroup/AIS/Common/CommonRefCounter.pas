@@ -4,7 +4,7 @@ unit CommonRefCounter;
 //
 // Description：
 // Author：      lksoulman
-// Date：        2017-7-11
+// Date：        2017-4-11
 // Comments：
 //
 ////////////////////////////////////////////////////////////////////////////////
@@ -12,17 +12,19 @@ unit CommonRefCounter;
 interface
 
 uses
+  Types,
   Windows,
+  Classes,
   SysUtils,
   Variants,
-  Classes,
-  Types,
   SyncObjs;
 
 type
 
   // 自动计数对象基类
   TAutoObject = class
+  private
+  protected
   public
     // 构造函数
     constructor Create; virtual;
@@ -32,20 +34,23 @@ type
 
   // 自动计数接口实现基类(接口自动管理，自动释放)
   TAutoInterfacedObject = class(TInterfacedObject)
+  private
   protected
+  public
     // 构造函数
     constructor Create; virtual;
-  public
     // 析构函数
     destructor Destroy; override;
   end;
 
   // 自动计数接口实现基类(接口手动管理，手动释放)
   TAutoUserInterfacedObject = class(TAutoObject, IInterface)
+  private
   protected
     function QueryInterface(const IID: TGUID; out Obj): HResult; stdcall;
     function _AddRef: Integer; stdcall;
     function _Release: Integer; stdcall;
+  public
   end;
 
   // 增加内存检查点(参数：内存指针;描述文字)

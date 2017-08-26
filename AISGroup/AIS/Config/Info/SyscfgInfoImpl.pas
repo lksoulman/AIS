@@ -65,13 +65,13 @@ type
     // 加载缓存
     procedure LoadCache; safecall;
     // 设置字体比例
-    procedure SetFontRatio(AFontRatio: string); safecall;
+    procedure SetFontRatio(AFontRatio: WideString); safecall;
     // 获取字体比例
-    function GetFontRatio: string; safecall;
+    function GetFontRatio: WideString; safecall;
     // 设置皮肤样式
-    procedure SetSkinStyle(ASkinStyle: string); safecall;
+    procedure SetSkinStyle(ASkinStyle: WideString); safecall;
     // 获取皮肤样式
-    function GetSkinStyle: string; safecall;
+    function GetSkinStyle: WideString; safecall;
     // 设置日志级别
     procedure SetLogLevel(ALogLevel: TLogLevel); safecall;
     // 获取日志级别
@@ -235,22 +235,22 @@ begin
   end;
 end;
 
-procedure TSyscfgInfoImpl.SetFontRatio(AFontRatio: string);
+procedure TSyscfgInfoImpl.SetFontRatio(AFontRatio: WideString);
 begin
   FFontRatio := AFontRatio;
 end;
 
-function TSyscfgInfoImpl.GetFontRatio: string;
+function TSyscfgInfoImpl.GetFontRatio: WideString;
 begin
   Result := FFontRatio;
 end;
 
-procedure TSyscfgInfoImpl.SetSkinStyle(ASkinStyle: string);
+procedure TSyscfgInfoImpl.SetSkinStyle(ASkinStyle: WideString);
 begin
   FSkinStyle := ASkinStyle;
 end;
 
-function TSyscfgInfoImpl.GetSkinStyle: string;
+function TSyscfgInfoImpl.GetSkinStyle: WideString;
 begin
   Result := FSkinStyle;
 end;
