@@ -15,9 +15,7 @@ uses
   Windows,
   Classes,
   SysUtils,
-  Security,
-  AppContext,
-  CommonObject;
+  AppContext;
 
 type
 
