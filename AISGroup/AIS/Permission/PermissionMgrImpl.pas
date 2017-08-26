@@ -27,11 +27,23 @@ type
   // 权限接口实现 (菜单权限)
   TPermissionMgrImpl = class(TInterfacedObject, ISyncAsync, IPermissionMgr)
   private
+    // 是不是有港股实时权限
+    FIsHasHKReal: Boolean;
+    // 是不是有 LevelII 权限
+    FIsHasLevelII: Boolean;
+    // LevelII 登录用户名
+    FLevelIIUserName: string;
+    // LevelII 登录密码
+    FLevelIIPassword: string;
     // 应用程序上下文接口
     FAppContext: IAppContext;
     // 权限字典
     FUserPermissionDic: TDictionary<Integer, TPermission>;
   protected
+    // 获取港股实时权限数据
+    procedure DoGetHKReal;
+    //  获取LevelII权限数据
+    procedure DoGetLevelII;
     // 获取权限数据
     procedure DoGetPermissionData;
     // 加载权限数据
@@ -57,6 +69,14 @@ type
 
     { IPermission }
 
+    // 是不是有港股实时权限
+    function IsHasHKReal: Boolean; safecall;
+    // 是不是有 LevelII 权限
+    function IsHasLevelII: Boolean; safecall;
+    // 获取 LevelII 用户名
+    function GetLevelIIUserName: WideString; safecall;
+    // 获取 LevelII 用户密码
+    function GetLevelIIPassword: WideString; safecall;
     // 判断是不是有权限
     function IsHasPermission(APermNo: Integer): Boolean; safecall;
   end;
@@ -74,6 +94,8 @@ uses
 constructor TPermissionMgrImpl.Create;
 begin
   inherited;
+  FIsHasHKReal := False;
+  FIsHasLevelII := False;
   FUserPermissionDic := TDictionary<Integer, TPermission>.Create;
 end;
 
@@ -117,9 +139,100 @@ begin
 
 end;
 
+function TPermissionMgrImpl.IsHasHKReal: Boolean;
+begin
+  Result := FIsHasHKReal;
+end;
+
+function TPermissionMgrImpl.IsHasLevelII: Boolean;
+begin
+  Result := FIsHasLevelII;
+end;
+
+function TPermissionMgrImpl.GetLevelIIUserName: WideString;
+begin
+  Result := '';
+end;
+
+function TPermissionMgrImpl.GetLevelIIPassword: WideString;
+begin
+  Result := '';
+end;
+
 function TPermissionMgrImpl.IsHasPermission(APermNo: Integer): Boolean;
 begin
   Result := FUserPermissionDic.ContainsKey(APermNo);
+end;
+
+procedure TPermissionMgrImpl.DoGetHKReal;
+var
+{$IFDEF DEBUG}
+  LTick: Cardinal;
+{$ENDIF}
+  LDataSet: IWNDataSet;
+begin
+{$IFDEF DEBUG}
+  LTick := GetTickCount;
+{$ENDIF}
+
+  FIsHasHKReal := False;
+  LDataSet := FAppContext.GFSyncQueryHighData(stBase, 'USER_QX_HK()', 0, 5000);
+  if LDataSet <> nil then begin
+    if LDataSet.RecordCount > 0 then begin
+      LDataSet.First;
+      if (LDataSet.FieldCount > 0)
+        and (not LDataSet.Fields(0).IsNull) then begin
+        FIsHasHKReal := (LDataSet.Fields(0).AsInteger > 0);
+      end else begin
+        FAppContext.IndicatorLog(llERROR, Format('[TPermissionMgrImpl][DoGetHKReal] [Indicator][%s] Return data fieldcount is 0 or field data is nil.', ['USER_QX_HK()']));
+      end;
+    end else begin
+      FAppContext.IndicatorLog(llERROR, Format('[TPermissionMgrImpl][DoGetHKReal] [Indicator][%s] Return data is nil.', ['USER_QX_HK()']));
+    end;
+  end else begin
+    FAppContext.IndicatorLog(llERROR, Format('[TPermissionMgrImpl][DoGetHKReal] [Indicator][%s] Return data is nil.', ['USER_QX_HK()']));
+  end;
+
+{$IFDEF DEBUG}
+  LTick := GetTickCount - LTick;
+  FAppContext.AppLog(llSLOW, Format('[TPermissionMgrImpl][DoGetHKReal] Load HKReal data to dictionary use time is %d ms.', [LTick]), LTick);
+{$ENDIF}
+end;
+
+procedure TPermissionMgrImpl.DoGetLevelII;
+var
+{$IFDEF DEBUG}
+  LTick: Cardinal;
+{$ENDIF}
+  LDataSet: IWNDataSet;
+begin
+{$IFDEF DEBUG}
+  LTick := GetTickCount;
+{$ENDIF}
+
+  FIsHasLevelII := False;
+  LDataSet := FAppContext.GFSyncQueryHighData(stBase, 'USER_LEVEL2_INFO()', 0, 5000);
+  if LDataSet <> nil then begin
+    if LDataSet.RecordCount > 0 then begin
+      LDataSet.First;
+      if (LDataSet.FieldCount > 2) then begin
+        FLevelIIUserName := LDataSet.Fields(0).AsString;
+        FLevelIIPassword := LDataSet.Fields(1).AsString;
+        FIsHasLevelII := True;
+      end else begin
+        FAppContext.IndicatorLog(llERROR, Format('[TPermissionMgrImpl][DoGetLevelII] [Indicator][%s] Return data fieldcount low 2.', ['USER_LEVEL2_INFO()']));
+      end;
+    end else begin
+      FAppContext.IndicatorLog(llERROR, Format('[TPermissionMgrImpl][DoGetLevelII] [Indicator][%s] Return data is nil.', ['USER_LEVEL2_INFO()']));
+    end;
+  end else begin
+    FAppContext.IndicatorLog(llERROR, Format('[TPermissionMgrImpl][DoGetLevelII] [Indicator][%s] Return data is nil.', ['USER_LEVEL2_INFO()']));
+  end;
+
+{$IFDEF DEBUG}
+  LTick := GetTickCount - LTick;
+  FAppContext.AppLog(llSLOW, Format('[TPermissionMgrImpl][DoGetLevelII] Load LevelII data to dictionary use time is %d ms.', [LTick]), LTick);
+{$ENDIF}
 end;
 
 procedure TPermissionMgrImpl.DoGetPermissionData;
@@ -133,6 +246,7 @@ begin
 {$IFDEF DEBUG}
   LTick := GetTickCount;
 {$ENDIF}
+
   LDataSet := FAppContext.GFSyncQueryHighData(stBase, 'USER_QX', 0, 100000);
   if (LDataSet <> nil) and (LDataSet.RecordCount > 0) then begin
     LPermNoField := LDataSet.FieldByName('mkid');

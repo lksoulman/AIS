@@ -189,6 +189,8 @@ type
     function GetUsersPath: WideString;
     // 获取应用程序系统级缓存数据目录
     function GetCachePath: WideString;
+    // 获取应用程序系统级缓存数据目录 HQ
+    function GetCacheHQPath: WideString;
     // 获取应用程序更新的更新目录
     function GetUpdatePath: WideString;
     // 获取用户私有配置目录
@@ -736,6 +738,10 @@ begin
     ForceDirectories(GetCachePath);
   end;
 
+  if not DirectoryExists(GetCacheHQPath) then begin
+    ForceDirectories(GetCacheHQPath);
+  end;
+
   if not DirectoryExists(GetUsersPath) then begin
     ForceDirectories(GetUsersPath);
   end;
@@ -819,6 +825,11 @@ end;
 function TConfigImpl.GetCachePath: WideString;
 begin
   Result := FAppPath + 'Cache\';
+end;
+
+function TConfigImpl.GetCacheHQPath: WideString;
+begin
+  Result := FAppPath + 'Cache\HQ\';
 end;
 
 function TConfigImpl.GetUpdatePath: WideString;

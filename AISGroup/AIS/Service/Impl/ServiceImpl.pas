@@ -140,27 +140,20 @@ begin
 end;
 
 procedure TGFServiceImpl.DoSetProxy;
-var
-  LProxyInfo: IProxyInfo;
 begin
-  LProxyInfo := FConfig.GetProxyInfo;
-  if LProxyInfo <> nil then begin
-    if FGFDataManager <> nil then begin
-      FGFDataManager.ProxySetting(LProxyInfo.GetProxyKindEnum, LProxyInfo.GetIP, LProxyInfo.GetPort,
-        LProxyInfo.GetUserName, LProxyInfo.GetPassword, ''{LProxyInfo.NTLM}, LProxyInfo.GetDomain);
-    end;
+  if (FGFDataManager <> nil)
+    and (FConfig.GetProxyInfo <> nil) then begin
+    FGFDataManager.ProxySetting(FConfig.GetProxyInfo.GetProxyKindEnum, FConfig.GetProxyInfo.GetIP, FConfig.GetProxyInfo.GetPort,
+      FConfig.GetProxyInfo.GetUserName, FConfig.GetProxyInfo.GetPassword, ''{LProxyInfo.NTLM}, FConfig.GetProxyInfo.GetDomain);
   end;
 end;
 
 procedure TGFServiceImpl.DoInitGFDataManager;
-var
-  LDllComLib: TDllComLib;
 begin
   if FConfig <> nil then begin
     FFile := DLL_NAME;
-    LDllComLib := FConfig.GetDllComLib;
-    if LDllComLib <> nil then begin
-      FGFDataManager := LDllComLib.CreateInterface(FFile, StringToGUID(GUID_GFDATAMANAGER)) as IGFDataManager;
+    if FConfig.GetDllComLib <> nil then begin
+      FGFDataManager := FConfig.GetDllComLib.CreateInterface(FFile, StringToGUID(GUID_GFDATAMANAGER)) as IGFDataManager;
       if FGFDataManager <> nil then begin
         // WorkCount 正常程数  HighCount 高优先级
         FGFDataManager.ThreadCount(FWorkThreadCount, FHighThreadCount);

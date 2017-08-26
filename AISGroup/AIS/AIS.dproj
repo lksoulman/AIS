@@ -52,7 +52,7 @@
         <DCC_K>false</DCC_K>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base_Win32)'!=''">
-        <DCC_UnitSearchPath>..\..\Common\;..\..\Common\Common;..\..\Common\AppContext;..\..\Common\Config;..\..\Common\OldInterface;..\..\Common\Thread;..\..\Common\Thread\Impl;..\..\Common\Cache;..\..\Common\Service;..\..\Common\FastLog;..\..\Common\FastLog\Impl;..\..\Common\SyncAsync;..\..\Common\Cipher;..\..\Common\Cipher\AES;..\..\Common\Cipher\RSA;..\..\Common\Cipher\MD5;..\..\Common\Cipher\CRC;..\..\Common\Cipher\Base64;..\..\Common\Cipher\Impl;..\..\Common\Delphi3rd\NativeXML;..\..\Common\Delphi3rd\UniDAC5_5_12\Source\UniProviders\SQLite;..\..\Common\Delphi3rd\UniDAC5_5_12\Source;..\..\Common\Delphi3rd\UniDAC5_5_12\Lib\Delphi21\Win32;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
+        <DCC_UnitSearchPath>..\..\Common\;..\..\Common\Common;..\..\Common\AppContext;..\..\Common\Config;..\..\Common\Config\Info;..\..\Common\OldInterface;..\..\Common\Thread;..\..\Common\Thread\Impl;..\..\Common\Cache;..\..\Common\Service;..\..\Common\FastLog;..\..\Common\FastLog\Impl;..\..\Common\SyncAsync;..\..\Common\Cipher;..\..\Common\Cipher\AES;..\..\Common\Cipher\RSA;..\..\Common\Cipher\MD5;..\..\Common\Cipher\CRC;..\..\Common\Cipher\Base64;..\..\Common\Cipher\Impl;..\..\Common\Utils;..\..\Common\Language;..\..\Common\Delphi3rd\NativeXML;..\..\Common\Delphi3rd\UniDAC5_5_12\Source\UniProviders\SQLite;..\..\Common\Delphi3rd\UniDAC5_5_12\Source;..\..\Common\Delphi3rd\UniDAC5_5_12\Lib\Delphi21\Win32;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
         <VerInfo_Locale>1033</VerInfo_Locale>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
         <Manifest_File>$(BDS)\bin\default_app.manifest</Manifest_File>
@@ -106,19 +106,18 @@
         <DCCReference Include="Login\LoginPBOXUser.pas"/>
         <DCCReference Include="Login\LoginMgr.pas"/>
         <DCCReference Include="Login\LoginMgrImpl.pas"/>
-        <DCCReference Include="Utils\Utils.pas"/>
-        <DCCReference Include="Utils\DllComLib.pas"/>
         <DCCReference Include="AppContext\Impl\AppContextImpl.pas"/>
-        <DCCReference Include="Cache\CacheMgr.pas"/>
-        <DCCReference Include="Cache\CacheTable.pas"/>
-        <DCCReference Include="Cache\CacheGFData.pas"/>
         <DCCReference Include="Cache\WNComDataSet.pas"/>
         <DCCReference Include="Cache\SQLiteDataSet.pas"/>
         <DCCReference Include="Cache\SQLiteAdapter.pas"/>
+        <DCCReference Include="Cache\CacheGF.pas"/>
+        <DCCReference Include="Cache\CacheTable.pas"/>
         <DCCReference Include="Cache\CacheBaseData.pas"/>
         <DCCReference Include="Cache\CacheUserData.pas"/>
-        <DCCReference Include="Cache\CacheBaseDataImpl.pas"/>
-        <DCCReference Include="Cache\CacheUserDataImpl.pas"/>
+        <DCCReference Include="Cache\CacheOperateType.pas"/>
+        <DCCReference Include="Cache\Impl\CacheImpl.pas"/>
+        <DCCReference Include="Cache\Impl\CacheBaseDataImpl.pas"/>
+        <DCCReference Include="Cache\Impl\CacheUserDataImpl.pas"/>
         <DCCReference Include="Security\Security.pas"/>
         <DCCReference Include="Security\SecuConst.pas"/>
         <DCCReference Include="Security\SecuUpdate.pas"/>
@@ -189,7 +188,6 @@
         <DCCReference Include="Sector\SectorUserMgrImpl.pas"/>
         <DCCReference Include="Language\Language.pas"/>
         <DCCReference Include="Language\LanguageMgr.pas"/>
-        <DCCReference Include="Language\LanguageType.pas"/>
         <DCCReference Include="Language\LanguageConst.pas"/>
         <DCCReference Include="Language\LanguageMgrImpl.pas"/>
         <DCCReference Include="Language\LanguageChinese.pas"/>
