@@ -52,7 +52,7 @@
         <DCC_K>false</DCC_K>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base_Win32)'!=''">
-        <DCC_UnitSearchPath>..\..\Common\;..\..\Common\Common;..\..\Common\Interface;..\..\Common\OldInterface;..\..\Common\FastLog;..\..\Common\FastLog\Impl;..\..\Common\Delphi3rd\NativeXML;..\..\Common\Delphi3rd\UniDAC5_5_12\Source\UniProviders\SQLite;..\..\Common\Delphi3rd\UniDAC5_5_12\Source;..\..\Common\Delphi3rd\UniDAC5_5_12\Lib\Delphi21\Win32;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
+        <DCC_UnitSearchPath>..\..\Common\;..\..\Common\Common;..\..\Common\Interface;..\..\Common\OldInterface;..\..\Common\Thread;..\..\Common\Thread\Impl;..\..\Common\FastLog;..\..\Common\FastLog\Impl;..\..\Common\SyncAsync;..\..\Common\Cipher;..\..\Common\Cipher\AES;..\..\Common\Cipher\RSA;..\..\Common\Cipher\MD5;..\..\Common\Cipher\CRC;..\..\Common\Cipher\Base64;..\..\Common\Cipher\Impl;..\..\Common\Delphi3rd\NativeXML;..\..\Common\Delphi3rd\UniDAC5_5_12\Source\UniProviders\SQLite;..\..\Common\Delphi3rd\UniDAC5_5_12\Source;..\..\Common\Delphi3rd\UniDAC5_5_12\Lib\Delphi21\Win32;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
         <VerInfo_Locale>1033</VerInfo_Locale>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
         <Manifest_File>$(BDS)\bin\default_app.manifest</Manifest_File>
@@ -108,16 +108,6 @@
         <DCCReference Include="Login\LoginMgrImpl.pas"/>
         <DCCReference Include="Utils\Utils.pas"/>
         <DCCReference Include="Utils\DllComLib.pas"/>
-        <DCCReference Include="Thread\ExecutorTask.pas"/>
-        <DCCReference Include="Thread\ExecutorPool.pas"/>
-        <DCCReference Include="Thread\ExecutorFixed.pas"/>
-        <DCCReference Include="Thread\ExecutorThread.pas"/>
-        <DCCReference Include="Thread\ExecutorService.pas"/>
-        <DCCReference Include="Thread\ExecutorScheduled.pas"/>
-        <DCCReference Include="Thread\ExecutorPoolImpl.pas"/>
-        <DCCReference Include="Thread\ExecutorFixedImpl.pas"/>
-        <DCCReference Include="Thread\ExecutorScheduledImpl.pas"/>
-        <DCCReference Include="SyncAsync\SyncAsync.pas"/>
         <DCCReference Include="AppContext\AppContextImpl.pas"/>
         <DCCReference Include="Cache\CacheMgr.pas"/>
         <DCCReference Include="Cache\CacheType.pas"/>
@@ -157,30 +147,26 @@
         <DCCReference Include="Service\Impl\ServiceImpl.pas"/>
         <DCCReference Include="Service\Impl\ServiceBaseImpl.pas"/>
         <DCCReference Include="Service\Impl\ServiceAssetImpl.pas"/>
-        <DCCReference Include="Cipher\Base64\Base64.pas"/>
-        <DCCReference Include="Cipher\AES\AESEncript.pas"/>
-        <DCCReference Include="Cipher\RSA\CipherRSA.pas"/>
-        <DCCReference Include="Cipher\AES\CipherAES.pas"/>
-        <DCCReference Include="Cipher\MD5\CipherMD5.pas"/>
-        <DCCReference Include="Cipher\CRC\CipherCRC.pas"/>
-        <DCCReference Include="Cipher\CipherMgr.pas"/>
-        <DCCReference Include="Cipher\CipherMgrImpl.pas"/>
         <DCCReference Include="Config\ConfigImpl.pas"/>
         <DCCReference Include="Config\CfgCacheImpl.pas"/>
+        <DCCReference Include="Config\Info\WebInfo.pas"/>
+        <DCCReference Include="Config\Info\UrlInfo.pas"/>
         <DCCReference Include="Config\Info\UserInfo.pas"/>
         <DCCReference Include="Config\Info\ProxyInfo.pas"/>
         <DCCReference Include="Config\Info\LoginInfo.pas"/>
         <DCCReference Include="Config\Info\SyscfgInfo.pas"/>
         <DCCReference Include="Config\Info\UpdateInfo.pas"/>
-        <DCCReference Include="Config\Info\ServerInfoImpl.pas"/>
-        <DCCReference Include="Config\Info\CompanyInfo.pas"/>
-        <DCCReference Include="Config\Info\UserInfoImpl.pas"/>
-        <DCCReference Include="Config\Info\ProxyInfoImpl.pas"/>
-        <DCCReference Include="Config\Info\LoginInfoImpl.pas"/>
-        <DCCReference Include="Config\Info\SyscfgInfoImpl.pas"/>
-        <DCCReference Include="Config\Info\UpdateInfoImpl.pas"/>
-        <DCCReference Include="Config\Info\CompanyInfoImpl.pas"/>
         <DCCReference Include="Config\Info\ServerInfo.pas"/>
+        <DCCReference Include="Config\Info\CompanyInfo.pas"/>
+        <DCCReference Include="Config\Info\Impl\WebInfoImpl.pas"/>
+        <DCCReference Include="Config\Info\Impl\UrlInfoImpl.pas"/>
+        <DCCReference Include="Config\Info\Impl\UserInfoImpl.pas"/>
+        <DCCReference Include="Config\Info\Impl\ProxyInfoImpl.pas"/>
+        <DCCReference Include="Config\Info\Impl\LoginInfoImpl.pas"/>
+        <DCCReference Include="Config\Info\Impl\SyscfgInfoImpl.pas"/>
+        <DCCReference Include="Config\Info\Impl\UpdateInfoImpl.pas"/>
+        <DCCReference Include="Config\Info\Impl\ServerInfoImpl.pas"/>
+        <DCCReference Include="Config\Info\Impl\CompanyInfoImpl.pas"/>
         <DCCReference Include="UserBehavior\Behavior.pas"/>
         <DCCReference Include="UserBehavior\BehaviorPool.pas"/>
         <DCCReference Include="UserBehavior\UserBehavior.pas"/>
@@ -249,10 +235,6 @@
         <DCCReference Include="AIUI\UI\RenderUI.pas"/>
         <DCCReference Include="AIUI\UI\ControlUI.pas"/>
         <DCCReference Include="AIUI\UI\PageControlUI.pas"/>
-        <DCCReference Include="Config\Info\WebInfo.pas"/>
-        <DCCReference Include="Config\Info\WebInfoImpl.pas"/>
-        <DCCReference Include="Config\Info\UrlInfo.pas"/>
-        <DCCReference Include="Config\Info\UrlInfoImpl.pas"/>
         <DCCReference Include="Verify\Verify.pas"/>
         <DCCReference Include="Verify\VerifyImpl.pas"/>
         <BuildConfiguration Include="Release">
