@@ -16,7 +16,7 @@ uses
   Classes,
   SysUtils,
   AppContext,
-  HqSubscribeData;
+  HqSubcribeData;
 
 type
 
@@ -28,6 +28,10 @@ type
     procedure Initialize(AContext: IAppContext); safecall;
     // 释放不需要的资源
     procedure UnInitialize; safecall;
+//    //订阅数据
+//    procedure Subscribe(ASubscribeItem: IHqSubscribeItem);
+//    //退订数据
+//    procedure UnSubscribe(ASubscribeItem: IHqSubscribeItem);
   end;
 
 implementation

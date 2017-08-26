@@ -90,6 +90,22 @@
         <DCCReference Include="AIUI\Main.pas">
             <Form>frmMain</Form>
         </DCCReference>
+        <DCCReference Include="Login\UI\LoginMainUI.pas">
+            <Form>LoginMainUI</Form>
+        </DCCReference>
+        <DCCReference Include="Login\UI\LoginBindUI.pas">
+            <Form>LoginBindUI</Form>
+        </DCCReference>
+        <DCCReference Include="Login\UI\LoginSettingUI.pas">
+            <Form>LoginSettingUI</Form>
+        </DCCReference>
+        <DCCReference Include="Login\Login.pas"/>
+        <DCCReference Include="Login\LoginGFType.pas"/>
+        <DCCReference Include="Login\LoginUFXUser.pas"/>
+        <DCCReference Include="Login\LoginGILUser.pas"/>
+        <DCCReference Include="Login\LoginPBOXUser.pas"/>
+        <DCCReference Include="Login\LoginMgr.pas"/>
+        <DCCReference Include="Login\LoginMgrImpl.pas"/>
         <DCCReference Include="Utils\Utils.pas"/>
         <DCCReference Include="Utils\DllComLib.pas"/>
         <DCCReference Include="Common\CommonLock.pas"/>
@@ -150,22 +166,6 @@
         <DCCReference Include="Service\Impl\ServiceImpl.pas"/>
         <DCCReference Include="Service\Impl\ServiceBaseImpl.pas"/>
         <DCCReference Include="Service\Impl\ServiceAssetImpl.pas"/>
-        <DCCReference Include="Login\UI\LoginMainUI.pas">
-            <Form>LoginMainUI</Form>
-        </DCCReference>
-        <DCCReference Include="Login\UI\LoginBindUI.pas">
-            <Form>LoginBindUI</Form>
-        </DCCReference>
-        <DCCReference Include="Login\UI\LoginSettingUI.pas">
-            <Form>LoginSettingUI</Form>
-        </DCCReference>
-        <DCCReference Include="Login\Login.pas"/>
-        <DCCReference Include="Login\LoginGFType.pas"/>
-        <DCCReference Include="Login\LoginUFXUser.pas"/>
-        <DCCReference Include="Login\LoginGILUser.pas"/>
-        <DCCReference Include="Login\LoginPBOXUser.pas"/>
-        <DCCReference Include="Login\LoginMgr.pas"/>
-        <DCCReference Include="Login\LoginMgrImpl.pas"/>
         <DCCReference Include="Cipher\Base64\Base64.pas"/>
         <DCCReference Include="Cipher\AES\AESEncript.pas"/>
         <DCCReference Include="Cipher\RSA\CipherRSA.pas"/>
@@ -258,6 +258,43 @@
         <DCCReference Include="AIUI\UI\ImageUI.pas"/>
         <DCCReference Include="AIUI\UI\PanelUI.pas"/>
         <DCCReference Include="AIUI\UI\PageControlUI.pas"/>
+        <DCCReference Include="AIUI\UI\CanvasUI.pas"/>
+        <DCCReference Include="AIUI\UI\RenderUI.pas"/>
+        <DCCReference Include="Config\Info\WebInfo.pas"/>
+        <DCCReference Include="Config\Info\WebInfoImpl.pas"/>
+        <DCCReference Include="Config\Info\UrlInfo.pas"/>
+        <DCCReference Include="Config\Info\UrlInfoImpl.pas"/>
+        <DCCReference Include="Verify\Verify.pas"/>
+        <DCCReference Include="Verify\VerifyImpl.pas"/>
+        <DCCReference Include="Hq\HqCoreMgr.pas"/>
+        <DCCReference Include="Hq\Impl\HqCoreMgrImpl.pas"/>
+        <DCCReference Include="Hq\HqDataCenter.pas"/>
+        <DCCReference Include="Hq\Impl\HqDataCenterImpl.pas"/>
+        <DCCReference Include="Hq\HqSubcribeAdapter.pas"/>
+        <DCCReference Include="Hq\Impl\HqSubcribeAdapterImpl.pas"/>
+        <DCCReference Include="Hq\Data\HqRealData.pas"/>
+        <DCCReference Include="Hq\Data\HqTickData.pas"/>
+        <DCCReference Include="Hq\Data\HqKLineData.pas"/>
+        <DCCReference Include="Hq\Data\HqMinuteData.pas"/>
+        <DCCReference Include="Hq\Data\HqKLinePeriod.pas"/>
+        <DCCReference Include="Hq\Data\HqMinute.pas"/>
+        <DCCReference Include="Hq\Data\HqAuction.pas"/>
+        <DCCReference Include="Hq\Data\Impl\HqMinuteImpl.pas"/>
+        <DCCReference Include="Hq\Data\Impl\HqAuctionImpl.pas"/>
+        <DCCReference Include="Hq\Data\Impl\HqRealDataImpl.pas"/>
+        <DCCReference Include="Hq\Data\Impl\HqTickDataImpl.pas"/>
+        <DCCReference Include="Hq\Data\Impl\HqKLineDataImpl.pas"/>
+        <DCCReference Include="Hq\Data\Impl\HqMinuteDataImpl.pas"/>
+        <DCCReference Include="Hq\Indicator\HqIndicator.pas"/>
+        <DCCReference Include="Hq\Indicator\HqIndicatorMgr.pas"/>
+        <DCCReference Include="Hq\Indicator\HqIndicatorData.pas"/>
+        <DCCReference Include="Hq\Indicator\HqIndicatorDataMgr.pas"/>
+        <DCCReference Include="Hq\Indicator\Impl\HqIndicatorImpl.pas"/>
+        <DCCReference Include="Hq\Indicator\Impl\HqIndicatorMgrImpl.pas"/>
+        <DCCReference Include="Hq\Indicator\Impl\HqIndicatorDataImpl.pas"/>
+        <DCCReference Include="Hq\Indicator\Impl\HqIndicatorDataMgrImpl.pas"/>
+        <DCCReference Include="Hq\Subcribe\HqSubcribeData.pas"/>
+        <DCCReference Include="Hq\Subcribe\Impl\HqSubcribeDataImpl.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

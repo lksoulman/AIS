@@ -1,4 +1,4 @@
-unit HqSubscribeDataImpl;
+unit HqSubcribeDataImpl;
 
 /// /////////////////////////////////////////////////////////////////////////////
 //
@@ -15,13 +15,13 @@ uses
   Windows,
   Classes,
   SysUtils,
-  HqSubscribeData,
+  HqSubcribeData,
   CommonRefCounter,
   Generics.Collections;
 
 type
 
-  THqSubscribeDataImpl = class(TAutoInterfacedObject, IHqSubscribeData)
+  THqSubscribeDataImpl = class(TAutoInterfacedObject, IHqSubcribeData)
   private
   protected
   public

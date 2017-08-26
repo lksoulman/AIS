@@ -1,4 +1,4 @@
-unit HqSubscribeData;
+unit HqSubcribeData;
 
 ////////////////////////////////////////////////////////////////////////////////
 //
@@ -19,7 +19,7 @@ uses
 
 type
 
-  IHqSubscribeData = Interface(IInterface)
+  IHqSubcribeData = Interface(IInterface)
     ['{35BE4334-D24C-47D3-AB87-AF9A37FBDF55}']
     // 获取订阅对象ID
     function GetId: Integer;
