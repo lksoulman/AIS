@@ -1,0 +1,99 @@
+package WebBrowser;
+
+{$R *.res}
+{$ALIGN 8}
+{$ASSERTIONS ON}
+{$BOOLEVAL OFF}
+{$DEBUGINFO ON}
+{$EXTENDEDSYNTAX ON}
+{$IMPORTEDDATA ON}
+{$IOCHECKS ON}
+{$LOCALSYMBOLS ON}
+{$LONGSTRINGS ON}
+{$OPENSTRINGS ON}
+{$OPTIMIZATION ON}
+{$OVERFLOWCHECKS OFF}
+{$RANGECHECKS OFF}
+{$REFERENCEINFO ON}
+{$SAFEDIVIDE OFF}
+{$STACKFRAMES OFF}
+{$TYPEDADDRESS OFF}
+{$VARSTRINGCHECKS ON}
+{$WRITEABLECONST OFF}
+{$MINENUMSIZE 1}
+{$IMAGEBASE $400000}
+{$IMPLICITBUILD ON}
+
+requires
+  rtl,
+  designide,
+  vclimg;
+
+contains
+  LibXmlParser in 'LibXmlParser.pas',
+  AppWebUpdater in 'AppWebUpdater.pas',
+  AppWUStrings in 'AppWUStrings.pas',
+  Browse4Folder in 'Browse4Folder.pas',
+  DirMonitor in 'DirMonitor.pas',
+  EditDesigner in 'EditDesigner.pas',
+  Edithost in 'Edithost.pas',
+  EmbeddedWB in 'EmbeddedWB.pas',
+  EwbAcc in 'EwbAcc.pas',
+  EwbActns in 'EwbActns.pas',
+  EwbBehaviorsComp in 'EwbBehaviorsComp.pas',
+  EwbClasses in 'EwbClasses.pas',
+  EwbControlComponent in 'EwbControlComponent.pas',
+  EwbCore in 'EwbCore.pas',
+  EwbCoreTools in 'EwbCoreTools.pas',
+  EwbDDE in 'EwbDDE.pas',
+  EwbDisableFocusControl in 'EwbDisableFocusControl.pas',
+  EwbDisableMouseWheelFix in 'EwbDisableMouseWheelFix.pas',
+  EwbEditors in 'EwbEditors.pas',
+  EwbEvents in 'EwbEvents.pas',
+  EwbEventsComp in 'EwbEventsComp.pas',
+  EwbFocusControl in 'EwbFocusControl.pas',
+  EWBMouseHook in 'EWBMouseHook.pas',
+  EwbReg in 'EwbReg.pas',
+  EwbTools in 'EwbTools.pas',
+  EwbUrl in 'EwbUrl.pas',
+  ExportFavorites in 'ExportFavorites.pas',
+  FavMenu in 'FavMenu.pas',
+  FavoritesListView in 'FavoritesListView.pas',
+  FavoritesPopup in 'FavoritesPopup.pas',
+  FavoritesTree in 'FavoritesTree.pas',
+  FileExtAssociate in 'FileExtAssociate.pas',
+  HighLightHTML in 'HighLightHTML.pas',
+  HighLightRichSyntax in 'HighLightRichSyntax.pas',
+  HighLightXML in 'HighLightXML.pas',
+  HistoryListView in 'HistoryListView.pas',
+  HistoryMenu in 'HistoryMenu.pas',
+  IEAddress in 'IEAddress.pas',
+  IECache in 'IECache.pas',
+  IEConst in 'IEConst.pas',
+  IEDownload in 'IEDownload.pas',
+  IEDownloadAcc in 'IEDownloadAcc.pas',
+  IEDownloadStrings in 'IEDownloadStrings.pas',
+  IEDownloadTools in 'IEDownloadTools.pas',
+  IEGuid in 'IEGuid.pas',
+  IEMultiDownload in 'IEMultiDownload.pas',
+  IEParser in 'IEParser.pas',
+  IETravelLog in 'IETravelLog.pas',
+  ImportFavorites in 'ImportFavorites.pas',
+  LibXmlComps in 'LibXmlComps.pas',
+  LinksBar in 'LinksBar.pas',
+  LinksLabel in 'LinksLabel.pas',
+  MenuContext in 'MenuContext.pas',
+  Mshtml_Ewb in 'Mshtml_Ewb.pas',
+  MSHTMLEvents in 'MSHTMLEvents.pas',
+  OleCtrlsFix in 'OleCtrlsFix.pas',
+  RichEditBrowser in 'RichEditBrowser.pas',
+  SecurityManager in 'SecurityManager.pas',
+  SendMail_For_Ewb in 'SendMail_For_Ewb.pas',
+  SHDocVw_EWB in 'SHDocVw_EWB.pas',
+  UI_Less in 'UI_Less.pas',
+  UrlHistory in 'UrlHistory.pas',
+  wbhFixes in 'wbhFixes.pas',
+  Wcrypt2 in 'Wcrypt2.pas',
+  OleCtrls in 'OleCtrls.pas';
+
+end.
