@@ -15,10 +15,8 @@ uses
   System.Classes,
   WExport in 'WExport\WExport.pas',
   FactoryAsfAuthImpl in 'WExport\Impl\FactoryAsfAuthImpl.pas',
-  HqAuth in 'HqAuth\HqAuth.pas',
   HqAuthImpl in 'HqAuth\Impl\HqAuthImpl.pas',
   HqAuthPlugInImpl in 'WDPlugIn\Impl\HqAuthPlugInImpl.pas',
-  ProductAuth in 'ProductAuth\ProductAuth.pas',
   ProductAuthImpl in 'ProductAuth\Impl\ProductAuthImpl.pas',
   ProductAuthPlugInImpl in 'WDPlugIn\Impl\ProductAuthPlugInImpl.pas';
 

@@ -98,10 +98,8 @@
         </DelphiCompile>
         <DCCReference Include="WExport\WExport.pas"/>
         <DCCReference Include="WExport\Impl\FactoryAsfAuthImpl.pas"/>
-        <DCCReference Include="HqAuth\HqAuth.pas"/>
         <DCCReference Include="HqAuth\Impl\HqAuthImpl.pas"/>
         <DCCReference Include="WDPlugIn\Impl\HqAuthPlugInImpl.pas"/>
-        <DCCReference Include="ProductAuth\ProductAuth.pas"/>
         <DCCReference Include="ProductAuth\Impl\ProductAuthImpl.pas"/>
         <DCCReference Include="WDPlugIn\Impl\ProductAuthPlugInImpl.pas"/>
         <BuildConfiguration Include="Release">
@@ -134,7 +132,7 @@
                 </Excluded_Packages>
             </Delphi.Personality>
             <Deployment>
-                <DeployFile LocalName="Win32\Debug\AsfAuth.dll" Configuration="Debug" Class="ProjectOutput">
+                <DeployFile LocalName="..\..\Run\Debug\Bin\AsfAuth.dll" Configuration="Debug" Class="ProjectOutput">
                     <Platform Name="Win32">
                         <RemoteName>AsfAuth.dll</RemoteName>
                         <Overwrite>true</Overwrite>
@@ -148,7 +146,7 @@
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="..\..\Run\Debug\Bin\AsfAuth.dll" Configuration="Debug" Class="ProjectOutput">
+                <DeployFile LocalName="Win32\Debug\AsfAuth.dll" Configuration="Debug" Class="ProjectOutput">
                     <Platform Name="Win32">
                         <RemoteName>AsfAuth.dll</RemoteName>
                         <Overwrite>true</Overwrite>
