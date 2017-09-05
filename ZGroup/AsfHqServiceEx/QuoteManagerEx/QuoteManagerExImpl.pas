@@ -17,24 +17,22 @@ uses
   Windows,
   Classes,
   SysUtils,
-  SyncAsync,
   AppContext,
   CommonLock,
-  PermissionMgr,
   QuoteMngr_TLB,
+  SyncAsyncImpl,
   QuoteManagerEx,
   ExecutorThread,
   QuoteCodeInfosEx,
   CommonRefCounter,
   HqServerTypeInfo,
-  SecurityHqAdapter,
   QuoteManagerEvents,
   Generics.Collections;
 
 type
 
   // 行情接口
-  TQuoteManagerExImpl = class(TAutoInterfacedObject, ISyncAsync, IQuoteManagerEx)
+  TQuoteManagerExImpl = class(TSyncAsyncImpl, IQuoteManagerEx)
   private
     // 线程共享锁
     FLock: TCSLock;
@@ -52,14 +50,10 @@ type
     FQuoteManager: IQuoteManager;
     // 实时接口
     FQuoteRealTime: IQuoteRealTime;
-    // 权限接口
-    FPermissionMgr: IPermissionMgr;
     // 服务器类型个数
     FServerTypes: TServerTypeEnumDynArray;
     // 行情服务器类型信息
     FHqServerTypeInfo: IHqServerTypeInfo;
-    // 证券行情适配器
-    FSecurityHqAdapter: ISecurityHqAdapter;
     // 监控服务器连接线程
     FMonitorServerThread: TExecutorThread;
     // 行情事件
@@ -96,25 +90,23 @@ type
     // 监控服务器连接线程执行方法
     procedure DoMonitorServerThreadExecute(AObject: TObject);
   public
-    // 构造函数
+    // Constructor
     constructor Create; override;
-    // 析构函数
+    // Destructor
     destructor Destroy; override;
 
     { ISyncAsync }
 
-    // 获取依赖
-    function Dependences: WideString; safecall;
-    // 初始化需要的资源
-    procedure Initialize(AContext: IAppContext); safecall;
-    // 释放不需要的资源
-    procedure UnInitialize; safecall;
-    // 是不是必须同步执行
-    function IsNeedSync: WordBool; safecall;
-    // 同步执行方法
-    procedure SyncExecute; safecall;
-    // 异步执行方法
-    procedure AsyncExecute; safecall;
+    // Initialize Resources(only execute once)
+    procedure Initialize(AContext: IAppContext); override;
+    // Releasing Resources(only execute once)
+    procedure UnInitialize; override;
+    // Blocking primary thread execution(only execute once)
+    procedure SyncBlockExecute; override;
+    // Non blocking primary thread execution(only execute once)
+    procedure AsyncNoBlockExecute; override;
+    // Dependency Interface
+    function Dependences: WideString; override;
 
     { IQuoteManagerEx }
 
@@ -156,7 +148,7 @@ uses
   QuoteConst,
   QuoteStruct,
   FastLogLevel,
-  FastLogSdkExport,
+  AsfSdkExport,
   QuoteCodeInfosExImpl;
 
 { TQuoteManagerExImpl }
@@ -176,25 +168,20 @@ begin
   inherited;
 end;
 
-function TQuoteManagerExImpl.Dependences: WideString;
-begin
-  Result := '';
-end;
-
 procedure TQuoteManagerExImpl.Initialize(AContext: IAppContext);
 begin
   FAppContext := AContext;
-  FPermissionMgr := FAppContext.GetPermissionMgr as IPermissionMgr;
-  if FPermissionMgr <> nil then begin
-    FIsHasHKReal := FPermissionMgr.IsHasHKReal;
-    FIsHasLevelII := FPermissionMgr.IsHasLevelII;
-  end else begin
-    FIsHasHKReal := False;
-    FIsHasLevelII := False;
-  end;
-  if FAppContext.GetSecurityMgr <> nil then begin
-    FSecurityHqAdapter := FAppContext.GetSecurityMgr as ISecurityHqAdapter;
-  end;
+//  FPermissionMgr := FAppContext.GetPermissionMgr as IPermissionMgr;
+//  if FPermissionMgr <> nil then begin
+//    FIsHasHKReal := FPermissionMgr.IsHasHKReal;
+//    FIsHasLevelII := FPermissionMgr.IsHasLevelII;
+//  end else begin
+//    FIsHasHKReal := False;
+//    FIsHasLevelII := False;
+//  end;
+//  if FAppContext.GetSecurityMgr <> nil then begin
+//    FSecurityHqAdapter := FAppContext.GetSecurityMgr as ISecurityHqAdapter;
+//  end;
   DoInitConnectServers;
   DoInitQuoteManager;
   DoConnectServers;
@@ -210,23 +197,22 @@ begin
   DoUnInitMonitorThread;
   DoDisConnectServers;
   DoUnInitQuoteManager;
-  FPermissionMgr := nil;
   FAppContext := nil;
 end;
 
-function TQuoteManagerExImpl.IsNeedSync: WordBool;
-begin
-  Result := False;
-end;
-
-procedure TQuoteManagerExImpl.SyncExecute;
+procedure TQuoteManagerExImpl.SyncBlockExecute;
 begin
   FMonitorServerThread.StartEx;
 end;
 
-procedure TQuoteManagerExImpl.AsyncExecute;
+procedure TQuoteManagerExImpl.AsyncNoBlockExecute;
 begin
 
+end;
+
+function TQuoteManagerExImpl.Dependences: WideString;
+begin
+  Result := '';
 end;
 
 function TQuoteManagerExImpl.GetActive: WordBool;
@@ -242,9 +228,9 @@ end;
 function TQuoteManagerExImpl.GetIsHKReal: Boolean;
 begin
   Result := False;
-  if FPermissionMgr <> nil then begin
-    Result := FPermissionMgr.IsHasHKReal;
-  end;
+//  if FPermissionMgr <> nil then begin
+//    Result := FPermissionMgr.IsHasHKReal;
+//  end;
 end;
 
 function TQuoteManagerExImpl.GetIsLevel2(AInnerCode: Integer): Boolean;
@@ -252,15 +238,15 @@ var
   LCodeInfo: TCodeInfo;
 begin
   Result := False;
-  if FPermissionMgr <> nil then begin
-    Result := FPermissionMgr.IsHasLevelII;
-    if Result then begin
-      if GetCodeInfoByInnerCode(Int64(@AInnerCode), Int64(@LCodeInfo)) then begin
-        Result := HSMarketBourseType(LCodeInfo.m_cCodeType, STOCK_MARKET, SH_BOURSE)
-          or HSMarketBourseType(LCodeInfo.m_cCodeType, STOCK_MARKET, SZ_BOURSE);
-      end;
-    end;
-  end;
+//  if FPermissionMgr <> nil then begin
+//    Result := FPermissionMgr.IsHasLevelII;
+//    if Result then begin
+//      if GetCodeInfoByInnerCode(Int64(@AInnerCode), Int64(@LCodeInfo)) then begin
+//        Result := HSMarketBourseType(LCodeInfo.m_cCodeType, STOCK_MARKET, SH_BOURSE)
+//          or HSMarketBourseType(LCodeInfo.m_cCodeType, STOCK_MARKET, SZ_BOURSE);
+//      end;
+//    end;
+//  end;
 end;
 
 procedure TQuoteManagerExImpl.ConnectMessage(const QuoteMessage: IQuoteMessage);
@@ -300,19 +286,19 @@ begin
   Result := False;
   if APCodeInfo = 0 then Exit;
 
-  if FSecurityHqAdapter <> nil then begin
-    LTmp := 0;
-    FillMemory(PCodeInfo(APCodeInfo), SizeOf(TCodeInfo), 0);
-    LCodeInfoStr := FSecurityHqAdapter.GetCodeInfoStr(AInnerCode);
-    if LCodeInfoStr <> '' then begin
-      FQuoteRealTime.GetCodeInfoByKeyStr(LCodeInfoStr, LTmp);
-      LPCodeInfo := PCodeInfo(LTmp);
-      if LPCodeInfo <> nil then begin
-        PCodeInfo(APCodeInfo)^ := LPCodeInfo^;
-        Result := True;
-      end;
-    end;
-  end;
+//  if FSecurityHqAdapter <> nil then begin
+//    LTmp := 0;
+//    FillMemory(PCodeInfo(APCodeInfo), SizeOf(TCodeInfo), 0);
+//    LCodeInfoStr := FSecurityHqAdapter.GetCodeInfoStr(AInnerCode);
+//    if LCodeInfoStr <> '' then begin
+//      FQuoteRealTime.GetCodeInfoByKeyStr(LCodeInfoStr, LTmp);
+//      LPCodeInfo := PCodeInfo(LTmp);
+//      if LPCodeInfo <> nil then begin
+//        PCodeInfo(APCodeInfo)^ := LPCodeInfo^;
+//        Result := True;
+//      end;
+//    end;
+//  end;
 end;
 
 function TQuoteManagerExImpl.GetCodeInfosByInnerCodes(AInnerCodes: Int64; ACount: Integer): IQuoteCodeInfosEx;
@@ -326,21 +312,21 @@ var
 begin
   LQuoteCodeInfosExImpl := TQuoteCodeInfosExImpl.Create;
   LQuoteCodeInfosExImpl.SetCapacity(ACount);
-  if FSecurityHqAdapter <> nil then begin
-    LPInnerCode := PInteger(AInnerCodes);
-    for LIndex := 0 to ACount - 1 do begin
-      LPCodeInfo := nil;
-      LCodeInfoStr := FSecurityHqAdapter.GetCodeInfoStr(LPInnerCode^);
-      if LCodeInfoStr <> '' then begin
-        FQuoteRealTime.GetCodeInfoByKeyStr(LCodeInfoStr, LTmp);
-        LPCodeInfo := PCodeInfo(LTmp);
-        if LPCodeInfo <> nil then begin
-          LQuoteCodeInfosExImpl.Add(LPInnerCode^, LPCodeInfo);
-        end;
-      end;
-      Inc(LPInnerCode);
-    end;
-  end;
+//  if FSecurityHqAdapter <> nil then begin
+//    LPInnerCode := PInteger(AInnerCodes);
+//    for LIndex := 0 to ACount - 1 do begin
+//      LPCodeInfo := nil;
+//      LCodeInfoStr := FSecurityHqAdapter.GetCodeInfoStr(LPInnerCode^);
+//      if LCodeInfoStr <> '' then begin
+//        FQuoteRealTime.GetCodeInfoByKeyStr(LCodeInfoStr, LTmp);
+//        LPCodeInfo := PCodeInfo(LTmp);
+//        if LPCodeInfo <> nil then begin
+//          LQuoteCodeInfosExImpl.Add(LPInnerCode^, LPCodeInfo);
+//        end;
+//      end;
+//      Inc(LPInnerCode);
+//    end;
+//  end;
   Result := LQuoteCodeInfosExImpl as IQuoteCodeInfosEx;
 end;
 
@@ -353,9 +339,9 @@ begin
   LPInnerCode := PInteger(AInnerCodes);
   LPCodeInfo := PCodeInfo(ACodeInfos);
   for LIndex := 0 to Count - 1 do begin
-    LPInnerCode^ := FSecurityHqAdapter.GetInnerCode(CodeInfoKey(LPCodeInfo));
-    Inc(LPInnerCode);
-    Inc(LPCodeInfo);
+//    LPInnerCode^ := FSecurityHqAdapter.GetInnerCode(CodeInfoKey(LPCodeInfo));
+//    Inc(LPInnerCode);
+//    Inc(LPCodeInfo);
   end;
 end;
 
