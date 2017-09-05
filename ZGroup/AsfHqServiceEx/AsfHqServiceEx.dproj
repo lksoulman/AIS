@@ -3,7 +3,7 @@
         <ProjectGuid>{CA6A0766-EA3B-4F69-A1C3-2C682495ABC2}</ProjectGuid>
         <ProjectVersion>16.1</ProjectVersion>
         <MainSource>AsfHqServiceEx.dpr</MainSource>
-        <Config Condition="'$(Config)'==''">Debug</Config>
+        <Config Condition="'$(Config)'==''">Release</Config>
         <DCC_DCCCompiler>DCC32</DCC_DCCCompiler>
         <Base>True</Base>
         <AppType>Library</AppType>
@@ -109,13 +109,14 @@
         <DCC_SymbolReferenceInfo>0</DCC_SymbolReferenceInfo>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1_Win32)'!=''">
+        <DCC_ExeOutput>..\..\Run\Release\Bin</DCC_ExeOutput>
         <DCC_DcuOutput>.\dcu</DCC_DcuOutput>
         <VerInfo_Build>0</VerInfo_Build>
         <DCC_DebugInformation>true</DCC_DebugInformation>
         <DCC_GenerateStackFrames>true</DCC_GenerateStackFrames>
         <VerInfo_Keys>CompanyName=;FileDescription=;FileVersion=1.0.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProductName=;ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
         <VerInfo_Locale>1033</VerInfo_Locale>
-        <Debugger_HostApplication>D:\Project.D2009\HSQuote\QuoteMngrV64\bin\H5Monitor.exe</Debugger_HostApplication>
+        <Debugger_HostApplication>..\..\Run\Release\Bin\AsfMain.exe</Debugger_HostApplication>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1_Win64)'!=''">
         <DCC_GenerateStackFrames>true</DCC_GenerateStackFrames>
@@ -147,7 +148,7 @@
         <VerInfo_Keys>CompanyName=;FileDescription=;FileVersion=1.0.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProductName=;ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
         <DCC_DebugInfoInTds>true</DCC_DebugInfoInTds>
         <VerInfo_Locale>1033</VerInfo_Locale>
-        <Debugger_HostApplication>..\..\Run\Debug\Bin\AIS.exe</Debugger_HostApplication>
+        <Debugger_HostApplication>..\..\Run\Debug\Bin\AsfMain.exe</Debugger_HostApplication>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2_Win64)'!=''">
         <DCC_GenerateStackFrames>true</DCC_GenerateStackFrames>
