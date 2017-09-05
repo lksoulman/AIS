@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ServerTypes>
+	<ServerType>
+		<Name>LevelI</Name>
+		<Type>1</Type>
+	</ServerType>
+	<ServerType>
+		<Name>LevelII</Name>
+		<Type>2</Type>
+	</ServerType>
+	<ServerType>
+		<Name>Futures</Name>
+		<Type>3</Type>
+	</ServerType>
+	<ServerType>
+		<Name>HKReal</Name>
+		<Type>4</Type>
+	</ServerType>
+	<ServerType>
+		<Name>HKDelay</Name>
+		<Type>6</Type>
+	</ServerType>
+	<ServerType>
+		<Name>DDE</Name>
+		<Type>7</Type>
+	</ServerType>
+	<ServerType>
+		<Name>USStock</Name>
+		<Type>8</Type>
+	</ServerType>
+</ServerTypes>

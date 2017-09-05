@@ -1,0 +1,180 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{61E0BE5B-2D8E-41B7-AFAA-30E485CEC29F}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="AsfMain\AsfMain.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="AsfSdk\AsfSdk.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="AsfAuth\AsfAuth.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="AsfCache\AsfCache.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="AsfMsg\AsfMsg.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="AsfMem\AsfMem.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="AsfLanguage\AsfLanguage.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="AsfAUI\AsfAUI.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="AsfTool\AsfTool.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="AsfCmd\AsfCmd.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="AsfService\AsfService.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="AsfHqService\AsfHqCore.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="AsfHqServiceEx\AsfHqServiceEx.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="AsfMain">
+        <MSBuild Projects="AsfMain\AsfMain.dproj"/>
+    </Target>
+    <Target Name="AsfMain:Clean">
+        <MSBuild Projects="AsfMain\AsfMain.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="AsfMain:Make">
+        <MSBuild Projects="AsfMain\AsfMain.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="AsfSdk">
+        <MSBuild Projects="AsfSdk\AsfSdk.dproj"/>
+    </Target>
+    <Target Name="AsfSdk:Clean">
+        <MSBuild Projects="AsfSdk\AsfSdk.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="AsfSdk:Make">
+        <MSBuild Projects="AsfSdk\AsfSdk.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="AsfAuth">
+        <MSBuild Projects="AsfAuth\AsfAuth.dproj"/>
+    </Target>
+    <Target Name="AsfAuth:Clean">
+        <MSBuild Projects="AsfAuth\AsfAuth.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="AsfAuth:Make">
+        <MSBuild Projects="AsfAuth\AsfAuth.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="AsfCache">
+        <MSBuild Projects="AsfCache\AsfCache.dproj"/>
+    </Target>
+    <Target Name="AsfCache:Clean">
+        <MSBuild Projects="AsfCache\AsfCache.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="AsfCache:Make">
+        <MSBuild Projects="AsfCache\AsfCache.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="AsfMsg">
+        <MSBuild Projects="AsfMsg\AsfMsg.dproj"/>
+    </Target>
+    <Target Name="AsfMsg:Clean">
+        <MSBuild Projects="AsfMsg\AsfMsg.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="AsfMsg:Make">
+        <MSBuild Projects="AsfMsg\AsfMsg.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="AsfMem">
+        <MSBuild Projects="AsfMem\AsfMem.dproj"/>
+    </Target>
+    <Target Name="AsfMem:Clean">
+        <MSBuild Projects="AsfMem\AsfMem.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="AsfMem:Make">
+        <MSBuild Projects="AsfMem\AsfMem.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="AsfLanguage">
+        <MSBuild Projects="AsfLanguage\AsfLanguage.dproj"/>
+    </Target>
+    <Target Name="AsfLanguage:Clean">
+        <MSBuild Projects="AsfLanguage\AsfLanguage.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="AsfLanguage:Make">
+        <MSBuild Projects="AsfLanguage\AsfLanguage.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="AsfAUI">
+        <MSBuild Projects="AsfAUI\AsfAUI.dproj"/>
+    </Target>
+    <Target Name="AsfAUI:Clean">
+        <MSBuild Projects="AsfAUI\AsfAUI.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="AsfAUI:Make">
+        <MSBuild Projects="AsfAUI\AsfAUI.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="AsfTool">
+        <MSBuild Projects="AsfTool\AsfTool.dproj"/>
+    </Target>
+    <Target Name="AsfTool:Clean">
+        <MSBuild Projects="AsfTool\AsfTool.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="AsfTool:Make">
+        <MSBuild Projects="AsfTool\AsfTool.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="AsfCmd">
+        <MSBuild Projects="AsfCmd\AsfCmd.dproj"/>
+    </Target>
+    <Target Name="AsfCmd:Clean">
+        <MSBuild Projects="AsfCmd\AsfCmd.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="AsfCmd:Make">
+        <MSBuild Projects="AsfCmd\AsfCmd.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="AsfService">
+        <MSBuild Projects="AsfService\AsfService.dproj"/>
+    </Target>
+    <Target Name="AsfService:Clean">
+        <MSBuild Projects="AsfService\AsfService.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="AsfService:Make">
+        <MSBuild Projects="AsfService\AsfService.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="AsfHqCore">
+        <MSBuild Projects="AsfHqService\AsfHqCore.dproj"/>
+    </Target>
+    <Target Name="AsfHqCore:Clean">
+        <MSBuild Projects="AsfHqService\AsfHqCore.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="AsfHqCore:Make">
+        <MSBuild Projects="AsfHqService\AsfHqCore.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="AsfHqServiceEx">
+        <MSBuild Projects="AsfHqServiceEx\AsfHqServiceEx.dproj"/>
+    </Target>
+    <Target Name="AsfHqServiceEx:Clean">
+        <MSBuild Projects="AsfHqServiceEx\AsfHqServiceEx.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="AsfHqServiceEx:Make">
+        <MSBuild Projects="AsfHqServiceEx\AsfHqServiceEx.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="AsfMain;AsfSdk;AsfAuth;AsfCache;AsfMsg;AsfMem;AsfLanguage;AsfAUI;AsfTool;AsfCmd;AsfService;AsfHqCore;AsfHqServiceEx"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="AsfMain:Clean;AsfSdk:Clean;AsfAuth:Clean;AsfCache:Clean;AsfMsg:Clean;AsfMem:Clean;AsfLanguage:Clean;AsfAUI:Clean;AsfTool:Clean;AsfCmd:Clean;AsfService:Clean;AsfHqCore:Clean;AsfHqServiceEx:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="AsfMain:Make;AsfSdk:Make;AsfAuth:Make;AsfCache:Make;AsfMsg:Make;AsfMem:Make;AsfLanguage:Make;AsfAUI:Make;AsfTool:Make;AsfCmd:Make;AsfService:Make;AsfHqCore:Make;AsfHqServiceEx:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>
