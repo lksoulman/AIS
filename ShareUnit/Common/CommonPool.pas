@@ -40,7 +40,7 @@ type
     procedure DoDestroy(AObject: TObject); virtual; abstract;
   public
     // Constructor
-    constructor Create; override;
+    constructor Create(APoolSize: Integer = 10); reintroduce;
     // Destructor
     destructor Destroy; override;
     // Allocate

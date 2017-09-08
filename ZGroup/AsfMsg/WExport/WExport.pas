@@ -20,7 +20,7 @@ uses
 
 exports
 
-  GetWFactory           name 'GetWFactory';
+  GetWFactory            name 'GetWFactory';
 
 implementation
 

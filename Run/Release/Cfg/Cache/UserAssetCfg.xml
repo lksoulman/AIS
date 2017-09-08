@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Tables>
+	<SysTable>
+		<Name>SysTable<Name>
+		<Version>0</Version>
+		<UpdateMem>0</UpdateMem>
+		<UpdateMemFieldKey><UpdateMemFieldKey>
+		<CreateSql>
+			CREATE TABLE IF NOT EXISTS SysTable(
+				"TableName" VARCHAR(50) NOT NULL PRIMARY KEY,
+				"Storage" INT NOT NULL DEFAULT 1,
+				"Version" INT NOT NULL DEFAULT 0,
+				"MaxJSID" BIGINT NOT NULL DEFAULT 0,
+				"DelJSID" BIGINT NOT NULL DEFAULT 0
+			)
+		</CreateSql>
+		<InsertSql>
+			INSERT OR REPLACE INTO SysTable(TableName,Storage,Version,MaxJSID,DelJSID) VALUES ("%s",%d,%d,%d,%d)
+		</InsertSql>
+		<InsertBeforeSql></InsertBeforeSql>
+		<InsertAfterSql></InsertAfterSql>
+		<DeleteSql></DeleteSql>
+		<Indicator></Indicator>
+		<DeleteIndicator></DeleteIndicator>
+		<ColFields></ColFields>
+	</SysTable>
+	<Table>
+		<Name>AccountAsset</Name>
+		<Version>0</Version>
+		<UpdateMem>1</UpdateMem>
+		<UpdateMemFieldKey><UpdateMemFieldKey>
+		<CreateSql>
+			DROP TABLE IF EXISTS AccountAsset;
+			CREATE TABLE IF NOT EXISTS AccountAsset(
+				"account_code" VARCHAR(32) NOT NULL,
+				"money_type" VARCHAR(3) NULL,
+				"currency_code" VARCHAR(3) NULL,
+				"total_asset" REAL (16,2) NOT NULL DEFAULT (0), 
+				"nav" REAL (9,3) NOT NULL DEFAULT (0),
+				"last_nav" REAL (8,4) NOT NULL DEFAULT (0),
+				"yesterday_nav" REAL (9,3) NOT NULL DEFAULT (0),
+				"current_balance" REAL (16,2) NOT NULL DEFAULT (0),
+				"begin_balance" REAL (16,2) NOT NULL DEFAULT (0),
+				"deposit_balance" REAL (16,2) NOT NULL DEFAULT (0),
+				"futu_deposit_balance" REAL (16,2) NOT NULL DEFAULT (0),
+				"occupy_deposit_balance" REAL (16,2) NOT NULL DEFAULT (0),
+				"futu_asset" REAL (16,2) NOT NULL DEFAULT (0),
+				"stock_asset" REAL (16,2) NOT NULL DEFAULT (0),
+				"bond_asset" REAL (16,2) NOT NULL DEFAULT (0),
+				"fund_asset" REAL (16,2) NOT NULL DEFAULT (0),
+				"repo_asset" REAL (16,2) NOT NULL DEFAULT (0),
+				"other_asset" REAL (16,2) NOT NULL DEFAULT (0),
+				"fund_share" REAL (16,2) NOT NULL DEFAULT (0),
+				"fund_net_asset" REAL (16,2) NOT NULL DEFAULT (0),
+				"ofund_share" REAL (16,2) NOT NULL DEFAULT (0),
+				"ofund_net_asset" REAL (16,2) NOT NULL DEFAULT (0),
+				"payable_balance" REAL (16,2) NOT NULL DEFAULT (0),
+				"receivable_balance" REAL (16,2) NOT NULL DEFAULT (0),
+				PRIMARY KEY ( "account_code")
+			);	
+		</CreateSql>
+		<InsertSql>
+			INSERT OR REPLACE INTO #TableName VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);
+		</InsertSql>
+		<InsertBeforeSql>
+			DELETE FROM AccountAsset;
+		</InsertBeforeSql>
+		<InsertAfterSql></InsertAfterSql>
+		<DeleteSql></DeleteSql>
+		<Indicator>UFX35003_NOPARAMS()</Indicator>
+		<DeleteIndicator></DeleteIndicator>
+		<ColFields>
+			account_code,money_type,currency_code,total_asset,nav,last_nav,yesterday_nav,current_balance,begin_balance,deposit_balance,futu_deposit_balance,occupy_deposit_balance,futu_asset,stock_asset,bond_asset,fund_asset,repo_asset,other_asset,fund_share,fund_net_asset,ofund_share,ofund_net_asset,payable_balance,receivable_balance
+		</ColFields>
+	</Table>
+	<Table>
+		<Name>Position</Name>
+		<Version>0</Version>
+		<UpdateMem>1</UpdateMem>
+		<UpdateMemFieldKey><UpdateMemFieldKey>
+		<CreateSql>
+			DROP TABLE IF EXISTS Position;
+			CREATE TABLE IF NOT EXISTS Position(
+				"account_code" VARCHAR(32) NOT NULL,
+				"asset_no" VARCHAR(16) NULL,
+				"combi_no" VARCHAR(16) NULL,
+				"market_no" VARCHAR(3) NULL,
+				"stock_code" VARCHAR(16) NULL,
+				"stockholder_id" VARCHAR(20) NULL,
+				"hold_seat" VARCHAR(6) NULL,
+				"invest_type" VARCHAR(1) NULL,
+				"current_amount" REAL (16,0) NOT NULL DEFAULT (0),
+				"enable_amount" REAL (16,0) NOT NULL DEFAULT (0),
+				"begin_cost" REAL (16,2) NOT NULL DEFAULT (0),
+				"current_cost" REAL (16,2) NOT NULL DEFAULT (0),
+				"pre_buy_amount" REAL (16,0) NOT NULL DEFAULT (0),
+				"pre_sell_amount" REAL (16,0) NOT NULL DEFAULT (0),
+				"pre_buy_balance" REAL (16,2) NOT NULL DEFAULT (0),
+				"pre_sell_balance" REAL (16,2) NOT NULL DEFAULT (0),
+				"today_buy_amount" REAL (16,0) NOT NULL DEFAULT (0),
+				"today_sell_amount" REAL (16,0) NOT NULL DEFAULT (0),
+				"today_buy_balance" REAL (16,2) NOT NULL DEFAULT (0),
+				"today_sell_balance" REAL (16,2) NOT NULL DEFAULT (0),
+				"today_buy_fee" REAL (16,2) NOT NULL DEFAULT (0),
+				"today_sell_fee" REAL (16,2) NOT NULL DEFAULT (0),
+				"buy_amount" REAL (16,0) NOT NULL DEFAULT (0),
+				"sell_amount" REAL (16,0) NOT NULL DEFAULT (0),
+				"buy_balance" REAL (16,2) NOT NULL DEFAULT (0),
+				"sell_balance" REAL (16,2) NOT NULL DEFAULT (0),
+				"buy_fee" REAL (16,2) NOT NULL DEFAULT (0),
+				"sell_fee" REAL (16,2) NOT NULL DEFAULT (0),
+				"secu_innercode" Integer NOT NULL DEFAULT (0),
+				PRIMARY KEY ( "account_code", "asset_no", "combi_no", "market_no", "stock_code" ) 
+			);	
+		</CreateSql>
+		<InsertSql>
+			INSERT OR REPLACE INTO #TableName VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);
+		</InsertSql>
+		<InsertBeforeSql>
+			DELETE FROM AccountAsset;
+		</InsertBeforeSql>
+		<InsertAfterSql></InsertAfterSql>
+		<DeleteSql></DeleteSql>
+		<Indicator>UFX31001_NOPARAMS()</Indicator>
+		<DeleteIndicator></DeleteIndicator>
+		<ColFields>
+			account_code,asset_no,combi_no,market_no,stock_code,stockholder_id,hold_seat,invest_type,current_amount,enable_amount,begin_cost,current_cost,pre_buy_amount,pre_sell_amount,pre_buy_balance,pre_sell_balance,today_buy_amount,today_sell_amount,today_buy_balance,today_sell_balance,today_buy_fee,today_sell_fee,buy_amount,sell_amount,buy_balance,sell_balance,buy_fee,sell_fee,secu_innercode
+		</ColFields>
+	</Table>
+</Tables>

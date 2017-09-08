@@ -7,7 +7,7 @@ unit FactoryAsfCmdImpl;
 // Date£º        2017-8-29
 // Comments£º    A dynamic library has only one implementation factory,
 //               A factory is a singleton.
-//               AsfService project factory implementation.
+//               AsfCmd project factory implementation.
 //
 ////////////////////////////////////////////////////////////////////////////////
 

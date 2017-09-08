@@ -22,7 +22,7 @@ uses
   EncdDecd,
   Math,
   NetEncoding,
-  IdSSLOpenSSLHeaders;
+  IdSSLOpenSSLHeadersEx;
 
 const
   RSA_KEYBITS = 2048;

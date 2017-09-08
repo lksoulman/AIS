@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Tables>
+	<SysTable>
+		<Name>SysTable<Name>
+		<Version>0</Version>
+		<UpdateMem>0</UpdateMem>
+		<UpdateMemFieldKey><UpdateMemFieldKey>
+		<CreateSql>
+			CREATE TABLE IF NOT EXISTS SysTable(
+				"TableName" VARCHAR(50) NOT NULL PRIMARY KEY,
+				"Storage" INT NOT NULL DEFAULT 1,
+				"Version" INT NOT NULL DEFAULT 0,
+				"MaxJSID" BIGINT NOT NULL DEFAULT 0,
+				"DelJSID" BIGINT NOT NULL DEFAULT 0
+			)
+		</CreateSql>
+		<InsertSql>
+			INSERT OR REPLACE INTO SysTable(TableName,Storage,Version,MaxJSID,DelJSID) VALUES ("%s",%d,%d,%d,%d)
+		</InsertSql>
+		<InsertBeforeSql></InsertBeforeSql>
+		<InsertAfterSql></InsertAfterSql>
+		<DeleteSql></DeleteSql>
+		<Indicator></Indicator>
+		<DeleteIndicator></DeleteIndicator>
+		<ColFields></ColFields>
+	</SysTable>
+	<Table>
+		<Name>UserSector</Name>
+		<Version>0</Version>
+		<UpdateMem>1</UpdateMem>
+		<UpdateMemFieldKey><UpdateMemFieldKey>
+		<CreateSql>
+			DROP TABLE IF EXISTS UserSector;
+			CREATE TABLE IF NOT EXISTS UserSector(
+				"ID" VARCHAR(36) NULL,
+				"CID" INTEGER PRIMARY KEY,
+				"Name" VARCHAR(50) NOT NULL,
+				"Order" INT NOT NULL,
+				"Innercodes" TEXT,
+				"UpLoadValue" INT DEFAULT 0
+			);
+		</CreateSql>
+		<InsertSql>
+			INSERT OR REPLACE INTO #TableName VALUES (?,?,?,?,?,0);
+		</InsertSql>
+		<InsertBeforeSql></InsertBeforeSql>
+		<InsertAfterSql></InsertAfterSql>
+		<DeleteSql></DeleteSql>
+		<Indicator>C_CLIENT_MYSELECTSTOCK_QUERY(!JSID)</Indicator>
+		<DeleteIndicator></DeleteIndicator>
+		<ColFields>
+			id,cid,selectName,orderNum,components
+		</ColFields>
+	</Table>
+	<Table>
+		<Name>UserConfig</Name>
+		<Version>0</Version>
+		<UpdateMem>1</UpdateMem>
+		<UpdateMemFieldKey><UpdateMemFieldKey>
+		<CreateSql>
+			DROP TABLE IF EXISTS UserConfig;
+			CREATE TABLE IF NOT EXISTS UserConfig(
+				"ID" VARCHAR(36) NULL,
+				"Type" INT NOT NULL,
+				"Name" VARCHAR(500),
+				"Key" VARCHAR(500) PRIMARY KEY,
+				"Value" TEXT,
+				"Version" VARCHAR(10) default '1.0',
+				"UpLoadValue" INT DEFAULT 0
+			);
+		</CreateSql>
+		<InsertSql>
+			INSERT OR REPLACE INTO #TableName VALUES (?,?,?,?,?,?,0);
+		</InsertSql>
+		<InsertBeforeSql></InsertBeforeSql>
+		<InsertAfterSql></InsertAfterSql>
+		<DeleteSql></DeleteSql>
+		<Indicator>C_CLIENT_MYCONFIG_QUERY(!JSID,2)</Indicator>
+		<DeleteIndicator></DeleteIndicator>
+		<ColFields>
+			id,configName,configType,configKey,content,version
+		</ColFields>
+	</Table>
+</Tables>
