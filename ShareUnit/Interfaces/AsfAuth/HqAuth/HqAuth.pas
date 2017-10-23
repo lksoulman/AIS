@@ -2,7 +2,7 @@ unit HqAuth;
 
 ////////////////////////////////////////////////////////////////////////////////
 //
-// Description£º Hq authority interface
+// Description£º Hq Authority Interface
 // Author£º      lksoulman
 // Date£º        2017-8-30
 // Comments£º
@@ -18,16 +18,16 @@ uses
 
 type
 
-  // Hq authority interface
+  // Hq Authority Interface
   IHqAuth = Interface(IInterface)
     ['{AA8B2C32-CFFF-4FBC-A427-D61B27D821CA}']
-    // is not has HK Real authority
+    // Is Has HK Real Authority
     function GetIsHasHKReal: Boolean; safecall;
-    // is not has Level2 authority
+    // Is Has Level2 Authority
     function GetIsHasLevel2: Boolean; safecall;
-    // Get Level2 username
+    // Get Level2 UserName
     function GetLevel2UserName: WideString; safecall;
-    // Get Level2 password
+    // Get Level2 Password
     function GetLevel2Password: WideString; safecall;
   end;
 

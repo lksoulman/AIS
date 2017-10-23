@@ -42,7 +42,9 @@ var
 implementation
 
 uses
-  PlugIn;
+  PlugIn,
+  SecuMainPlugInImpl,
+  KeyFairyMgrPlugInImpl;
 
 { TFactoryAsfMemImpl }
 
@@ -60,7 +62,8 @@ end;
 
 procedure TFactoryAsfMemImpl.DoRegisterPlugIns;
 begin
-//  DoRegisterPlugIn(PLUGIN_ID_MSGCORE, itSingleInstance, lmLazy, TMsgCorePlugInImpl);
+  DoRegisterPlugIn(PLUGIN_ID_SECUMAIN, itSingleInstance, lmLazy, TSecuMainPlugInImpl);
+  DoRegisterPlugIn(PLUGIN_ID_KEYFAIRYMGR, itSingleInstance, lmLazy, TKeyFairyMgrPlugInImpl);
 end;
 
 initialization

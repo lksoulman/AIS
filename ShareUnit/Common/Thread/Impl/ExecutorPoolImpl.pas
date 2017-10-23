@@ -2,7 +2,7 @@ unit ExecutorPoolImpl;
 
 ////////////////////////////////////////////////////////////////////////////////
 //
-// Description：
+// Description： Executor Pool Interface implementation
 // Author：      lksoulman
 // Date：        2017-5-1
 // Comments：    {Doug Lea thread}
@@ -20,79 +20,86 @@ uses
   ExecutorTask,
   ExecutorPool,
   ExecutorThread,
+  ExecutorService,
   CommonRefCounter,
   Generics.Collections;
 
 type
 
-  // 自动变化执行线程个数的线程池
+  // Executor Pool Interface implementation
   TExecutorPoolImpl = class(TAutoInterfacedObject, IExecutorPool)
   private
-    // 安全锁
+    // Lock
     FLock: TCSLock;
-    // 是不是启动
+    // Is Start
     FIsStart: Boolean;
-    // 是不是关闭
+    // Is Shutdown
     FIsShutDown: Boolean;
-    // 池子最小线程个数
+    // Min Pool Size
     FMinPoolSize: Integer;
-    // 池子最大线程个数
+    // Max Pool Size
     FMaxPoolSize: Integer;
-    // 最大空闲时间
+    // Max Idle Time
     FMaxIdleTime: Integer;
-    // 是不是已经终止
+    // Is All Executor Terminated
     FIsTerminated: Boolean;
-    // 工作线程个数
+    // Work Thread Count
     FWorkerThreadCount: Integer;
-    // 管理任务线程
+    // Monitor Thread
     FMonitorThread: TExecutorThread;
-    // 提交的任务队列
+    // Create Executor Function
+    FCreateExecutorFunc: TCreateExecutorFunc;
+    // Submit Task Queue
     FSubmitTaskQueue: TSafeSemaphoreQueue<IExecutorTask>;
-    // 所有创建的线程
+    // Work Thread Dictionary
     FWorkerThreadDic: TDictionary<Integer, TExecutorThread>;
   protected
-    // 启动所有线程
+    // Start
     procedure DoStart;
-    // 关闭
+    // Shutdown
     procedure DoShutDown;
-    // 返回是不是所有的线程都终止
+    // Is All Thread Terminated
     function DoIsTerminated: Boolean;
-    // 提交任务
+    // Submit Task
     function DoSubmitTask(ATask: IExecutorTask): Boolean;
-    // 清空未完成的任务
+    // Clear Task Queue
     procedure DoClearTaskQueue;
-    // 终止所有的线程
+    // ShutDown Thread
     procedure DoShutDownThread;
-    // 启动 ACount 个线程
+    // Start ACount Thread
     procedure DoStartThread(ACount: Integer);
-    // 终止空闲线程
+    // Create Executor
+    function DoCreateExecutor: TExecutorThread;
+    // Terminated Idle Thread
     procedure DoTerminatedIdleThread(AThread: TExecutorThread);
-    // 增加新线程个数直到最大
+    // Add Util Max Size Thread
     procedure DoAddUtilMaxSizeThread(AThread: TExecutorThread);
-    // 执行线程
+    // Execute Task
     procedure DoTaskExecute(AObject: TObject);
-    // 监控任务执行方法
+    // Monitor Task
     procedure DoTaskMonitor(AObject: TObject);
   public
-    // 构造函数
+    // Constructor
     constructor Create; virtual;
-    // 析构函数
+    // Destructor
     destructor Destroy; override;
 
     { IExecuterService }
 
-    // 启动
+    // Start
     procedure Start; safecall;
-    // 关闭
+    // Shutdown
     procedure ShutDown; safecall;
-    // 是不是已经结束
+    // Is Terminated
     function IsTerminated: boolean; safecall;
-    // 提交任务
+    // Submit Task
     function SubmitTask(ATask: IExecutorTask): Boolean; safecall;
+    // Set Create Executor Function
+    function SetCreateExecutorFunc(AFunc: TCreateExecutorFunc): Boolean; safecall;
 
     { IExecutorPool }
 
-    // 设置池子线程最大最小线程个数
+    // Set Pool Max and Min Size
     procedure SetPoolThread(AMaxPoolSize, AMinPoolSize: Integer); safecall;
   end;
 
@@ -100,6 +107,7 @@ implementation
 
 uses
   FastLogLevel,
+  AsfSdkExport,
   CommonObject;
 
 { TExecutorPoolImpl }
@@ -152,6 +160,16 @@ end;
 function TExecutorPoolImpl.SubmitTask(ATask: IExecutorTask): boolean;
 begin
   Result := DoSubmitTask(ATask);
+end;
+
+function TExecutorPoolImpl.SetCreateExecutorFunc(AFunc: TCreateExecutorFunc): Boolean;
+begin
+  if Assigned(AFunc) then begin
+    FCreateExecutorFunc := AFunc;
+    Result := True;
+  end else begin
+    FCreateExecutorFunc := nil;
+  end;
 end;
 
 procedure TExecutorPoolImpl.SetPoolThread(AMaxPoolSize, AMinPoolSize: Integer);
@@ -224,16 +242,27 @@ var
   LWorker: TExecutorThread;
 begin
   for LIndex := 0 to ACount - 1 do begin
-    LWorker := TExecutorThread.Create;
-    LWorker.Name := 'Worker_' + IntToStr(LWorker.ID);
-    if not FWorkerThreadDic.ContainsKey(LWorker.ID) then begin
-      FWorkerThreadDic.AddOrSetValue(LWorker.ID, LWorker);
-      LWorker.ThreadMethod := DoTaskExecute;
-      LWorker.StartEx;
-    end else begin
-      FastAppLog(llERROR, Format('[TExecutorPoolImpl.DoStartThread] LWorker.ID = %d  is Repeat in FWorkerThreadDic', [LWorker.ID]));
-      LWorker.Free;
+    LWorker := DoCreateExecutor;
+    if LWorker <> nil then begin
+      LWorker.Name := 'Worker_' + IntToStr(LWorker.ID);
+      if not FWorkerThreadDic.ContainsKey(LWorker.ID) then begin
+        FWorkerThreadDic.AddOrSetValue(LWorker.ID, LWorker);
+        LWorker.ThreadMethod := DoTaskExecute;
+        LWorker.StartEx;
+      end else begin
+        FastSysLog(llERROR, Format('[TExecutorPoolImpl.DoStartThread] LWorker.ID = %d  is Repeat in FWorkerThreadDic', [LWorker.ID]));
+        LWorker.Free;
+      end;
     end;
+  end;
+end;
+
+function TExecutorPoolImpl.DoCreateExecutor: TExecutorThread;
+begin
+  if Assigned(FCreateExecutorFunc) then begin
+    Result := FCreateExecutorFunc;
+  end else begin
+    Result := TExecutorThread.Create;
   end;
 end;
 

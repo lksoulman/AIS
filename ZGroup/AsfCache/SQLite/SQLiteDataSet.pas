@@ -12,11 +12,11 @@ unit SQLiteDataSet;
 interface
 
 uses
+  DB,
+  Uni,
   Windows,
   Classes,
   SysUtils,
-  DB,
-  Uni,
   CommonDataSet;
 
 type
@@ -33,10 +33,6 @@ type
   end;
 
 implementation
-
-uses
-  FastLogLevel,
-  AsfSdkExport;
 
 { TSQLiteDataSet }
 
@@ -55,7 +51,7 @@ begin
       end;
     except
       on Ex: Exception do begin
-        FastSysLog(llError, '[TSQLiteDataSet.Destroy] TUniQuery(DataSet).Connection.free, Exception is '
+        raise Exception.Create('[TSQLiteDataSet.Destroy] TUniQuery(DataSet).Connection.free, Exception is '
           + Ex.ToString);
       end;
     end;

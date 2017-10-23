@@ -31,7 +31,7 @@ uses
   RzSpnEdt,
   RzEdit,
   RzCmboBx,
-  Config,
+  Cfg,
   AppContext;
 
 type
@@ -112,7 +112,7 @@ type
     procedure chkIsUseProxyClick(Sender: TObject);
   private
     // 配置接口
-    FConfig: IConfig;
+    FCfg: ICfg;
     // 应用程序上下文接口
     FAppContext: IAppContext;
   protected
@@ -130,6 +130,7 @@ type
 implementation
 
 uses
+  Proxy,
   ProxyInfo;
 
 {$R *.dfm}
@@ -154,35 +155,37 @@ end;
 procedure TLoginSettingUI.Initialize(AContext: IAppContext);
 begin
   FAppContext := AContext;
-  FConfig := FAppContext.GetConfig as IConfig;
+  FCfg := FAppContext.GetCfg;
   DoInitUserDataToSettingWindows;
 end;
 
 procedure TLoginSettingUI.UnInitialize;
 begin
-  FConfig := nil;
+  FCfg := nil;
   FAppContext := nil;
 end;
 
 procedure TLoginSettingUI.DoInitUserDataToSettingWindows;
 var
-  LProxyInfo: IProxyInfo;
+  LPProxy: PProxy;
 begin
-  if FConfig <> nil then begin
-    LProxyInfo := FConfig.GetProxyInfo;
-    chkIsUseProxy.Checked := LProxyInfo.GetUse;
-    edtProxyIP.Text := LProxyInfo.GetIP;
-    sedtProxyPort.IntValue := LProxyInfo.GetPort;
-    edtUserName.Text := LProxyInfo.GetUserName;
-    edtPassword.Text := LProxyInfo.GetPassword;
-    chkIsNTLM.Checked := LProxyInfo.GetNTLM;
-    edtDomain.Text := LProxyInfo.GetDomain;
-    if LProxyInfo.GetProxyType = ptHTTPProxy then begin
+  if FCfg <> nil then begin
+    LPProxy := FCfg.GetSysCfg.GetProxyInfo.GetProxy;
+    chkIsUseProxy.Checked := FCfg.GetSysCfg.GetProxyInfo.GetIsUseProxy;
+    edtProxyIP.Text := LPProxy^.FIP;
+    sedtProxyPort.IntValue := LPProxy^.FPort;
+    edtUserName.Text := LPProxy^.FUserName;
+    edtPassword.Text := LPProxy^.FPassword;
+    chkIsNTLM.Checked := (LPProxy^.FIsUseNTLM = 1);
+    edtDomain.Text := LPProxy^.FNTLMDomain;
+    if LPProxy^.FType = ptHttp then begin
       rdbtnHttpProxy.Checked := True;
-    end else if LProxyInfo.GetProxyType = ptSocks4 then begin
+    end else if LPProxy^.FType = ptSocket4 then begin
       rdbtnSocks4.Checked := True;
-    end else if LProxyInfo.GetProxyType = ptSocks5 then begin
+    end else if LPProxy^.FType = ptSocket5 then begin
       rdbtnSocks5.Checked := True;
+    end else begin
+
     end;
     chkIsUseProxyClick(nil);
     chkIsNTLMClick(nil);
@@ -191,27 +194,31 @@ end;
 
 procedure TLoginSettingUI.UpdateLoginSettingDataToUserData;
 var
-  LProxyInfo: IProxyInfo;
+  LPProxy: PProxy;
 begin
-  if FConfig <> nil then begin
-    LProxyInfo := FConfig.GetProxyInfo;
-    LProxyInfo.SetUse(chkIsUseProxy.Checked);
-    LProxyInfo.SetIP(edtProxyIP.Text);
-    LProxyInfo.SetPort(sedtProxyPort.IntValue);
-    LProxyInfo.SetUserName(edtUserName.Text);
-    LProxyInfo.SetPassword(edtPassword.Text);
-    LProxyInfo.SetNTLM(chkIsNTLM.Checked);
-    LProxyInfo.SetDomain(edtDomain.Text);
-    if rdbtnHttpProxy.Checked then begin
-      LProxyInfo.SetProxyType(ptHTTPProxy);
-    end else if rdbtnSocks4.Checked then begin
-      LProxyInfo.SetProxyType(ptSocks4);
-    end else if rdbtnSocks4.Checked then begin
-      LProxyInfo.SetProxyType(ptSocks5);
+  if FCfg <> nil then begin
+    LPProxy := FCfg.GetSysCfg.GetProxyInfo.GetProxy;
+    FCfg.GetSysCfg.GetProxyInfo.SetIsUseProxy(chkIsUseProxy.Checked);
+    LPProxy^.FIP := edtProxyIP.Text;
+    LPProxy^.FPort := sedtProxyPort.IntValue;
+    LPProxy^.FUserName := edtUserName.Text;
+    LPProxy^.FPassword := edtPassword.Text;
+    if chkIsNTLM.Checked then begin
+      LPProxy^.FIsUseNTLM := 1;
     end else begin
-      LProxyInfo.SetProxyType(ptNoProxy);
+      LPProxy^.FIsUseNTLM := 0;
     end;
-    LProxyInfo.SaveCache;
+    LPProxy^.FNTLMDomain := edtDomain.Text;
+    if rdbtnHttpProxy.Checked then begin
+      LPProxy^.FType := ptHttp;
+    end else if rdbtnSocks4.Checked then begin
+      LPProxy^.FType := ptSocket4;
+    end else if rdbtnSocks4.Checked then begin
+      LPProxy^.FType := ptSocket5;
+    end else begin
+      LPProxy^.FType := ptNo;
+    end;
+    FCfg.GetSysCfg.GetProxyInfo.SaveCache;
   end;
 end;
 

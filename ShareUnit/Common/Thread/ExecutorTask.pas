@@ -19,14 +19,16 @@ uses
 
 type
 
+  // Executor Task Interface
   IExecutorTask = interface(IInterface)
     ['{31F8B49C-CB4A-434C-A7EE-D03486782ADC}']
-    // 调用完成回调
+    // Call Back
     procedure CallBack;
-    // 参数 AObject 是调用的线程
+    // Thread Execute Run, AObject is Call Thread
     procedure Run(AObject: TObject);
   end;
 
 implementation
 
 end.
+

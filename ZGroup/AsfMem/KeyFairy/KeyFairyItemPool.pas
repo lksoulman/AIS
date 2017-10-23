@@ -30,27 +30,16 @@ type
     function DoCreate: Pointer; override;
     // Destroy
     procedure DoDestroy(APointer: Pointer); override;
+    // Allocate Before
+    procedure DoAllocateBefore(APointer: Pointer); override;
+    // DeAllocate Before
+    procedure DoDeAllocateBefore(APointer: Pointer); override;
   public
-    // Constructor
-    constructor Create; override;
-    // Destructor method
-    destructor Destroy; override;
   end;
 
 implementation
 
 { TKeyFairyItemPool }
-
-constructor TKeyFairyItemPool.Create;
-begin
-  inherited;
-  FPoolSize := 500;
-end;
-
-destructor TKeyFairyItemPool.Destroy;
-begin
-  inherited;
-end;
 
 function TKeyFairyItemPool.DoCreate: Pointer;
 var
@@ -68,6 +57,16 @@ begin
     LPKeyFairyItem := PKeyFairyItem(APointer);
     Dispose(LPKeyFairyItem);
   end;
+end;
+
+procedure TKeyFairyItemPool.DoAllocateBefore(APointer: Pointer);
+begin
+
+end;
+
+procedure TKeyFairyItemPool.DoDeAllocateBefore(APointer: Pointer);
+begin
+
 end;
 
 end.

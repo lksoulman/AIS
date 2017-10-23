@@ -26,6 +26,8 @@ type
     procedure Initialize(AContext: IInterface); safecall;
     // Releasing resources(only execute once)
     procedure UnInitialize; safecall;
+    // Get Application Context
+    function GetAppContext: IInterface; safecall;
     // Get PlugIn
     function GetPlugInById(APlugInId: Integer): IInterface; safecall;
     // Create interface

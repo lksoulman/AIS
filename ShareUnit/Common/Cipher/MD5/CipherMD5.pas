@@ -2,7 +2,7 @@ unit CipherMD5;
 
 ////////////////////////////////////////////////////////////////////////////////
 //
-// Description：
+// Description： Cipher MD5
 // Author：      lksoulman
 // Date：        2017-8-6
 // Comments：
@@ -17,21 +17,24 @@ uses
   SysUtils,
   IdHash,
   IdGlobal,
+  CommonRefCounter,
   IdHashMessageDigest;
 
 type
 
-  TCipherMD5 = class
+  TCipherMD5 = class(TAutoObject)
   private
   protected
   public
-    // 构造方法
-    constructor Create;
-    // 析构方法
+    // Constructor
+    constructor Create; override;
+    // Destructor
     destructor Destroy; override;
-    // 获取文件的 MD5
+    // Get File MD5
     function GetFileMD5(AFile: string): string;
-    // 获取流的 MD5
+    // Get String MD5
+    function GetStringMD5(AString: string): string;
+    // Get Stream MD5
     function GetStreamMD5(AStream: TStream): string;
   end;
 
@@ -56,11 +59,28 @@ var
 begin
   Result := '';
   if not FileExists(AFile) then Exit;
+
   LStream := TFileStream.Create(AFile, fmopenread or fmshareExclusive);
   try
     Result := GetStreamMD5(LStream);
   finally
     LStream.Free;
+  end;
+end;
+
+function TCipherMD5.GetStringMD5(AString: string): string;
+var
+  LMD5Encode: TIdHashMessageDigest5;
+begin
+  Result := '';
+  if AString = '' then Exit;
+
+  LMD5Encode:= TIdHashMessageDigest5.Create;
+  try
+    Result := LMD5Encode.HashStringAsHex(AString);
+    Result := UpperCase(Result);
+  finally
+    LMD5Encode.Free;
   end;
 end;
 
@@ -70,6 +90,7 @@ var
 begin
   Result := '';
   if AStream = nil then Exit;
+
   LMD5Encode:= TIdHashMessageDigest5.Create;
   try
     Result := LMD5Encode.HashStreamAsHex(AStream);

@@ -64,6 +64,10 @@ object LoginSettingUI: TLoginSettingUI
     object sheetProxySetting: TRzTabSheet
       Color = clWhite
       Caption = #20195#29702#35774#32622
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object gpbxIsUserProxy: TGroupBox
         Left = 18
         Top = 11

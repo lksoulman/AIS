@@ -41,25 +41,8 @@ var
 
 implementation
 
-//uses
-//  Config,
-//  ConfigPlugInImpl,
-//  LoginMgr,
-//  LoginMgrPlugInImpl,
-//  BehaviorMgr,
-//  BehaviorMgrPlugInImpl,
-//  SecurityMgr,
-//  SecurityMgrPlugInImpl,
-//  ServiceBase,
-//  ServiceBasePlugInImpl,
-//  ServiceAsset,
-//  ServiceAssetPlugInImpl,
-//  CacheBaseData,
-//  CacheBaseDataPlugInImpl,
-//  CacheUserData,
-//  CacheUserDataPlugInImpl,
-//  PermissionMgr,
-//  PermissionMgrPlugInImpl;
+uses
+  LoginPlugInImpl;
 
 { TFactoryAsfMainImpl }
 
@@ -77,23 +60,21 @@ end;
 
 procedure TFactoryAsfMainImpl.DoRegisterPlugIns;
 begin
-//  DoRegisterPlugIn(GUIDToString(IConfig), PLUGIN_ID_CONFIG, TConfigPlugInImpl);
-//
-//  DoRegisterPlugIn(GUIDToString(ILoginMgr), PLUGIN_ID_LOGINMGR, TLoginMgrPlugInImpl);
-//
-//  DoRegisterPlugIn(GUIDToString(IBehaviorMgr), PLUGIN_ID_BEHAVIORMGR, TBehaviorMgrPlugInImpl);
-//
-//  DoRegisterPlugIn(GUIDToString(ISecurityMgr), PLUGIN_ID_SECURITYMGR, TSecurityMgrPlugInImpl);
-//
-//  DoRegisterPlugIn(GUIDToString(IServiceBase), PLUGIN_ID_SERVICEBASE, TServiceBasePlugInImpl);
-//
-//  DoRegisterPlugIn(GUIDToString(IServiceAsset), PLUGIN_ID_SERVICEASSET, TServiceAssetPlugInImpl);
-//
-//  DoRegisterPlugIn(GUIDToString(ICacheBaseData), PLUGIN_ID_CACHEBASEDATA, TCacheBaseDataPlugInImpl);
-//
-//  DoRegisterPlugIn(GUIDToString(ICacheUserData), PLUGIN_ID_CACHEUSERDATA, TCacheUserDataPlugInImpl);
-//
-//  DoRegisterPlugIn(GUIDToString(IPermissionMgr), PLUGIN_ID_PERMISSIONMGR, TPermissionMgrPlugInImpl);
+  DoRegisterPlugIn(LIB_PLUGIN_ID_LOGIN, itSingleInstance, lmLazy, TLoginPlugInImpl);
 end;
+
+initialization
+
+  // Create global factory interface
+  if G_WFactory = nil then begin
+    G_WFactory := TFactoryAsfMainImpl.Create as IInterface;
+  end;
+
+finalization
+
+  // Free global factory interface
+  if G_WFactory <> nil then begin
+    G_WFactory := nil;
+  end;
 
 end.

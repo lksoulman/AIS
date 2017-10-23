@@ -3,7 +3,7 @@
         <ProjectGuid>{CA6A0766-EA3B-4F69-A1C3-2C682495ABC2}</ProjectGuid>
         <ProjectVersion>16.1</ProjectVersion>
         <MainSource>AsfHqServiceEx.dpr</MainSource>
-        <Config Condition="'$(Config)'==''">Release</Config>
+        <Config Condition="'$(Config)'==''">Debug</Config>
         <DCC_DCCCompiler>DCC32</DCC_DCCCompiler>
         <Base>True</Base>
         <AppType>Library</AppType>

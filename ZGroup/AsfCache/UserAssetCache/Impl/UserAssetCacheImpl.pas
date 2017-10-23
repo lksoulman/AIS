@@ -50,7 +50,7 @@ type
 implementation
 
 uses
-  Config;
+  Cfg;
 
 { TUserAssetCacheImpl }
 
@@ -79,9 +79,9 @@ end;
 
 procedure TUserAssetCacheImpl.SyncBlockExecute;
 begin
-  if FAppContext.GetConfig <> nil then begin
-    FCacheDataAdapter.DataBaseName := (FAppContext.GetConfig as IConfig).GetUserCachePath + 'UserAssetDB';
-    FCfgFile := (FAppContext.GetConfig as IConfig).GetCfgPath + 'Cache\UserAssetCfg.xml';
+  if FAppContext <> nil then begin
+    FCacheDataAdapter.DataBaseName := FAppContext.GetCfg.GetUserCachePath + 'UserAssetDB';
+    FCfgFile := FAppContext.GetCfg.GetCfgPath + 'Cache\UserAssetCfg.xml';
     LoadTables;
     InitConnCache;
     InitSysTable;

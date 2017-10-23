@@ -92,8 +92,7 @@ implementation
 
 uses
   MsgExImpl,
-  FastLogLevel,
-  AsfSdkExport;
+  LogLevel;
 
 { TMsgReceiverImpl }
 
@@ -151,7 +150,7 @@ begin
   //      FCallBack(AMsgType, AMsgInfo, LLogTag);
       except
         on Ex: Exception do begin
-          FastSysLog(llERROR, Format('[TMsgExReceiverImpl][InvokeNotify] is exception, exception is %s, LogTag is %s, ID is %d.', [Ex.Message, LLogTag, AMsgEx.GetProId]));
+//          FastSysLog(llERROR, Format('[TMsgExReceiverImpl][InvokeNotify] is exception, exception is %s, LogTag is %s, ID is %d.', [Ex.Message, LLogTag, AMsgEx.GetProId]));
         end;
       end;
     end;

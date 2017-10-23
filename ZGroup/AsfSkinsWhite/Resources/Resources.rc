@@ -1,0 +1,13 @@
+//   Colors Cfg
+COLORSCFG RCDATA .\ColorsCfg.xml
+
+//   AppMenu
+SKIN_APP_SKIN RCDATA .\Skins\AppMenu\Skin.png
+SKIN_APP_CLOSE RCDATA .\Skins\AppMenu\Close.png
+SKIN_APP_RESTORE RCDATA .\Skins\AppMenu\Restore.png
+SKIN_APP_MAXIMIZE RCDATA .\Skins\AppMenu\Maximize.png
+SKIN_APP_MINIMIZE RCDATA .\Skins\AppMenu\Minimize.png
+
+//   AppSuperTab
+SKIN_APP_BIGLOGO RCDATA .\Skins\AppSuperTab\Logo.png
+

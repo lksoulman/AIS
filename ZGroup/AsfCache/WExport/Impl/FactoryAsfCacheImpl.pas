@@ -66,9 +66,9 @@ end;
 
 procedure TFactoryAsfCacheImpl.DoRegisterPlugIns;
 begin
-//  DoRegisterPlugIn(GUIDToString(IBaseCache), PLUGIN_ID_HQAUTH, TBaseCachePlugInImpl);
-//  DoRegisterPlugIn(GUIDToString(IUserCache), PLUGIN_ID_PRODUCTAUTH, TUserCachePlugInImpl);
-//  DoRegisterPlugIn(GUIDToString(IUserAssetCache), PLUGIN_ID_PRODUCTAUTH, TUserAssetCachePlugInImpl);
+  DoRegisterPlugIn(PLUGIN_ID_BASECACHE, itSingleInstance, lmLazy, TBaseCachePlugInImpl);
+//  DoRegisterPlugIn(PLUGIN_ID_USERCACHE, itSingleInstance, lmLazy, TUserCachePlugInImpl);
+//  DoRegisterPlugIn(PLUGIN_ID_BASECACHE, itSingleInstance, lmLazy, TUserAssetCachePlugInImpl);
 end;
 
 initialization

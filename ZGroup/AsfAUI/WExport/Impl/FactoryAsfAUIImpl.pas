@@ -42,7 +42,8 @@ var
 implementation
 
 uses
-  PlugIn;
+  PlugIn,
+  MainFrameUIPlugInImpl;
 
 { TFactoryAsfAUIImpl }
 
@@ -60,7 +61,7 @@ end;
 
 procedure TFactoryAsfAUIImpl.DoRegisterPlugIns;
 begin
-//  DoRegisterPlugIn(PLUGIN_ID_MSGCORE, itSingleInstance, lmLazy, TMsgCorePlugInImpl);
+  DoRegisterPlugIn(PLUGIN_ID_MAINFRAMEUI, itSingleInstance, lmLazy, TMainFrameUIPlugInImpl);
 end;
 
 initialization

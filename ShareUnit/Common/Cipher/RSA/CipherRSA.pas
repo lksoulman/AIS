@@ -12,6 +12,7 @@ unit CipherRSA;
 interface
 
 uses
+  Math,
   Windows,
   Messages,
   SysUtils,
@@ -20,9 +21,8 @@ uses
   IdCTypes,
   IdGlobal,
   EncdDecd,
-  Math,
   NetEncoding,
-  IdSSLOpenSSLHeadersEx;
+  IdSSLOpenSSLHeaders;//IdSSLOpenSSLHeadersEx;
 
 const
   RSA_KEYBITS = 2048;
@@ -419,8 +419,8 @@ var
 begin
   try
     Load;
-    @RSA_sign_ex := LoadFunction(fn_RSA_sign_ex);
-    @RSA_verify_ex := LoadFunction(fn_RSA_verify_ex);
+//    @RSA_sign_ex := LoadFunction(fn_RSA_sign_ex);
+//    @RSA_verify_ex := LoadFunction(fn_RSA_verify_ex);
     FIsInitRSA := True;
   except
 

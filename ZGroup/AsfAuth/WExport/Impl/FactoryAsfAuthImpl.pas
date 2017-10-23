@@ -2,7 +2,7 @@ unit FactoryAsfAuthImpl;
 
 ////////////////////////////////////////////////////////////////////////////////
 //
-// Description£º
+// Description£º Authority Project Factory Implementation
 // Author£º      lksoulman
 // Date£º        2017-8-29
 // Comments£º    A dynamic library has only one implementation factory,
@@ -22,7 +22,7 @@ uses
 
 type
 
-  // Authority project factory implementation
+  // Authority Project Factory Implementation
   TFactoryAsfAuthImpl = class(TWFactoryImpl)
   private
   protected
@@ -44,9 +44,9 @@ implementation
 uses
   PlugIn,
   HqAuth,
-  ProductAuth,
+  ProAuth,
   HqAuthPlugInImpl,
-  ProductAuthPlugInImpl;
+  ProAuthPlugInImpl;
 
 { TFactoryAsfAuthImpl }
 
@@ -65,7 +65,7 @@ end;
 procedure TFactoryAsfAuthImpl.DoRegisterPlugIns;
 begin
   DoRegisterPlugIn(PLUGIN_ID_HQAUTH, itSingleInstance, lmLazy, THqAuthPlugInImpl);
-  DoRegisterPlugIn(PLUGIN_ID_PRODUCTAUTH, itSingleInstance, lmLazy, TProductAuthPlugInImpl);
+  DoRegisterPlugIn(PLUGIN_ID_PROAUTH, itSingleInstance, lmLazy, TProAuthPlugInImpl);
 end;
 
 initialization

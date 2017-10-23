@@ -35,7 +35,10 @@ uses
   SysSectorMgr in 'SysSectorMgr\SysSectorMgr.pas',
   SysSectorMgrImpl in 'SysSectorMgr\Impl\SysSectorMgrImpl.pas',
   UserSectorMgr in 'UserSectorMgr\UserSectorMgr.pas',
-  UserSectorMgrImpl in 'UserSectorMgr\Impl\UserSectorMgrImpl.pas';
+  UserSectorMgrImpl in 'UserSectorMgr\Impl\UserSectorMgrImpl.pas',
+  SecuMainPlugInImpl in 'WDPlugIn\Impl\SecuMainPlugInImpl.pas',
+  KeyFairyMgrPlugInImpl in 'WDPlugIn\Impl\KeyFairyMgrPlugInImpl.pas',
+  CommonGrid in 'Common\CommonGrid.pas';
 
 {$R *.res}
 

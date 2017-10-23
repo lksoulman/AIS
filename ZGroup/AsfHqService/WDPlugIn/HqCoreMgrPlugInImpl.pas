@@ -28,9 +28,9 @@ type
     FHqCoreMgr: IHqCoreMgr;
   protected
   public
-    // Constructor method
+    // Constructor
     constructor Create; override;
-    // Destructor method
+    // Destructor
     destructor Destroy; override;
 
     { IPlugIn }

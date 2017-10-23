@@ -2,7 +2,7 @@ unit WFactoryImpl;
 
 ////////////////////////////////////////////////////////////////////////////////
 //
-// Description£º
+// Description£º Factory Interface implementation
 // Author£º      lksoulman
 // Date£º        2017-8-29
 // Comments£º    A dynamic library has only one implementation factory,
@@ -24,7 +24,7 @@ uses
 
 type
 
-  // Factory interface implementation
+  // Factory Interface implementation
   TWFactoryImpl = class(TAutoInterfacedObject, IWFactory)
   private
   protected
@@ -59,9 +59,9 @@ type
     // Application Context Interface
     FAppContext: IAppContext;
 
-    //
+    // Initialize
     procedure DoInitialize;
-    //
+    // Un Initialize
     procedure DoUnInitialize;
     // Register PlugIns
     procedure DoRegisterPlugIns; virtual;
@@ -83,6 +83,8 @@ type
     procedure Initialize(AContext: IInterface); virtual; safecall;
     // Releasing resources(only execute once)
     procedure UnInitialize; virtual; safecall;
+    // Get Application Context
+    function GetAppContext: IInterface; safecall;
     // Get PlugIn
     function GetPlugInById(APlugInId: Integer): IInterface; safecall;
     // Create interface
@@ -101,13 +103,10 @@ begin
   inherited;
   FPlugInRegisterInfos := TList<PWRegisterInfo>.Create;
   FPlugInRegisterInfoDic := TDictionary<Integer, PWRegisterInfo>.Create(15);
-  DoRegisterPlugIns;
-  DoInitializationPlugIns;
 end;
 
 destructor TWFactoryImpl.Destroy;
 begin
-  DoUnRegisterPlugIns;
   FPlugInRegisterInfoDic.Free;
   FPlugInRegisterInfos.Free;
   inherited;
@@ -123,6 +122,11 @@ procedure TWFactoryImpl.UnInitialize;
 begin
   DoUnInitialize;
   FAppContext := nil;
+end;
+
+function TWFactoryImpl.GetAppContext: IInterface;
+begin
+  Result := FAppContext;
 end;
 
 function TWFactoryImpl.GetPlugInById(APlugInId: Integer): IInterface;
@@ -150,33 +154,14 @@ begin
 end;
 
 procedure TWFactoryImpl.DoInitialize;
-var
-  LIndex: Integer;
-  LPWRegisterInfo: PWRegisterInfo;
 begin
-  for LIndex := 0 to FPlugInRegisterInfos.Count - 1 do begin
-    LPWRegisterInfo := FPlugInRegisterInfos.Items[LIndex];
-    if (LPWRegisterInfo <> nil)
-      and (LPWRegisterInfo^.FLoadModeType = lmInitialization)
-      and (LPWRegisterInfo^.FInterface <> nil) then begin
-      (LPWRegisterInfo^.FInterface as IPlugIn).Initialize(FAppContext);
-    end;
-  end;
+  DoRegisterPlugIns;
+  DoInitializationPlugIns;
 end;
 
 procedure TWFactoryImpl.DoUnInitialize;
-var
-  LIndex: Integer;
-  LPWRegisterInfo: PWRegisterInfo;
 begin
-  for LIndex := FPlugInRegisterInfos.Count - 1 downto 0 do begin
-    LPWRegisterInfo := FPlugInRegisterInfos.Items[LIndex];
-    if (LPWRegisterInfo <> nil)
-      and (LPWRegisterInfo^.FLoadModeType = lmInitialization)
-      and (LPWRegisterInfo^.FInterface <> nil) then begin
-      (LPWRegisterInfo^.FInterface as IPlugIn).UnInitialize;
-    end;
-  end;
+  DoUnRegisterPlugIns;
 end;
 
 procedure TWFactoryImpl.DoRegisterPlugIns;
@@ -223,6 +208,7 @@ begin
       begin
         if APWRegisterInfo^.FInterface = nil then begin
           APWRegisterInfo^.FInterface := APWRegisterInfo^.FPlugInImplClass.Create as IInterface;
+          (APWRegisterInfo^.FInterface as IPlugIn).Initialize(FAppContext);
         end;
         Result := APWRegisterInfo^.FInterface;
       end;

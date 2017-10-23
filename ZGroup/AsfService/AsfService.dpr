@@ -13,8 +13,32 @@ library AsfService;
 uses
   System.SysUtils,
   System.Classes,
-  FactoryAsfServiceExport in 'WExport\FactoryAsfServiceExport.pas',
-  FactoryAsfServiceImpl in 'WExport\Impl\FactoryAsfServiceImpl.pas';
+  WExport in 'WExport\WExport.pas',
+  FactoryAsfServiceImpl in 'WExport\Impl\FactoryAsfServiceImpl.pas',
+  WaitMode in 'WaitMode\WaitMode.pas',
+  Protocol in 'Protocol\Protocol.pas',
+  Proxy in 'Proxy\Proxy.pas',
+  GFDataImpl in 'GFData\Impl\GFDataImpl.pas',
+  HttpContext in 'HttpContext\HttpContext.pas',
+  HttpContextPool in 'HttpContext\HttpContextPool.pas',
+  Executors in 'Executor\Executors.pas',
+  HttpExecutor in 'Executor\HttpExecutor.pas',
+  HttpExecutorImpl in 'Executor\Impl\HttpExecutorImpl.pas',
+  Channel in 'Channel\Channel.pas',
+  PostChannel in 'Channel\PostChannel.pas',
+  JsonChannel in 'Channel\JsonChannel.pas',
+  EDCryptChannel in 'Channel\EDCryptChannel.pas',
+  CompressChannel in 'Channel\CompressChannel.pas',
+  ChannelPipeLine in 'ChannelPipeLine\ChannelPipeLine.pas',
+  JsonChannelPipeLine in 'ChannelPipeLine\JsonChannelPipeLine.pas',
+  AbstractServiceImpl in 'AbstractService\Impl\AbstractServiceImpl.pas',
+  ShareMgr in 'ShareMgr\ShareMgr.pas',
+  ShareMgrImpl in 'ShareMgr\Impl\ShareMgrImpl.pas',
+  GFDataParser in 'GFData\GFDataParser.pas',
+  BasicServiceImpl in 'BasicService\Impl\BasicServiceImpl.pas',
+  AssetServiceImpl in 'AssetService\Impl\AssetServiceImpl.pas',
+  BasicServicePlugInImpl in 'WDPlugIn\Impl\BasicServicePlugInImpl.pas',
+  AssetServicePlugInImpl in 'WDPlugIn\Impl\AssetServicePlugInImpl.pas';
 
 {$R *.res}
 

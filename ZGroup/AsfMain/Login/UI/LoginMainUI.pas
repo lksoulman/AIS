@@ -2,7 +2,7 @@ unit LoginMainUI;
 
 ////////////////////////////////////////////////////////////////////////////////
 //
-// Description：
+// Description： Login Main UI
 // Author：      lksoulman
 // Date：        2017-8-12
 // Comments：
@@ -31,8 +31,7 @@ uses
   RzButton,
   RzRadChk,
   RzPrgres,
-  Config,
-  LoginMgr,
+  Cfg,
   AppContext;
 
 const
@@ -107,7 +106,7 @@ type
     procedure edtCipherPasswordChange(Sender: TObject);
   private
     // 配置接口
-    FConfig: IConfig;
+    FCfg: ICfg;
     // 应用程序上下文接口
     FAppContext: IAppContext;
     // 登录回调方法
@@ -176,7 +175,7 @@ begin
   DoInitWindow;
 end;
 
-Destructor TLoginMainUI.Destroy();
+destructor TLoginMainUI.Destroy;
 begin
 
   inherited;
@@ -185,13 +184,13 @@ end;
 procedure TLoginMainUI.Initialize(AContext: IAppContext);
 begin
   FAppContext := AContext;
-  FConfig := FAppContext.GetConfig as IConfig;
+  FCfg := FAppContext.GetCfg;
   DoInitWindowImages;
 end;
 
 procedure TLoginMainUI.UnInitialize;
 begin
-  FConfig := nil;
+  FCfg := nil;
   FAppContext := nil;
 end;
 
@@ -200,6 +199,8 @@ begin
   DoSetUserInfoToWindow;
   if ShowModal = mrOk then begin
     Result := mrOk;
+  end else begin
+    Result := mrCancel;
   end;
 end;
 
@@ -211,8 +212,8 @@ begin
   try
     LLoginBindUI.PopupParent := Self;
     if LLoginBindUI.ShowModal = mrOk then begin
-      if FConfig <> nil then begin
-        FConfig.GetUserInfo.SetUserName(LLoginBindUI.GetBindAccount);
+      if FCfg <> nil then begin
+        FCfg.GetSysCfg.GetUserInfo.GetGilAccountInfo.FUserName := LLoginBindUI.GetBindAccount;
       end;
       Result := mrOk;
     end else begin
@@ -259,13 +260,13 @@ var
   LUserName: string;
   LPassword: string;
 begin
-  if FConfig <> nil then begin
-    case FConfig.GetUserInfo.GetAccountType of
+  if FCfg <> nil then begin
+    case FCfg.GetSysCfg.GetUserInfo.GetAccountType of
       atUFX:
         begin
-          LUserName := FConfig.GetUserInfo.GetAssetUserName;
-          if FConfig.GetUserInfo.GetSavePassword then begin
-            LPassword := FConfig.GetUserInfo.GetAssetUserPassword;
+          LUserName := FCfg.GetSysCfg.GetUserInfo.GetUFXAccountInfo.FUserName;
+          if FCfg.GetSysCfg.GetUserInfo.GetSavePassword then begin
+            LPassword := FCfg.GetSysCfg.GetUserInfo.GetUFXAccountInfo.FPassword;
             ckbIsSavePassword.Checked := True;
           end else begin
             LPassword := '';
@@ -273,9 +274,9 @@ begin
         end;
       atGIL:
         begin
-          LUserName := FConfig.GetUserInfo.GetUserName;
-          if FConfig.GetUserInfo.GetSavePassword then begin
-            LPassword := FConfig.GetUserInfo.GetCiperUserPassword;
+          LUserName := FCfg.GetSysCfg.GetUserInfo.GetGilAccountInfo.FUserName;
+          if FCfg.GetSysCfg.GetUserInfo.GetSavePassword then begin
+            LPassword := FCfg.GetSysCfg.GetUserInfo.GetGilAccountInfo.FPassword;
             ckbIsSavePassword.Checked := True;
           end else begin
             LPassword := '';
@@ -283,9 +284,9 @@ begin
         end;
       atPBOX:
         begin
-          LUserName := FConfig.GetUserInfo.GetAssetUserName;
-          if FConfig.GetUserInfo.GetSavePassword then begin
-            LPassword := FConfig.GetUserInfo.GetAssetUserPassword;
+          LUserName := FCfg.GetSysCfg.GetUserInfo.GetPBoxAccountInfo.FUserName;
+          if FCfg.GetSysCfg.GetUserInfo.GetSavePassword then begin
+            LPassword := FCfg.GetSysCfg.GetUserInfo.GetPBoxAccountInfo.FPassword;
             ckbIsSavePassword.Checked := True;
           end else begin
             LPassword := '';
@@ -315,25 +316,25 @@ end;
 
 procedure TLoginMainUI.DoSetWindowToUserInfo;
 begin
-  if FConfig <> nil then begin
-    case FConfig.GetUserInfo.GetAccountType of
+  if FCfg <> nil then begin
+    case FCfg.GetSysCfg.GetUserInfo.GetAccountType of
       atUFX:
         begin
-          FConfig.GetUserInfo.SetAssetUserName(edtUserName.Text);
-          FConfig.GetUserInfo.SetAssetUserPassword(edtCipherPassword.Text);
-          FConfig.GetUserInfo.SetSavePassword(ckbIsSavePassword.Checked);
+          FCfg.GetSysCfg.GetUserInfo.GetUFXAccountInfo^.FUserName := edtUserName.Text;
+          FCfg.GetSysCfg.GetUserInfo.GetUFXAccountInfo^.FPassword := edtCipherPassword.Text;
+          FCfg.GetSysCfg.GetUserInfo.SetSavePassword(ckbIsSavePassword.Checked);
         end;
       atGIL:
         begin
-          FConfig.GetUserInfo.SetUserName(edtUserName.Text);
-          FConfig.GetUserInfo.SetUserPassword(edtCipherPassword.Text);
-          FConfig.GetUserInfo.SetSavePassword(ckbIsSavePassword.Checked);
+          FCfg.GetSysCfg.GetUserInfo.GetGilAccountInfo^.FUserName := edtUserName.Text;
+          FCfg.GetSysCfg.GetUserInfo.GetGilAccountInfo^.FPassword := edtCipherPassword.Text;
+          FCfg.GetSysCfg.GetUserInfo.SetSavePassword(ckbIsSavePassword.Checked);
         end;
       atPBOX:
         begin
-          FConfig.GetUserInfo.SetAssetUserName(edtUserName.Text);
-          FConfig.GetUserInfo.SetAssetUserPassword(edtCipherPassword.Text);
-          FConfig.GetUserInfo.SetSavePassword(ckbIsSavePassword.Checked);
+          FCfg.GetSysCfg.GetUserInfo.GetPBoxAccountInfo^.FUserName := edtUserName.Text;
+          FCfg.GetSysCfg.GetUserInfo.GetPBoxAccountInfo^.FPassword := edtCipherPassword.Text;
+          FCfg.GetSysCfg.GetUserInfo.SetSavePassword(ckbIsSavePassword.Checked);
         end;
     end;
   end;
@@ -366,9 +367,9 @@ var
   LFile: string;
 begin
   if AImage = nil then Exit;
-  if FConfig = nil then Exit;
+  if FCfg = nil then Exit;
 
-  LFile := FConfig.GetSkinPath + 'Login\' + AImageName;
+  LFile := FCfg.GetSkinPath + 'Login\' + AImageName;
   if FileExists(LFile) then begin
     AImage.Picture.LoadFromFile(LFile);
   end;
@@ -524,7 +525,6 @@ begin
   // 表示登录成功
   if LResult then begin
     ModalResult := mrOk;
-//    Hide;
   end;
 end;
 
@@ -577,6 +577,8 @@ end;
 
 procedure TLoginMainUI.imgSettingMouseLeave(Sender: TObject);
 begin
+  if not Self.Visible then Exit;
+
   if (Sender as TImage).Tag = 0 then begin
     DoLoadImage(imgSetting, 'Setting.png')
   end else begin

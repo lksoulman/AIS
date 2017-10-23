@@ -13,7 +13,7 @@ library AsfCmd;
 uses
   System.SysUtils,
   System.Classes,
-  FactoryAsfCmdExport in 'WExport\FactoryAsfCmdExport.pas',
+  WExport in 'WExport\WExport.pas',
   FactoryAsfCmdImpl in 'WExport\Impl\FactoryAsfCmdImpl.pas',
   BehaviorItem in 'Behavior\BehaviorItem.pas',
   BehaviorItemPool in 'Behavior\BehaviorItemPool.pas',

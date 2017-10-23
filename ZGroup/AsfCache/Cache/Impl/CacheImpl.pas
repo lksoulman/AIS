@@ -2,7 +2,7 @@ unit CacheImpl;
 
 ////////////////////////////////////////////////////////////////////////////////
 //
-// Description：
+// Description： Cache Implementation
 // Author：      lksoulman
 // Date：        2017-8-8
 // Comments：
@@ -13,6 +13,7 @@ interface
 
 uses
   Vcl.Forms,
+  GFData,
   CacheGF,
   Windows,
   Classes,
@@ -27,111 +28,109 @@ uses
   WNDataSetInf,
   SyncAsyncImpl,
   SQLiteAdapter,
-  GFDataMngr_TLB,
   ExecutorThread,
   CacheOperateType,
   Generics.Collections;
 
 const
-  DLLNAME_SQLITE = 'Sqlite.dll';
+  DLLNAME_SQLITE = 'AsfLib/AsfSqlite.dll';    //Sqlite.dll
   REPLACE_STR_JSID      = '!JSID';
 
 type
 
+  // Cache Implementation
   TCacheImpl = class(TSyncAsyncImpl)
   private
   protected
-    // Cache 名称
+    // Cache Name
     FName: string;
-    // 是不是初始化
+    // Is Init
     FIsInit: Boolean;
-    // 配置文件
+    // Cfg File
     FCfgFile: string;
-    // GF 请求数据类型
+    // Service Type
     FServiceType: TServiceType;
-    // 系统表
+    // System Table
     FSysTable: TCacheTable;
-    // 基础数据表
+    // Tables
     FTables: TList<TCacheTable>;
-    // 表名称字典
+    // Table Dictionary
     FTableDic: TDictionary<string, TCacheTable>;
-    // 指标数据队列
+    // Cache GF Queue
     FCacheGFQueue: TSafeSemaphoreQueue<TCacheGF>;
-    // 应用程序上下文接口
-    FAppContext: IAppContext;
-    // 数据库连接工具
+    // Cache DataBase Adapter
     FCacheDataAdapter: TSQLiteAdapter;
-    // 处理指标数据的队列
+    // Handle Indicator Data Thread
     FHandleIndicatorDataThread: TExecutorThread;
 
-    // 加载表配置
+    // Load Table Config
     procedure LoadTables;
-    // 释放表配置
+    // Un Load Table Config
     procedure UnLoadTables;
-    // 初始化连接缓存
+    // Init Connection Cache
     procedure InitConnCache;
-    // 释放连接缓存
+    // Un Init Connection Cache
     procedure UnInitConnCache;
-    // 初始化系统表
+    // Init SysTable
     procedure InitSysTable;
-    // 初始化数据表
+    // Init Data Table
     procedure InitDataTables;
-    // 清理List中多张表
+    // Clear List Table
     procedure ClearListTables;
 
-    // 关联两个 DB
+    // Set Attach DB
     procedure SetAttachDB(ADBFile, ADBAlias, APassword: string);
-    // 更新系统表
+    // Update System Table
     procedure UpdateSysTable(ATable: TCacheTable);
-    // 更新数据集到表里
+    // Update Data
     procedure UpdateData(ADataSet: IWNDataSet; ATable: TCacheTable; AFields: TList<IWNField>; AJSIDField: IWNField);
-    // 删除指标数据从表里面
+    // Delete Data
     procedure DeleteData(ADataSet: IWNDataSet; ATable: TCacheTable; AIDField: IWNField; AJSIDField: IWNField);
 
-    // 创建临时表
+    // Create Temp Table
     procedure CreateTempTable(ATable: TCacheTable);
-    // 删除临时表
+    // Delete Temp Table
     procedure DeleteTempTable(ATable: TCacheTable);
-    // 创建临时删除表
+    // Create Temp Delete Table
     procedure CreateTempDeleteTable(ATable: TCacheTable);
-    // 删除临时删除表
+    // Delete Temp Delete Table
     procedure DeleteTempDeleteTable(ATable: TCacheTable);
-    // 创建表
+    // Create Table By Node
     function CreateTableByNode(ANode: TXmlNode): TCacheTable;
-    // 通过下标获取表
+    // Get Table By Index
     function GetTableByIndex(AIndex: Integer): TCacheTable;
 
 
-    // 同步更新数据到缓存
+    // Update Cache Data
     procedure DoUpdateCacheData(ATable: TCacheTable; ADataSet: IWNDataSet);
-    // 同步删除数据从缓存
+    // Delete Cache Data
     procedure DoDeleteCacheData(ATable: TCacheTable; ADataSet: IWNDataSet);
-    // 同步更新数据
+    // Sync Update Data
     procedure DoSyncUpdateData;
-    // 同步删除数据
+    // Sync Delete Data
     procedure DoSyncDeleteData;
-    // 同步从表里面更新数据后处理
+    // After Sync Update Cache Data
     procedure DoAfterSyncUpdateCacheData(ATable: TCacheTable; ADataSet: IWNDataSet); virtual;
-    // 同步从表里面删除数据后处理
+    // After Sync Delete Cache Data
     procedure DoAfterSyncDeleteCacheData(ATable: TCacheTable; ADataSet: IWNDataSet); virtual;
-    // 异步调用指标获取更新数据
+    // ASync Update Data
     procedure DoASyncUpdateData;
-    // 异步调用指标获取删除数据
+    // ASync Delete Data
     procedure DoASyncDeleteData;
-    // 异步指标获取更新返回回调
-    procedure GFUpdateDataArrive(const GFData: IGFData);
-    // 异步指标获取删除返回回调
-    procedure GFDeleteDataArrive(const GFData: IGFData);
-    // 线程处理数据队列
+    // ASync Update Data Arrive
+    procedure GFUpdateDataArrive(AGFData: IGFData);
+    // ASync Delete Data Arrive
+    procedure GFDeleteDataArrive(AGFData: IGFData);
+    // Handle Data Queue Thread Execute
     procedure DoHandleDataQueueThreadExecute(Sender: TObject);
-    // 异步从表里面更新数据后处理
+    // After ASync Update Cache Data
     procedure DoAfterASyncUpdateCacheData(ATable: TCacheTable; ADataSet: IWNDataSet); virtual;
-    // 异步从表里面删除数据后处理
+    // After ASync Delete Cache Data
     procedure DoAfterASyncDeleteCacheData(ATable: TCacheTable; ADataSet: IWNDataSet); virtual;
   public
-    // Constructor method
+    // Constructor
     constructor Create; override;
-    // Destructor method
+    // Destructor
     destructor Destroy; override;
 
     { ISyncAsync }
@@ -147,7 +146,7 @@ type
     // Obtain dependency
     function Dependences: WideString; override;
 
-    // 判断 Cache 是不是存在表
+    // Is Exist Cache Table
     function IsExistCacheTable(AName: string): Boolean;
   end;
 
@@ -156,8 +155,7 @@ implementation
 uses
   DB,
   Utils,
-  FastLogLevel,
-  AsfSdkExport;
+  LogLevel;
 
 const
   // XML 配置文件
@@ -199,7 +197,7 @@ constructor TCacheImpl.Create;
 begin
   inherited;
   FIsInit := False;
-  FServiceType := stBase;
+  FServiceType := stBasic;
   FTables := TList<TCacheTable>.Create;
   FTableDic := TDictionary<string, TCacheTable>.Create;
   FCacheGFQueue := TSafeSemaphoreQueue<TCacheGF>.Create;
@@ -222,12 +220,12 @@ end;
 procedure TCacheImpl.Initialize(AContext: IAppContext);
 begin
   inherited Initialize(AContext);
-
+  FCacheDataAdapter.Initialize(AContext);
 end;
 
 procedure TCacheImpl.UnInitialize;
 begin
-
+  FCacheDataAdapter.UnInitialize;
   inherited UnInitialize;
 end;
 
@@ -299,7 +297,9 @@ begin
 
         FSysTable := CreateTableByNode(LNode.FindNode(XML_NODE_SYSTable));
         if FSysTable = nil then begin
-          FastSysLog(llError, Format('[%s][LoadTables][%s] Cache create table is nil.', [Self.ClassName, XML_NODE_SYSTable]));
+          if FAppContext <> nil then begin
+            FAppContext.SysLog(llError, Format('[%s][LoadTables][%s] Cache create table is nil.', [Self.ClassName, XML_NODE_SYSTable]));
+          end;
           Exit;
         end;
 
@@ -313,7 +313,9 @@ begin
               LTable.IndexID := FTables.Add(LTable);
               FTableDic.AddOrSetValue(LTable.Name, LTable);
             end else begin
-              FastSysLog(llError, Format('[%s][LoadTables] Cache create table is nil.', [Self.ClassName]));
+              if FAppContext <> nil then begin
+                FAppContext.SysLog(llError, Format('[%s][LoadTables] Cache create table is nil.', [Self.ClassName]));
+              end;
               Exit;
             end;
           end;
@@ -328,7 +330,9 @@ begin
 {$IFDEF DEBUG}
   finally
     LTick := GetTickCount - LTick;
-    FastSysLog(llSLOW, Format('[%s][LoadTables] Execute use time is %d ms.', [Self.ClassName, LTick]), LTick);
+    if FAppContext <> nil then begin
+      FAppContext.SysLog(llSLOW, Format('[%s][LoadTables] Execute use time is %d ms.', [Self.ClassName, LTick]), LTick);
+    end;
   end;
 {$ENDIF}
 end;
@@ -394,7 +398,9 @@ begin
 {$IFDEF DEBUG}
   finally
     LTick := GetTickCount - LTick;
-    FastSysLog(llSLOW, Format('[%s][InitSysTable] Execute use time is %d ms.', [Self.ClassName, LTick]), LTick);
+    if FAppContext <> nil then begin
+      FAppContext.SysLog(llSLOW, Format('[%s][InitSysTable] Execute use time is %d ms.', [Self.ClassName, LTick]), LTick);
+    end;
   end;
 {$ENDIF}
 end;
@@ -424,7 +430,9 @@ begin
 {$IFDEF DEBUG}
   finally
     LTick := GetTickCount - LTick;
-    FastSysLog(llSLOW, Format('[%s][InitDataTables] Execute use time is %d ms.', [Self.ClassName, LTick]), LTick);
+    if FAppContext <> nil then begin
+      FAppContext.SysLog(llSLOW, Format('[%s][InitDataTables] Execute use time is %d ms.', [Self.ClassName, LTick]), LTick);
+    end;
   end;
 {$ENDIF}
 end;
@@ -484,7 +492,9 @@ begin
         end;
       except
         on Ex: Exception do begin
-          FastSysLog(llERROR, Format('[%s][UpdateData] Update is exception, exception is %s.', [Self.ClassName, Ex.Message]));
+          if FAppContext <> nil then begin
+            FAppContext.SysLog(llERROR, Format('[%s][UpdateData] Update is exception, exception is %s.', [Self.ClassName, Ex.Message]));
+          end;
         end;
       end;
     finally
@@ -541,7 +551,9 @@ begin
         end;
       except
         on Ex: Exception do begin
-          FastSysLog(llERROR, Format('[%s][DeleteData] Delete is exception, exception is %s.', [Self.ClassName, Ex.Message]));
+          if FAppContext <> nil then begin
+            FAppContext.SysLog(llERROR, Format('[%s][DeleteData] Delete is exception, exception is %s.', [Self.ClassName, Ex.Message]));
+          end;
         end;
       end;
     finally
@@ -680,7 +692,7 @@ begin
         if LTable.Indicator <> '' then begin
           LIndicator := StringReplace(LTable.Indicator, REPLACE_STR_JSID,
             IntToStr(LTable.MaxJSID), [rfReplaceAll]);
-          LDataSet := FAppContext.GFSyncHighQuery(FServiceType, LIndicator, LTable.IndexID, INFINITE);
+          LDataSet := FAppContext.GFPrioritySyncQuery(FServiceType, LIndicator, INFINITE);
           if LDataSet <> nil then begin
             DoUpdateCacheData(LTable, LDataSet);
             DoAfterSyncUpdateCacheData(LTable, LDataSet);
@@ -689,14 +701,18 @@ begin
         end;
       finally
         LTableTick := GetTickCount - LTableTick;
-        FastSysLog(llSLOW, Format('[%s][DoSyncDeleteData][Table][%s] Sync use time is %d ms.', [Self.ClassName, LTable.Name, LTableTick]), LTableTick);
+        if FAppContext <> nil then begin
+          FAppContext.SysLog(llSLOW, Format('[%s][DoSyncDeleteData][Table][%s] Sync use time is %d ms.', [Self.ClassName, LTable.Name, LTableTick]), LTableTick);
+        end;
       end;
     end;
 
 {$IFDEF DEBUG}
   finally
     LTick := GetTickCount - LTick;
-    FastSysLog(llSLOW, Format('[%s][DoSyncUpdateData] Execute use time is %d ms.', [Self.ClassName, LTick]), LTick);
+    if FAppContext <> nil then begin
+      FAppContext.SysLog(llSLOW, Format('[%s][DoSyncUpdateData] Execute use time is %d ms.', [Self.ClassName, LTick]), LTick);
+    end;
   end;
 {$ENDIF}
 end;
@@ -729,7 +745,7 @@ begin
         if LTable.DeleteIndicator <> '' then begin
           LIndicator := StringReplace(LTable.DeleteIndicator, REPLACE_STR_JSID,
             IntToStr(LTable.DelJSID), [rfReplaceAll]);
-          LDataSet := FAppContext.GFSyncHighQuery(FServiceType, LIndicator, LTable.IndexID, INFINITE);
+          LDataSet := FAppContext.GFPrioritySyncQuery(FServiceType, LIndicator, INFINITE);
           if LDataSet <> nil then begin
             DoDeleteCacheData(LTable, LDataSet);
             DoAfterSyncDeleteCacheData(LTable, LDataSet);
@@ -738,14 +754,18 @@ begin
         end;
       finally
         LTableTick := GetTickCount - LTableTick;
-        FastSysLog(llSLOW, Format('[%s][DoSyncDeleteData][Table][%s] Sync use time is %d ms.', [Self.ClassName, LTable.Name, LTableTick]), LTableTick);
+        if FAppContext <> nil then begin
+          FAppContext.SysLog(llSLOW, Format('[%s][DoSyncDeleteData][Table][%s] Sync use time is %d ms.', [Self.ClassName, LTable.Name, LTableTick]), LTableTick);
+        end;
       end;
     end;
 
 {$IFDEF DEBUG}
   finally
     LTick := GetTickCount - LTick;
-    FastSysLog(llSLOW, Format('[%s][DoSyncDeleteData] Execute use time is %d ms.', [Self.ClassName, LTick]), LTick);
+    if FAppContext <> nil then begin
+      FAppContext.SysLog(llSLOW, Format('[%s][DoSyncDeleteData] Execute use time is %d ms.', [Self.ClassName, LTick]), LTick);
+    end;
   end;
 {$ENDIF}
 end;
@@ -765,7 +785,6 @@ var
 {$IFDEF DEBUG}
   LTick: Cardinal;
 {$ENDIF}
-  LEvent: Int64;
   LIndex: Integer;
   LIndicator: string;
   LTable: TCacheTable;
@@ -774,21 +793,22 @@ begin
   LTick := GetTickCount;
   try
 {$ENDIF}
-    LEvent := 0;
-    TOnGFDataArrive(LEvent) := GFUpdateDataArrive;
+
     for LIndex := 0 to FTables.Count - 1 do begin
       LTable := FTables.Items[LIndex];
       if LTable.Indicator <> '' then begin
         LIndicator := StringReplace(LTable.Indicator, REPLACE_STR_JSID,
           IntToStr(LTable.MaxJSID), [rfReplaceAll]);
-        FAppContext.GFASyncQuery(FServiceType, LIndicator, LEvent, LTable.IndexID);
+        FAppContext.GFASyncQuery(FServiceType, LIndicator, GFUpdateDataArrive, LTable.IndexID);
       end;
     end;
 
 {$IFDEF DEBUG}
   finally
     LTick := GetTickCount - LTick;
-    FastSysLog(llSLOW, Format('[%s][DoASyncUpdateData] Execute use time is %d ms.', [Self.ClassName, LTick]), LTick);
+    if FAppContext <> nil then begin
+      FAppContext.SysLog(llSLOW, Format('[%s][DoASyncUpdateData] Execute use time is %d ms.', [Self.ClassName, LTick]), LTick);
+    end;
   end;
 {$ENDIF}
 end;
@@ -798,7 +818,6 @@ var
 {$IFDEF DEBUG}
   LTick: Cardinal;
 {$ENDIF}
-  LEvent: Int64;
   LIndex: Integer;
   LIndicator: string;
   LTable: TCacheTable;
@@ -807,36 +826,37 @@ begin
   LTick := GetTickCount;
   try
 {$ENDIF}
-     LEvent := 0;
-    TOnGFDataArrive(LEvent) := GFUpdateDataArrive;
+
     for LIndex := 0 to FTables.Count - 1 do begin
       LTable := FTables.Items[LIndex];
       if LTable.DeleteIndicator <> '' then begin
         LIndicator := StringReplace(LTable.DeleteIndicator, REPLACE_STR_JSID,
           IntToStr(LTable.DelJSID), [rfReplaceAll]);
-        FAppContext.GFASyncQuery(FServiceType, LIndicator, LEvent, LTable.IndexID);
+        FAppContext.GFASyncQuery(FServiceType, LIndicator, GFUpdateDataArrive, LTable.IndexID);
       end;
     end;
 
 {$IFDEF DEBUG}
   finally
     LTick := GetTickCount - LTick;
-    FastSysLog(llSLOW, Format('[%s][DoASyncDeleteData] Execute use time is %d ms.', [Self.ClassName, LTick]), LTick);
+    if FAppContext <> nil then begin
+      FAppContext.SysLog(llSLOW, Format('[%s][DoASyncDeleteData] Execute use time is %d ms.', [Self.ClassName, LTick]), LTick);
+    end;
   end;
 {$ENDIF}
 end;
 
-procedure TCacheImpl.GFUpdateDataArrive(const GFData: IGFData);
+procedure TCacheImpl.GFUpdateDataArrive(AGFData: IGFData);
 var
   LCacheGF: TCacheGF;
   LDateSet: IWNDataSet;
 begin
-  if GFData.Succeed then begin
-    LDateSet := Utils.GFData2WNDataSet(GFData);
+  if AGFData.GetErrorCode = ERROR_SUCCESS then begin
+    LDateSet := Utils.GFData2WNDataSet(AGFData);
     if (LDateSet <> nil)
       and (LDateSet.RecordCount > 0) then begin
       LCacheGF := TCacheGF.Create;
-      LCacheGF.ID := GFData.Tag;
+      LCacheGF.ID := AGFData.GetKey;
       LCacheGF.DataSet := LDateSet;
       LCacheGF.OperateType := coInsert;
       FCacheGFQueue.Enqueue(LCacheGF);
@@ -845,17 +865,17 @@ begin
   end;
 end;
 
-procedure TCacheImpl.GFDeleteDataArrive(const GFData: IGFData);
+procedure TCacheImpl.GFDeleteDataArrive(AGFData: IGFData);
 var
   LDateSet: IWNDataSet;
   LCacheGF: TCacheGF;
 begin
-  if GFData.Succeed then begin
-    LDateSet := Utils.GFData2WNDataSet(GFData);
+  if AGFData.GetErrorCode = ERROR_SUCCESS then begin
+    LDateSet := Utils.GFData2WNDataSet(AGFData);
     if (LDateSet <> nil)
       and (LDateSet.RecordCount > 0) then begin
       LCacheGF := TCacheGF.Create;
-      LCacheGF.ID := GFData.Tag;
+      LCacheGF.ID := AGFData.GetKey;
       LCacheGF.DataSet := LDateSet;
       LCacheGF.OperateType := coDelete;
       FCacheGFQueue.Enqueue(LCacheGF);

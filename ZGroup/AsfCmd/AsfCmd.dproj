@@ -5,7 +5,7 @@
         <FrameworkType>None</FrameworkType>
         <MainSource>AsfCmd.dpr</MainSource>
         <Base>True</Base>
-        <Config Condition="'$(Config)'==''">Release</Config>
+        <Config Condition="'$(Config)'==''">Debug</Config>
         <Platform Condition="'$(Platform)'==''">Win32</Platform>
         <TargetedPlatforms>1</TargetedPlatforms>
         <AppType>Library</AppType>
@@ -109,7 +109,7 @@
         <DelphiCompile Include="$(MainSource)">
             <MainSource>MainSource</MainSource>
         </DelphiCompile>
-        <DCCReference Include="WExport\FactoryAsfCmdExport.pas"/>
+        <DCCReference Include="WExport\WExport.pas"/>
         <DCCReference Include="WExport\Impl\FactoryAsfCmdImpl.pas"/>
         <DCCReference Include="Behavior\BehaviorItem.pas"/>
         <DCCReference Include="Behavior\BehaviorItemPool.pas"/>

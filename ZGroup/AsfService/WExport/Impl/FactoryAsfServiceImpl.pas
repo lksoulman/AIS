@@ -40,6 +40,11 @@ var
 
 implementation
 
+uses
+  PlugInConst,
+  BasicServicePlugInImpl,
+  AssetServicePlugInImpl;
+
 { TFactoryAsfServiceImpl }
 
 constructor TFactoryAsfServiceImpl.Create;
@@ -56,8 +61,8 @@ end;
 
 procedure TFactoryAsfServiceImpl.DoRegisterPlugIns;
 begin
-
-
+  DoRegisterPlugIn(LIB_PLUGIN_ID_BASICSERVICE, itSingleInstance, lmLazy, TBasicServicePlugInImpl);
+  DoRegisterPlugIn(LIB_PLUGIN_ID_ASSETSERVICE, itSingleInstance, lmLazy, TAssetServicePlugInImpl);
 end;
 
 initialization

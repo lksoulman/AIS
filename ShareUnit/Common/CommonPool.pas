@@ -38,6 +38,10 @@ type
     function DoCreate: TObject; virtual; abstract;
     // Destroy
     procedure DoDestroy(AObject: TObject); virtual; abstract;
+    // Allocate Before
+    procedure DoAllocateBefore(AObject: TObject); virtual; abstract;
+    // DeAllocate Before
+    procedure DoDeAllocateBefore(AObject: TObject); virtual; abstract;
   public
     // Constructor
     constructor Create(APoolSize: Integer = 10); reintroduce;
@@ -66,9 +70,13 @@ type
     function DoCreate: Pointer; virtual; abstract;
     // Destroy
     procedure DoDestroy(APointer: Pointer); virtual; abstract;
+    // Allocate Before
+    procedure DoAllocateBefore(APointer: Pointer); virtual; abstract;
+    // DeAllocate Before
+    procedure DoDeAllocateBefore(APointer: Pointer); virtual; abstract;
   public
     // Constructor
-    constructor Create; override;
+    constructor Create(APoolSize: Integer = 10); reintroduce;
     // Destructor
     destructor Destroy; override;
     // Allocate
@@ -81,10 +89,10 @@ implementation
 
 { TObjectPool }
 
-constructor TObjectPool.Create;
+constructor TObjectPool.Create(APoolSize: Integer = 10);
 begin
-  inherited;
-  FPoolSize := 10;
+  inherited Create;
+  FPoolSize := APoolSize;
   FLock := TCSLock.Create;
   FQueue := TQueue<TObject>.Create;
 end;
@@ -116,6 +124,7 @@ begin
     end else begin
       Result := DoCreate;
     end;
+    DoAllocateBefore(Result);
   finally
     FLock.UnLock;
   end;
@@ -125,6 +134,7 @@ procedure TObjectPool.DeAllocate(AObject: TObject);
 begin
   FLock.Lock;
   try
+    DoDeAllocateBefore(AObject);
     if FQueue.Count < FPoolSize then begin
       FQueue.Enqueue(AObject);
     end else begin
@@ -137,10 +147,10 @@ end;
 
 { TPointerPool }
 
-constructor TPointerPool.Create;
+constructor TPointerPool.Create(APoolSize: Integer = 10);
 begin
-  inherited;
-  FPoolSize := 10;
+  inherited Create;
+  FPoolSize := APoolSize;
   FLock := TCSLock.Create;
   FQueue := TQueue<Pointer>.Create;
 end;
@@ -172,6 +182,7 @@ begin
     end else begin
       Result := DoCreate;
     end;
+    DoAllocateBefore(Result);
   finally
     FLock.UnLock;
   end;
@@ -181,6 +192,7 @@ procedure TPointerPool.DeAllocate(APointer: Pointer);
 begin
   FLock.Lock;
   try
+    DoDeAllocateBefore(APointer);
     if FQueue.Count < FPoolSize then begin
       FQueue.Enqueue(APointer);
     end else begin

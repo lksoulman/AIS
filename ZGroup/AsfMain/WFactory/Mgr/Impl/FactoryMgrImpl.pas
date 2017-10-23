@@ -2,7 +2,7 @@ unit FactoryMgrImpl;
 
 ////////////////////////////////////////////////////////////////////////////////
 //
-// Description£º
+// Description£º Factory Manager Interface Implementation
 // Author£º      lksoulman
 // Date£º        2017-8-29
 // Comments£º    Factory class management interface implementation of
@@ -13,6 +13,7 @@ unit FactoryMgrImpl;
 interface
 
 uses
+  PlugIn,
   Windows,
   Classes,
   SysUtils,
@@ -20,50 +21,42 @@ uses
   CommonLock,
   FactoryMgr,
   AppContext,
-  DynamicLib,
+  LibaryInfo,
   PlugInConst,
-
+  CommonQueue,
   CommonRefCounter,
   Generics.Collections;
 
 type
 
-  TGuidDynLibary = packed record
-    FName: string;
-    FGuid: string;
-  end;
-
-  TGuidDynLibaryDynArray = Array Of TGuidDynLibary;
-
-  // Factory class management interface implementation of multiple dynamic libraries
+  // Factory Manager Interface Implementation
   TFactoryMgrImpl = class(TAutoInterfacedObject, IFactoryMgr)
   private
-    // Thread Lock
+    // Lock
     FLock: TCSLock;
-    // Application Context Interface
+    // Application Context
     FAppContext: IAppContext;
-    // AIS.exe
-    FAsfMainLib: TDynamicLib;
-    // Dynamic Libary Count
-    FDynamicLibCount: Integer;
-    // Dynamic Libary Array
-    FDynamicLibs: TDynamicLibDynArray;
+    // PlugIn
+    FPlugIns: TSafeQueue<IPlugIn>;
+    // Libary Info Array
+    FLibaryInfos: TList<TLibaryInfo>;
 
-    // Add Dynamic Libary to Array
-    procedure AddDynamicLib(ADynamicLib: TDynamicLib);
-    //
-    function GetDynamicLib(AId: Integer): TDynamicLib;
-    // Add DynamicLib
-    function NewDynamicLib(AId: Integer; AName: string; AIsExe: Boolean): TDynamicLib;
+
+    // Get Libary Info
+    function GetLibaryInfo(AId: Integer): TLibaryInfo;
+    // Add Libary Info
+    function AddLibaryInfo(AId: Integer; AName: string; AIsExe: Boolean): TLibaryInfo;
   protected
-    // UnInit Dynamic libary
-    procedure DoInitDynamicLibs;
-    // UnInit Dynamic libary
-    procedure DoUnInitDynamicLibs;
+    // Clear PlugIn
+    procedure DoClearPlugIns;
+    // Init Libary Infos
+    procedure DoInitLibaryInfos;
+    // UnInit Libary Infos
+    procedure DoUnInitLibaryInfos;
   public
-    // constructor method
+    // Constructor
     constructor Create; override;
-    // destructor method
+    // Destructor
     destructor Destroy; override;
 
     { IFactoryMgr }
@@ -80,12 +73,6 @@ implementation
 
 uses
   Forms,
-  Config,
-  LoginMgr,
-  CipherMgr,
-  FastLogMgr,
-  ServiceBase,
-  ServiceAsset,
   FactoryAsfMainImpl;
 
 { TFactoryMgrImpl }
@@ -93,12 +80,15 @@ uses
 constructor TFactoryMgrImpl.Create;
 begin
   inherited;
-  FDynamicLibCount := 0;
   FLock := TCSLock.Create;
+  FPlugIns := TSafeQueue<IPlugIn>.Create;
+  FLibaryInfos := TList<TLibaryInfo>.Create;
 end;
 
 destructor TFactoryMgrImpl.Destroy;
 begin
+  FLibaryInfos.Free;
+  FPlugIns.Free;
   FLock.Free;
   inherited;
 end;
@@ -106,30 +96,36 @@ end;
 procedure TFactoryMgrImpl.Initialize(AContext: IInterface);
 begin
   FAppContext := AContext as IAppContext;
-  DoInitDynamicLibs;
+  DoInitLibaryInfos;
 end;
 
 procedure TFactoryMgrImpl.UnInitialize;
 begin
-  DoUnInitDynamicLibs;
+  DoClearPlugIns;
+  DoUnInitLibaryInfos;
   FAppContext := nil;
 end;
 
 function TFactoryMgrImpl.CreatePlugInById(APlugInId: Integer): IInterface;
 var
-  LDynamicLib: TDynamicLib;
+  LPlugIn: IPlugIn;
+  LLibaryInfo: TLibaryInfo;
 begin
   Result := nil;
   FLock.Lock;
   try
-    LDynamicLib := GetDynamicLib((APlugInId div 1000000) - 1);
-    if LDynamicLib <> nil then begin
-      if LDynamicLib.WFactory = nil then begin
-        LDynamicLib.CreateFactory;
-        LDynamicLib.Initialize(FAppContext);
+    LLibaryInfo := GetLibaryInfo(APlugInId);
+    if LLibaryInfo <> nil then begin
+      if LLibaryInfo.WFactory = nil then begin
+        LLibaryInfo.CreateFactory;
       end;
-      if LDynamicLib.WFactory <> nil then begin
-        Result := LDynamicLib.WFactory.CreatePlugInById(APlugInId);
+      if LLibaryInfo.WFactory <> nil then begin
+        Result := LLibaryInfo.WFactory.CreatePlugInById(APlugInId);
+        if Result <> nil then begin
+          LPlugIn := Result as IPlugIn;
+          FPlugIns.Enqueue(LPlugIn);
+          LPlugIn.SyncBlockExecute;
+        end;
       end;
     end;
   finally
@@ -137,56 +133,83 @@ begin
   end;
 end;
 
-procedure TFactoryMgrImpl.DoInitDynamicLibs;
+procedure TFactoryMgrImpl.DoClearPlugIns;
+var
+  LPlugIn: IPlugIn;
+begin
+  while not FPlugIns.IsEmpty do begin
+    LPlugIn := FPlugIns.Dequeue;
+    if LPlugIn <> nil then begin
+      LPlugIn.UnInitialize;
+      LPlugIn := nil;
+    end;
+  end;
+end;
+
+procedure TFactoryMgrImpl.DoInitLibaryInfos;
 var
   LExeName: string;
-  LDynamicLib: TDynamicLib;
+  LLibaryInfo: TLibaryInfo;
 begin
   LExeName := Application.ExeName;
   LExeName := ExtractFileName(LExeName);
-  FAsfMainLib := NewDynamicLib(DYN_LIB_ID_AIS, LExeName, True);
-  AddDynamicLib(FAsfMainLib);
-  LDynamicLib := NewDynamicLib(DYN_LIB_ID_ASFSDK, DYN_LIB_ASFSDK, False);
-  AddDynamicLib(LDynamicLib);
-  LDynamicLib := NewDynamicLib(DYN_LIB_ID_ASFAUTH, DYN_LIB_ASFAUTH, False);
-  AddDynamicLib(LDynamicLib);
-  LDynamicLib := NewDynamicLib(DYN_LIB_ID_ASFCACHE, DYN_LIB_ASFCACHE, False);
-  AddDynamicLib(LDynamicLib);
-  LDynamicLib := NewDynamicLib(DYN_LIB_ID_ASFHQCORE, DYN_LIB_ASFHQCORE, False);
-  AddDynamicLib(LDynamicLib);
-  LDynamicLib := NewDynamicLib(DYN_LIB_ID_ASFMSG, DYN_LIB_ASFMSG, False);
-  AddDynamicLib(LDynamicLib);
+  LLibaryInfo := AddLibaryInfo(LIB_ID_ASFMAIN, LExeName, True);
+  LLibaryInfo.Initialize(FAppContext);
+  LLibaryInfo.WFactory := G_WFactory as IWFactory;
+  LLibaryInfo.WFactory.Initialize(FAppContext);
+
+  LLibaryInfo := AddLibaryInfo(LIB_ID_ASFSERVICE, LIB_ASFSERVICE, False);
+  LLibaryInfo.Initialize(FAppContext);
+
+  LLibaryInfo := AddLibaryInfo(LIB_ID_ASFTOOL, LIB_ASFTOOL, False);
+  LLibaryInfo.Initialize(FAppContext);
+
+  LLibaryInfo := AddLibaryInfo(LIB_ID_ASFAUTH, LIB_ASFAUTH, False);
+  LLibaryInfo.Initialize(FAppContext);
+
+  LLibaryInfo := AddLibaryInfo(LIB_ID_ASFCACHE, LIB_ASFCACHE, False);
+  LLibaryInfo.Initialize(FAppContext);
+
+  LLibaryInfo := AddLibaryInfo(LIB_ID_ASFMEM, LIB_ASFMEM, False);
+  LLibaryInfo.Initialize(FAppContext);
+
+  LLibaryInfo := AddLibaryInfo(LIB_ID_ASFAUI, LIB_ASFAUI, False);
+  LLibaryInfo.Initialize(FAppContext);
 end;
 
-procedure TFactoryMgrImpl.DoUnInitDynamicLibs;
+procedure TFactoryMgrImpl.DoUnInitLibaryInfos;
+var
+  LIndex: Integer;
+  LLibaryInfo: TLibaryInfo;
 begin
- 
-
+  for LIndex := FLibaryInfos.Count - 1 downto 0 do begin
+    LLibaryInfo := FLibaryInfos.Items[LIndex];
+    LLibaryInfo.UnInitialize;
+    LLibaryInfo.Free;
+  end;
+  FLibaryInfos.Clear;
 end;
 
-procedure TFactoryMgrImpl.AddDynamicLib(ADynamicLib: TDynamicLib);
+function TFactoryMgrImpl.GetLibaryInfo(AId: Integer): TLibaryInfo;
+var
+  LIndex: Integer;
 begin
-  SetLength(FDynamicLibs, FDynamicLibCount + 1);
-  FDynamicLibs[FDynamicLibCount] := ADynamicLib;
-  Inc(FDynamicLibCount);
-end;
-
-function TFactoryMgrImpl.GetDynamicLib(AId: Integer): TDynamicLib;
-begin
-  if (AId >= 0)
-    and (AId < FDynamicLibCount) then begin
-    Result := FDynamicLibs[AId];
+  LIndex := AId div 1000000 - 1;
+  if (LIndex >= 0)
+    and (LIndex < FLibaryInfos.Count) then begin
+    Result := FLibaryInfos.Items[LIndex];
   end else begin
     Result := nil;
   end;
 end;
 
-function TFactoryMgrImpl.NewDynamicLib(AId: Integer; AName: string; AIsExe: Boolean): TDynamicLib;
+function TFactoryMgrImpl.AddLibaryInfo(AId: Integer; AName: string; AIsExe: Boolean): TLibaryInfo;
 begin
-  Result := TDynamicLib.Create;
+  Result := TLibaryInfo.Create;
   Result.Id := AId;
   Result.Name := AName;
   Result.IsExe := AIsExe;
+  FLibaryInfos.Add(Result);
 end;
 
 end.

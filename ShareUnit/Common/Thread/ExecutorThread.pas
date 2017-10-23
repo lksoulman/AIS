@@ -64,7 +64,7 @@ type
     // 启动
     function ResumeEx: LongBool;
     // 等待
-    function WaitForEx: LongWord;
+    function WaitForEx(AWaitTime: Cardinal = INFINITE): LongWord;
     // 线程是不是终止
     function IsTerminated: Boolean;
     // 提交执行接口
@@ -158,10 +158,10 @@ begin
   Result := Windows.ReleaseSemaphore(FSemaphore, 1, @tmpCount);
 end;
 
-function TExecutorThread.WaitForEx: LongWord;
+function TExecutorThread.WaitForEx(AWaitTime: Cardinal = INFINITE): LongWord;
 begin
   FWaitStartTime := GetTickCount;
-  Result := WaitForSingleObject(FSemaphore, INFINITE);
+  Result := WaitForSingleObject(FSemaphore, AWaitTime);
 end;
 
 function TExecutorThread.IsTerminated: boolean;

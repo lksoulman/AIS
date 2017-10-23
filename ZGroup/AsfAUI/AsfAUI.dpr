@@ -14,7 +14,27 @@ uses
   System.SysUtils,
   System.Classes,
   WExport in 'WExport\WExport.pas',
-  FactoryAsfAUIImpl in 'WExport\Impl\FactoryAsfAUIImpl.pas';
+  FactoryAsfAUIImpl in 'WExport\Impl\FactoryAsfAUIImpl.pas',
+  ImageUI in 'Common\ImageUI.pas',
+  RenderEngine in 'Common\RenderEngine.pas',
+  ButtonUI in 'Common\ButtonUI.pas',
+  ControlUI in 'Common\ControlUI.pas',
+  PageControlUI in 'Common\PageControlUI.pas',
+  FormUI in 'FormUI\FormUI.pas' {FormUI},
+  MDI in 'MDI\MDI.pas' {MDIForm},
+  MDIChild in 'MDIChild\MDIChild.pas' {MDIChildForm},
+  MainFrameUI in 'MainFrameUI\MainFrameUI.pas',
+  MainFrameUIImpl in 'MainFrameUI\Impl\MainFrameUIImpl.pas',
+  ImageButtonUI in 'Common\ImageButtonUI.pas',
+  amMouseWheel in 'Common\amMouseWheel.pas',
+  RenderClip in 'Common\RenderClip.pas',
+  RenderGdi in 'Common\RenderGdi.pas',
+  RenderDC in 'Common\RenderDC.pas',
+  FrameUI in 'Common\FrameUI.pas',
+  AppMenuUI in 'AppMenu\AppMenuUI.pas',
+  AppMenuButtonUI in 'AppMenu\AppMenuButtonUI.pas',
+  CommandInfo in 'Command\CommandInfo.pas',
+  MainFrameUIPlugInImpl in 'WDPlugIn\Impl\MainFrameUIPlugInImpl.pas';
 
 {$R *.res}
 

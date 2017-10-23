@@ -2,7 +2,7 @@ unit ExecutorScheduledImpl;
 
 ////////////////////////////////////////////////////////////////////////////////
 //
-// Description：
+// Description： Executor Scheduled Interface implementation
 // Author：      lksoulman
 // Date：        2017-5-1
 // Comments：    {Doug Lea thread}
@@ -20,16 +20,18 @@ uses
   CommonQueue,
   ExecutorTask,
   ExecutorThread,
+  ExecutorService,
   CommonRefCounter,
   ExecutorScheduled,
   Generics.Collections;
 
 type
 
+  // Executor Scheduled Interface implementation
   TExecutorScheduledImpl = class(TAutoInterfacedObject, IExecutorScheduled)
   private
     type
-      // 定时存储结构
+      // Scheduled Record
       PScheduledRecord = ^TScheduledRecord;
       TScheduledRecord = record
         FIsLock: Boolean;
@@ -38,58 +40,64 @@ type
         FExecutorTask: IExecutorTask;
       end;
   private
-    // 线程安全锁
+    // Lock
     FLock: TCSLock;
-    // 是不是启动
+    // Is Start
     FIsStart: Boolean;
-    // 是不是关闭
+    // Is Shutdown
     FIsShutDown: Boolean;
-    // 是不是已经终止
+    // Is Terminated
     FIsTerminated: Boolean;
-    // 最小的等待的时间片
+    // Min Wait Period
     FMinWaitPeriod: Cardinal;
-    // 工作线程个数
+    // Worker Thread Count
     FWorkerThreadCount: Integer;
-    // 所有创建的线程
+    // Create Executor Function
+    FCreateExecutorFunc: TCreateExecutorFunc;
+    // Worker Threads
     FWorkerThreads: TList<TExecutorThread>;
-    // 定时提交执行任务
+    // Task Queue
     FScheduledTaskQueue: TSafeSemaphoreCircularQueue;
   protected
-    // 启动所有线程
-    procedure DoStart; virtual;
-    // 关闭
-    procedure DoShutDown; virtual;
-    // 返回是不是所有的线程都终止
+    // Start
+    procedure DoStart;
+    // Shutdown
+    procedure DoShutDown;
+    // Is All Thread Terminated
     function DoIsTerminated: Boolean;
-    // 清空任务
+    // Clear Task
     procedure DoClearTaskQueue;
-    // 终止所有的线程
+    // Shutdown Thread
     procedure DoShutDownThread;
-    // 启动 ACount 个线程
+    // Start ACount Thread
     procedure DoStartThread(ACount: Integer);
-    // 执行线程
+    // Create Executor
+    function DoCreateExecutor: TExecutorThread;
+    // Execute Task
     procedure DoTaskExecute(AObject: TObject);
-    // 获取下一个 ScheduledRecord
+    // Get Next ScheduledRecord
     function DoGetNextScheduledRecord: PScheduledRecord;
-    // 设置 ScheduledRecord 状态
+    // Set ScheduledRecord State
     procedure DoSetScheduledRecordState(AScheduledRecord: PScheduledRecord);
   public
-    // 构造函数
+    // Constructor
     constructor Create;
-    // 析构函数
+    // Destructor
     destructor Destroy; override;
 
     { IExecutorScheduled }
 
-    // 启动
+    // Start
     procedure Start; safecall;
-    // 关闭
+    // Shutdown
     procedure ShutDown; safecall;
-    // 是不是已经结束
+    // Is Terminated
     function IsTerminated: boolean; safecall;
-    // 设置线程个数
-    procedure SetScheduledThread(ACount: Integer); safecall;
-    // 固定的周期执行
+    // Set Scheduled Thread
+    function SetScheduledThread(ACount: Integer): Boolean; safecall;
+    // Set Create Executor Function
+    function SetCreateExecutorFunc(AFunc: TCreateExecutorFunc): Boolean; safecall;
+    // Submit Period Task
     function SubmitTaskAtFixedPeriod(ATask: IExecutorTask; APeriod: Cardinal): boolean; safecall;
   end;
 
@@ -137,10 +145,23 @@ begin
   Result := DoIsTerminated;
 end;
 
-procedure TExecutorScheduledImpl.SetScheduledThread(ACount: Integer);
+function TExecutorScheduledImpl.SetScheduledThread(ACount: Integer): Boolean;
 begin
   if not FIsStart then begin
     FWorkerThreadCount := ACount;
+    Result := True;
+  end else begin
+    Result := False;
+  end;
+end;
+
+function TExecutorScheduledImpl.SetCreateExecutorFunc(AFunc: TCreateExecutorFunc): Boolean;
+begin
+  if Assigned(AFunc) then begin
+    FCreateExecutorFunc := AFunc;
+    Result := True;
+  end else begin
+    FCreateExecutorFunc := nil;
   end;
 end;
 
@@ -193,11 +214,22 @@ var
   LWorker: TExecutorThread;
 begin
   for LIndex := 0 to ACount - 1 do begin
-    LWorker := TExecutorThread.Create;
-    LWorker.Name := 'Worker_' + IntToStr(LWorker.ID);
-    LWorker.ThreadMethod := DoTaskExecute;
-    LWorker.StartEx;
-    FWorkerThreads.Add(LWorker);
+    LWorker := DoCreateExecutor;
+    if LWorker <> nil then begin
+      LWorker.Name := 'Worker_' + IntToStr(LWorker.ID);
+      LWorker.ThreadMethod := DoTaskExecute;
+      LWorker.StartEx;
+      FWorkerThreads.Add(LWorker);
+    end;
+  end;
+end;
+
+function TExecutorScheduledImpl.DoCreateExecutor: TExecutorThread;
+begin
+  if Assigned(FCreateExecutorFunc) then begin
+    Result := FCreateExecutorFunc;
+  end else begin
+    Result := TExecutorThread.Create;
   end;
 end;
 

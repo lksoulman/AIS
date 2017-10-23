@@ -11,39 +11,78 @@ unit PlugInConst;
 
 interface
 
+//type
+//
+//  // PlugIn Info
+//  TPlugInInfo = packed record
+//    FId: Integer;
+//    FName: string;
+//  end;
+//
+//  // PlugIn Info Pointer
+//  PPlugInInfo = ^TPlugInInfo;
+//
+//  // PlugIn Info Dynamic Array
+//  TPPlugInInfoDynArray = Array Of PPlugInInfo;
+//
+//  // Libary Info
+//  TLibaryInfo = packed record
+//    FId: Integer;
+//    FName: string;
+//    FPlugInInfoCount: Integer;
+//    FPlugInInfos: TPPlugInInfoDynArray;
+//
+//    procedure AddPlugInInfo(APPlugInInfo: PPlugInInfo);
+//  end;
+//
+//  // Libary Info Pointer
+//  PLibaryInfo = ^TLibaryInfo;
+//
+//  // Libary Info Dynamic Array
+//  TPLibaryInfoDynArray = Array Of PLibaryInfo;
+
+
+
 const
+//
+//  LIBARYINFOS: Array [0..10] Of TLibaryInfo = (
+//    (FId: 1000000; FName: 'AsfMain.exe'; FPlugInInfos:()),
+//    (), );
 
 // Exe
-  DYN_LIB_AIS                   = 'AIS.exe';          // Application
-  DYN_LIB_ID_AIS                = 1000000;            // Application ID
-    PLUGIN_ID_CONFIG               = 1000001;         // PlugIn ID
-    PLUGIN_ID_LOGINMGR             = 1000002;         // PlugIn ID
-    PLUGIN_ID_BEHAVIORMGR          = 1000003;         // PlugIn ID
-    PLUGIN_ID_SECURITYMGR          = 1000004;         // PlugIn ID
-    PLUGIN_ID_SERVICEBASE          = 1000005;         // PlugIn ID
-    PLUGIN_ID_SERVICEASSET         = 1000006;         // PlugIn ID
-    PLUGIN_ID_CACHEBASEDATA        = 1000007;         // PlugIn ID
-    PLUGIN_ID_CACHEUSERDATA        = 1000008;         // PlugIn ID
-    PLUGIN_ID_PERMISSIONMGR        = 1000009;         // PlugIn ID
+  LIB_ASFMAIN                     = 'AsfMain.exe';      // Application
+  LIB_ID_ASFMAIN                  = 1000000;            // Application ID
+  LIB_PLUGIN_ID_LOGIN             = 1000001;
 
-// dll
-  DYN_LIB_ASFSDK                = 'AsfSdk.dll';       // dynamic libary Name
-  DYN_LIB_ID_ASFSDK             = 2000000;            // dynamic libary ID
-    PLUGIN_ID_FASTLOGMGR           = 2000001;         // PlugIn ID
-    PLUGIN_ID_CIPHERMGR            = 2000002;         // PlugIn ID
+  LIB_ASFSERVICE                  = 'AsfService.dll';
+  LIB_ID_ASFSERVICE               = 2000000;
+  LIB_PLUGIN_ID_BASICSERVICE      = 2000001;
+  LIB_PLUGIN_ID_ASSETSERVICE      = 2000002;
 
-// dll
-  DYN_LIB_ASFAUTH               = 'AsfAuth.dll';      // dynamic libary Name
-  DYN_LIB_ID_ASFAUTH              = 3000000;            // dynamic libary ID
-    PLUGIN_ID_PRODUCTAUTH         = 3000001;            // PlugIn ID
-    PLUGIN_ID_HQAUTH              = 3000002;            // PlugIn ID
+  LIB_ASFTOOL                     = 'AsfTool.dll';
+  LIB_ID_ASFTOOL                  = 3000000;
+  LIB_PLUGIN_ID_SERVICEEXPLORER   = 3000001;
+  LIB_PLUGIN_ID_UPDATEEXPLORER    = 3000002;
 
-// dll
-  DYN_LIB_ASFCACHE              = 'AsfCache.dll';     // dynamic libary Name
-  DYN_LIB_ID_ASFCACHE             = 4000000;            // dynamic libary ID
-    PLUGIN_ID_BASECACHE           = 4000001;            // PlugIn ID
-    PLUGIN_ID_USERCACHE           = 4000002;            // PlugIn ID
-    PLUGIN_ID_USERASSETCACHE      = 4000003;            // PlugIn ID
+  LIB_ASFAUTH                     = 'AsfAuth.dll';      // dynamic libary Name
+  LIB_ID_ASFAUTH                  = 4000000;            // dynamic libary ID
+  PLUGIN_ID_PROAUTH               = 4000001;            // PlugIn ID
+  PLUGIN_ID_HQAUTH                = 4000002;            // PlugIn ID
+
+  LIB_ASFCACHE                    = 'AsfCache.dll';     // dynamic libary Name
+  LIB_ID_ASFCACHE                 = 5000000;            // dynamic libary ID
+  PLUGIN_ID_BASECACHE             = 5000001;            // PlugIn ID
+  PLUGIN_ID_USERCACHE             = 5000002;            // PlugIn ID
+  PLUGIN_ID_USERASSETCACHE        = 5000003;            // PlugIn ID
+
+  LIB_ASFMEM                      = 'AsfMem.dll';       // dynamic libary Name
+  LIB_ID_ASFMEM                   = 6000000;            // dynamic libary ID
+  PLUGIN_ID_SECUMAIN              = 6000001;
+  PLUGIN_ID_KEYFAIRYMGR           = 6000002;
+
+  LIB_ASFAUI                      = 'AsfAUI.dll';       //
+  LIB_ID_ASFAUI                   = 7000000;            //
+  PLUGIN_ID_MAINFRAMEUI           = 7000001;
 
 // dll
   DYN_LIB_ASFHQCORE             = 'AsfHqCore.dll';    // dynamic libary Name
@@ -56,19 +95,31 @@ const
     PLUGIN_ID_MSGSERVICE          = 6000001;            // PlugIn ID
 
 // dll
-  DYN_LIB_ASFMEM                = 'AsfMem.dll';       // dynamic libary Name
-  DYN_LIB_ID_ASFMEM               = 7000000;            //
+
 //    PLUGIN_ID_
 
 // dll
   DYN_LIB_ASFLANGUAGE           = 'AsfLanguage.dll';  // dynamic libary Name
-  DYN_LIB_ID_ASFLANGUAGE          = 8000000;            //
+  DYN_LIB_ID_ASFLANGUAGE          = 8000000;            // dynamic libary ID
 
-  DYN_LIB_ASFAUI                = 'AsfAUI.dll';       //
-    DYN_LIB_ID_ASFAUI             = 9000000;            //
 
+
+//  DYN_LIB_ASFSERVICE            = 'AsfService.dll';   // dynamic libary Name
+//  DYN_LIB_ID_ASFSERVICE           = 10000000;           // dynamic libary ID
+//    PLUGIN_ID_CLOUDSERVICE        = 10000001;           //
 
 
 implementation
+
+//{ TLibaryInfo }
+//
+//procedure TLibaryInfo.AddPlugInInfo(APPlugInInfo: PPlugInInfo);
+//begin
+//  if APPlugInInfo = nil then Exit;
+//
+//  FPlugInInfoCount := Length(FPlugInInfos) + 1;
+//  SetLength(FPlugInInfos, FPlugInInfoCount);
+//  FPlugInInfos[FPlugInInfoCount - 1] := APPlugInInfo;
+//end;
 
 end.

@@ -71,7 +71,7 @@ type
     procedure SyncBlockExecute; virtual; safecall;
     // Non blocking primary thread execution(only execute once)
     procedure AsyncNoBlockExecute; virtual; safecall;
-    // Dependency Interface
+    // Dependency
     function Dependences: WideString; virtual; safecall;
   end;
 
@@ -96,15 +96,21 @@ procedure TSyncAsyncImpl.Initialize(AContext: IAppContext);
 begin
   FAppContext := AContext;
   if FIsNeedSubcribeMsg then begin
-    DoAddMsgTypes;
-    DoInitMsgSubcribe;
+    FMsgService := FAppContext.GetMsgService as IMsgService;
+    if FMsgService <> nil then begin
+      DoAddMsgTypes;
+      DoInitMsgSubcribe;
+    end;
   end;
 end;
 
 procedure TSyncAsyncImpl.UnInitialize;
 begin
   if FIsNeedSubcribeMsg then begin
-    DoUnInitMsgSubcribe;
+    if FMsgService <> nil then begin
+      DoUnInitMsgSubcribe;
+      FMsgService := nil;
+    end;
   end;
   FAppContext := nil;
 end;

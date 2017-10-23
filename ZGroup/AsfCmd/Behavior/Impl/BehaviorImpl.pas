@@ -212,7 +212,6 @@ begin
       LDataSet := nil;
       while True do begin
         if AThread.IsTerminated then Exit;
-        
 
         if (LCount <= 0)
           or (FBehaviorStrs.Count <= 0) then Break;

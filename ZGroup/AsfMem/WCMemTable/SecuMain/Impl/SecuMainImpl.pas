@@ -108,7 +108,7 @@ type
     // Dependency Interface
     function Dependences: WideString; override;
 
-    { ISecuMainTable }
+    { ISecuMain }
 
     // Lock
     procedure Lock; safecall;
@@ -132,9 +132,8 @@ type
 implementation
 
 uses
+  LogLevel,
   CacheType,
-  FastLogLevel,
-  AsfSdkExport,
   SecuMainConst;
 
 const
@@ -167,7 +166,7 @@ begin
   inherited;
   FIsUpdating := False;
   FLock := TCSLock.Create;
-  FItemCapacity := 190000;
+  FItemCapacity := 200000;
   FIsNeedSubcribeMsg := True;
   FAsyncUpdateThread := TExecutorThread.Create;
   FAsyncUpdateThread.ThreadMethod := DoAsyncUpdateExecute;
@@ -354,13 +353,13 @@ begin
       end;
       LDataSet := nil;
     end else begin
-      FastSysLog(llWARN, '[TSecuMainImpl][DoUpdateTable] Load dateset is nil.');
+      FAppContext.SysLog(llWARN, '[TSecuMainImpl][DoUpdateTable] Load dateset is nil.');
     end;
 
 {$IFDEF DEBUG}
   finally
     LTick := GetTickCount - LTick;
-    FastSysLog(llSLOW, Format('[TSecuMainImpl][DoUpdateTable] Load permissions data to dictionary use time is %d ms.', [LTick]), LTick);
+    FAppContext.SysLog(llSLOW, Format('[TSecuMainImpl][DoUpdateTable] CacheSyncQuery and Load DataSet use time is %d ms.', [LTick]), LTick);
   end;
 {$ENDIF}
 end;
@@ -433,6 +432,7 @@ begin
         FSecuMainItemDic.AddOrSetValue(LInnerCode, LPSecuMainItem);
         LPSecuMainItem.FIsUsed := True;
         LPSecuMainItem.FInnerCode := LInnerCode;
+        FSecuMainItems.Add(LPSecuMainItem);
       end;
 
       DoLoadSecuMainItem(LPSecuMainItem, LSecuMarket,
@@ -456,7 +456,7 @@ begin
 
 {$IFDEF DEBUG}
     LTick := GetTickCount - LTick;
-    FastSysLog(llSLOW, Format('[TSecuMainImpl][DoLoadDataSet] Load permissions data to dictionary use time is %d ms.', [LTick]), LTick);
+    FAppContext.SysLog(llSLOW, Format('[TSecuMainImpl][DoLoadDataSet] Load DataSet use time is %d ms.', [LTick]), LTick);
 {$ENDIF}
   end;
 end;

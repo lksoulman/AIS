@@ -6,7 +6,7 @@
         <Projects Include="AsfMain\AsfMain.dproj">
             <Dependencies/>
         </Projects>
-        <Projects Include="AsfSdk\AsfSdk.dproj">
+        <Projects Include="AsfService\AsfService.dproj">
             <Dependencies/>
         </Projects>
         <Projects Include="AsfAuth\AsfAuth.dproj">
@@ -33,13 +33,25 @@
         <Projects Include="AsfCmd\AsfCmd.dproj">
             <Dependencies/>
         </Projects>
-        <Projects Include="AsfService\AsfService.dproj">
-            <Dependencies/>
-        </Projects>
         <Projects Include="AsfHqService\AsfHqCore.dproj">
             <Dependencies/>
         </Projects>
         <Projects Include="AsfHqServiceEx\AsfHqServiceEx.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="AsfUpdateTool\AsfUpdateTool.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="AsfResources\AsfResources.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="AsfSkinsBlack\AsfSkinsBlack.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="AsfSkinsWhite\AsfSkinsWhite.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="AsfSkinsClassic\AsfSkinsClassic.dproj">
             <Dependencies/>
         </Projects>
     </ItemGroup>
@@ -59,14 +71,14 @@
     <Target Name="AsfMain:Make">
         <MSBuild Projects="AsfMain\AsfMain.dproj" Targets="Make"/>
     </Target>
-    <Target Name="AsfSdk">
-        <MSBuild Projects="AsfSdk\AsfSdk.dproj"/>
+    <Target Name="AsfService">
+        <MSBuild Projects="AsfService\AsfService.dproj"/>
     </Target>
-    <Target Name="AsfSdk:Clean">
-        <MSBuild Projects="AsfSdk\AsfSdk.dproj" Targets="Clean"/>
+    <Target Name="AsfService:Clean">
+        <MSBuild Projects="AsfService\AsfService.dproj" Targets="Clean"/>
     </Target>
-    <Target Name="AsfSdk:Make">
-        <MSBuild Projects="AsfSdk\AsfSdk.dproj" Targets="Make"/>
+    <Target Name="AsfService:Make">
+        <MSBuild Projects="AsfService\AsfService.dproj" Targets="Make"/>
     </Target>
     <Target Name="AsfAuth">
         <MSBuild Projects="AsfAuth\AsfAuth.dproj"/>
@@ -140,15 +152,6 @@
     <Target Name="AsfCmd:Make">
         <MSBuild Projects="AsfCmd\AsfCmd.dproj" Targets="Make"/>
     </Target>
-    <Target Name="AsfService">
-        <MSBuild Projects="AsfService\AsfService.dproj"/>
-    </Target>
-    <Target Name="AsfService:Clean">
-        <MSBuild Projects="AsfService\AsfService.dproj" Targets="Clean"/>
-    </Target>
-    <Target Name="AsfService:Make">
-        <MSBuild Projects="AsfService\AsfService.dproj" Targets="Make"/>
-    </Target>
     <Target Name="AsfHqCore">
         <MSBuild Projects="AsfHqService\AsfHqCore.dproj"/>
     </Target>
@@ -167,14 +170,59 @@
     <Target Name="AsfHqServiceEx:Make">
         <MSBuild Projects="AsfHqServiceEx\AsfHqServiceEx.dproj" Targets="Make"/>
     </Target>
+    <Target Name="AsfUpdateTool">
+        <MSBuild Projects="AsfUpdateTool\AsfUpdateTool.dproj"/>
+    </Target>
+    <Target Name="AsfUpdateTool:Clean">
+        <MSBuild Projects="AsfUpdateTool\AsfUpdateTool.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="AsfUpdateTool:Make">
+        <MSBuild Projects="AsfUpdateTool\AsfUpdateTool.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="AsfResources">
+        <MSBuild Projects="AsfResources\AsfResources.dproj"/>
+    </Target>
+    <Target Name="AsfResources:Clean">
+        <MSBuild Projects="AsfResources\AsfResources.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="AsfResources:Make">
+        <MSBuild Projects="AsfResources\AsfResources.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="AsfSkinsBlack">
+        <MSBuild Projects="AsfSkinsBlack\AsfSkinsBlack.dproj"/>
+    </Target>
+    <Target Name="AsfSkinsBlack:Clean">
+        <MSBuild Projects="AsfSkinsBlack\AsfSkinsBlack.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="AsfSkinsBlack:Make">
+        <MSBuild Projects="AsfSkinsBlack\AsfSkinsBlack.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="AsfSkinsWhite">
+        <MSBuild Projects="AsfSkinsWhite\AsfSkinsWhite.dproj"/>
+    </Target>
+    <Target Name="AsfSkinsWhite:Clean">
+        <MSBuild Projects="AsfSkinsWhite\AsfSkinsWhite.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="AsfSkinsWhite:Make">
+        <MSBuild Projects="AsfSkinsWhite\AsfSkinsWhite.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="AsfSkinsClassic">
+        <MSBuild Projects="AsfSkinsClassic\AsfSkinsClassic.dproj"/>
+    </Target>
+    <Target Name="AsfSkinsClassic:Clean">
+        <MSBuild Projects="AsfSkinsClassic\AsfSkinsClassic.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="AsfSkinsClassic:Make">
+        <MSBuild Projects="AsfSkinsClassic\AsfSkinsClassic.dproj" Targets="Make"/>
+    </Target>
     <Target Name="Build">
-        <CallTarget Targets="AsfMain;AsfSdk;AsfAuth;AsfCache;AsfMsg;AsfMem;AsfLanguage;AsfAUI;AsfTool;AsfCmd;AsfService;AsfHqCore;AsfHqServiceEx"/>
+        <CallTarget Targets="AsfMain;AsfService;AsfAuth;AsfCache;AsfMsg;AsfMem;AsfLanguage;AsfAUI;AsfTool;AsfCmd;AsfHqCore;AsfHqServiceEx;AsfUpdateTool;AsfResources;AsfSkinsBlack;AsfSkinsWhite;AsfSkinsClassic"/>
     </Target>
     <Target Name="Clean">
-        <CallTarget Targets="AsfMain:Clean;AsfSdk:Clean;AsfAuth:Clean;AsfCache:Clean;AsfMsg:Clean;AsfMem:Clean;AsfLanguage:Clean;AsfAUI:Clean;AsfTool:Clean;AsfCmd:Clean;AsfService:Clean;AsfHqCore:Clean;AsfHqServiceEx:Clean"/>
+        <CallTarget Targets="AsfMain:Clean;AsfService:Clean;AsfAuth:Clean;AsfCache:Clean;AsfMsg:Clean;AsfMem:Clean;AsfLanguage:Clean;AsfAUI:Clean;AsfTool:Clean;AsfCmd:Clean;AsfHqCore:Clean;AsfHqServiceEx:Clean;AsfUpdateTool:Clean;AsfResources:Clean;AsfSkinsBlack:Clean;AsfSkinsWhite:Clean;AsfSkinsClassic:Clean"/>
     </Target>
     <Target Name="Make">
-        <CallTarget Targets="AsfMain:Make;AsfSdk:Make;AsfAuth:Make;AsfCache:Make;AsfMsg:Make;AsfMem:Make;AsfLanguage:Make;AsfAUI:Make;AsfTool:Make;AsfCmd:Make;AsfService:Make;AsfHqCore:Make;AsfHqServiceEx:Make"/>
+        <CallTarget Targets="AsfMain:Make;AsfService:Make;AsfAuth:Make;AsfCache:Make;AsfMsg:Make;AsfMem:Make;AsfLanguage:Make;AsfAUI:Make;AsfTool:Make;AsfCmd:Make;AsfHqCore:Make;AsfHqServiceEx:Make;AsfUpdateTool:Make;AsfResources:Make;AsfSkinsBlack:Make;AsfSkinsWhite:Make;AsfSkinsClassic:Make"/>
     </Target>
     <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
 </Project>

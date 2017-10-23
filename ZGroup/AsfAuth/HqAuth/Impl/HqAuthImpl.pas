@@ -1,5 +1,14 @@
 unit HqAuthImpl;
 
+////////////////////////////////////////////////////////////////////////////////
+//
+// Description： Hq Authority Interface Implementation
+// Author：      lksoulman
+// Date：        2017-7-24
+// Comments：
+//
+////////////////////////////////////////////////////////////////////////////////
+
 interface
 
 uses
@@ -14,26 +23,26 @@ uses
 
 type
 
-  // Hq authority interface implementation
+  // Hq Authority Interface Implementation
   THqAuthImpl = class(TSyncAsyncImpl, IHqAuth)
   private
-    // is not has HK Real authority
+    // Is Has HK Real Authority
     FIsHasHKReal: Boolean;
-    // is not has Level2 authority
+    // Is Has Level2 Authority
     FIsHasLevel2: Boolean;
-    // LevelII 登录用户名
+    // Level2 UserName
     FLevel2UserName: string;
-    // LevelII 登录密码
+    // Level2 Password
     FLevel2Password: string;
   protected
-    // 获取港股实时权限数据
+    // Get HKReal
     procedure DoGetHKReal;
-    //  获取LevelII权限数据
+    // Get Level2
     procedure DoGetLevel2;
   public
-    // Constructor method
+    // Constructor
     constructor Create; override;
-    // Destructor method
+    // Destructor
     destructor Destroy; override;
 
     { ISyncAsync }
@@ -46,29 +55,27 @@ type
     procedure SyncBlockExecute; override;
     // Non blocking primary thread execution(only execute once)
     procedure AsyncNoBlockExecute; override;
-    // Obtain dependency
+    // Dependency
     function Dependences: WideString; override;
 
     { IHqAuth }
 
-    // is not has HK Real authority
+    // Is Has HK Real Authority
     function GetIsHasHKReal: Boolean; safecall;
-    // is not has Level2 authority
+    // Is Has Level2 Authority
     function GetIsHasLevel2: Boolean; safecall;
-    // Get Level2 username
+    // Get Level2 UserName
     function GetLevel2UserName: WideString; safecall;
-    // Get Level2 password
+    // Get Level2 Password
     function GetLevel2Password: WideString; safecall;
   end;
 
 implementation
 
 uses
-  LoginMgr,
-  LoginType,
-  ServiceType,
-  FastLogLevel,
-  AsfSdkExport;
+  Login,
+  LogLevel,
+  ServiceType;
 
 { THqAuthImpl }
 
@@ -86,27 +93,29 @@ end;
 
 procedure THqAuthImpl.Initialize(AContext: IAppContext);
 begin
-  FAppContext := AContext;
+  inherited Initialize(AContext);
 
 end;
 
 procedure THqAuthImpl.UnInitialize;
 begin
 
-  FAppContext := nil;
+  inherited UnInitialize;
 end;
 
 procedure THqAuthImpl.SyncBlockExecute;
 begin
-  if (FAppContext.GetLoginMgr <> nil) then begin
-    if (FAppContext.GetLoginMgr as ILoginMgr).IsLoginGF(ltBase) then begin
-      DoGetLevel2;
-      DoGetHKReal;
+  if FAppContext <> nil then begin
+    if (FAppContext.GetLogin <> nil) then begin
+      if FAppContext.GetLogin.IsLoginService(stBasic) then begin
+        DoGetLevel2;
+        DoGetHKReal;
+      end else begin
+        FAppContext.SysLog(llERROR, '[THqAuthImpl][SyncBlockExecute] GetLogin.IsLoginService(stBasic) return is false, permission is not load.');
+      end;
     end else begin
-      FastSysLog(llERROR, '[THqAuthImpl][SyncBlockExecute] GetLoginMgr.IsLoginGF(lGFBase) return is false, permission is not load.');
+      FAppContext.SysLog(llERROR, '[THqAuthImpl][SyncBlockExecute] GetLogin is nil');
     end;
-  end else begin
-    FastSysLog(llERROR, '[THqAuthImpl][SyncBlockExecute] GetLoginMgr is nil');
   end;
 end;
 
@@ -117,7 +126,7 @@ end;
 
 function THqAuthImpl.Dependences: WideString;
 begin
-  Result := Format('%s', [GUIDToString(ILoginMgr)]);
+  Result := Format('%s', [GUIDToString(ILogin)]);
 end;
 
 function THqAuthImpl.GetIsHasHKReal: Boolean;
@@ -153,7 +162,7 @@ begin
 {$ENDIF}
 
     FIsHasHKReal := False;
-    LDataSet := FAppContext.GFSyncHighQuery(stBase, 'USER_QX_HK()', 0, 5000);
+    LDataSet := FAppContext.GFPrioritySyncQuery(stBasic, 'USER_QX_HK()', 5000);
     if LDataSet <> nil then begin
       if LDataSet.RecordCount > 0 then begin
         LDataSet.First;
@@ -161,19 +170,19 @@ begin
           and (not LDataSet.Fields(0).IsNull) then begin
           FIsHasHKReal := (LDataSet.Fields(0).AsInteger > 0);
         end else begin
-          FastIndicatorLog(llERROR, Format('[THqAuthImpl][DoGetHKReal] [Indicator][%s] Return data fieldcount is 0 or field data is nil.', ['USER_QX_HK()']));
+          FAppContext.IndicatorLog(llERROR, Format('[THqAuthImpl][DoGetHKReal] [Indicator][%s] Return data fieldcount is 0 or field data is nil.', ['USER_QX_HK()']));
         end;
       end else begin
-        FastIndicatorLog(llERROR, Format('[THqAuthImpl][DoGetHKReal] [Indicator][%s] Return data is nil.', ['USER_QX_HK()']));
+        FAppContext.IndicatorLog(llERROR, Format('[THqAuthImpl][DoGetHKReal] [Indicator][%s] Return data is nil.', ['USER_QX_HK()']));
       end;
+      LDataSet := nil;
     end else begin
-      FastIndicatorLog(llERROR, Format('[THqAuthImpl][DoGetHKReal] [Indicator][%s] Return data is nil.', ['USER_QX_HK()']));
+      FAppContext.IndicatorLog(llERROR, Format('[THqAuthImpl][DoGetHKReal] [Indicator][%s] Return data is nil.', ['USER_QX_HK()']));
     end;
-
 {$IFDEF DEBUG}
   finally
     LTick := GetTickCount - LTick;
-    FastSysLog(llSLOW, Format('[THqAuthImpl][DoGetHKReal] Load HKReal data to dictionary use time is %d ms.', [LTick]), LTick);
+    FAppContext.SysLog(llSLOW, Format('[THqAuthImpl][DoGetHKReal] Load HKReal data to dictionary use time is %d ms.', [LTick]), LTick);
   end;
 {$ENDIF}
 end;
@@ -191,7 +200,7 @@ begin
 {$ENDIF}
 
     FIsHasLevel2 := False;
-    LDataSet := FAppContext.GFSyncHighQuery(stBase, 'USER_LEVEL2_INFO()', 0, 5000);
+    LDataSet := FAppContext.GFPrioritySyncQuery(stBasic, 'USER_LEVEL2_INFO()', 5000);
     if LDataSet <> nil then begin
       if LDataSet.RecordCount > 0 then begin
         LDataSet.First;
@@ -200,19 +209,20 @@ begin
           FLevel2Password := LDataSet.Fields(1).AsString;
           FIsHasLevel2 := True;
         end else begin
-          FastIndicatorLog(llERROR, Format('[THqAuthImpl][DoGetLevel2] [Indicator][%s] Return data fieldcount low 2.', ['USER_LEVEL2_INFO()']));
+          FAppContext.IndicatorLog(llERROR, Format('[THqAuthImpl][DoGetLevel2] [Indicator][%s] Return data fieldcount low 2.', ['USER_LEVEL2_INFO()']));
         end;
       end else begin
-        FastIndicatorLog(llERROR, Format('[THqAuthImpl][DoGetLevel2] [Indicator][%s] Return data is nil.', ['USER_LEVEL2_INFO()']));
+        FAppContext.IndicatorLog(llERROR, Format('[THqAuthImpl][DoGetLevel2] [Indicator][%s] Return data is nil.', ['USER_LEVEL2_INFO()']));
       end;
+      LDataSet := nil;
     end else begin
-      FastIndicatorLog(llERROR, Format('[THqAuthImpl][DoGetLevel2] [Indicator][%s] Return data is nil.', ['USER_LEVEL2_INFO()']));
+      FAppContext.IndicatorLog(llERROR, Format('[THqAuthImpl][DoGetLevel2] [Indicator][%s] Return data is nil.', ['USER_LEVEL2_INFO()']));
     end;
 
 {$IFDEF DEBUG}
   finally
     LTick := GetTickCount - LTick;
-    FastSysLog(llSLOW, Format('[THqAuthImpl][DoGetLevel2] Load LevelII data to dictionary use time is %d ms.', [LTick]), LTick);
+    FAppContext.SysLog(llSLOW, Format('[THqAuthImpl][DoGetLevel2] Load LevelII data to dictionary use time is %d ms.', [LTick]), LTick);
   end;
 {$ENDIF}
 end;

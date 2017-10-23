@@ -2,10 +2,10 @@ unit UserCacheImpl;
 
 ////////////////////////////////////////////////////////////////////////////////
 //
-// Description£º User Cache interface implementation
+// Description£º User Cache Interface Implementation
 // Author£º      lksoulman
 // Date£º        2017-8-11
-// Comments£º    User Cache interface implementation
+// Comments£º
 //
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -24,14 +24,14 @@ uses
 
 type
 
-  // User Cache interface implementation
+  // User Cache Interface Implementation
   TUserCacheImpl = class(TCacheImpl, IUserCache)
   private
   protected
   public
-    // Constructor method
+    // Constructor
     constructor Create; override;
-    // Destructor method
+    // Destructor
     destructor Destroy; override;
 
     { ISyncAsync }
@@ -58,7 +58,7 @@ type
 implementation
 
 uses
-  Config;
+  Cfg;
 
 { TUserCacheImpl }
 
@@ -88,9 +88,9 @@ end;
 
 procedure TUserCacheImpl.SyncBlockExecute;
 begin
-  if FAppContext.GetConfig <> nil then begin
-    FCacheDataAdapter.DataBaseName := (FAppContext.GetConfig as IConfig).GetUserCachePath + 'UserDB';
-    FCfgFile := (FAppContext.GetConfig as IConfig).GetCfgPath + 'Cache/UserCfg.xml';
+  if FAppContext.GetCfg <> nil then begin
+    FCacheDataAdapter.DataBaseName := (FAppContext.GetCfg as ICfg).GetUserCachePath + 'UserDB';
+    FCfgFile := FAppContext.GetCfg.GetCfgPath + 'Cache/UserCfg.xml';
     LoadTables;
     InitConnCache;
     InitSysTable;

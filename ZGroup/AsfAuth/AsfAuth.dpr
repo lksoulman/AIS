@@ -16,9 +16,9 @@ uses
   WExport in 'WExport\WExport.pas',
   FactoryAsfAuthImpl in 'WExport\Impl\FactoryAsfAuthImpl.pas',
   HqAuthImpl in 'HqAuth\Impl\HqAuthImpl.pas',
+  ProAuthImpl in 'ProAuth\Impl\ProAuthImpl.pas',
   HqAuthPlugInImpl in 'WDPlugIn\Impl\HqAuthPlugInImpl.pas',
-  ProductAuthImpl in 'ProductAuth\Impl\ProductAuthImpl.pas',
-  ProductAuthPlugInImpl in 'WDPlugIn\Impl\ProductAuthPlugInImpl.pas';
+  ProAuthPlugInImpl in 'WDPlugIn\Impl\ProAuthPlugInImpl.pas';
 
 {$R *.res}
 

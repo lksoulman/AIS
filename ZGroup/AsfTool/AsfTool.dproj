@@ -2,10 +2,10 @@
     <PropertyGroup>
         <ProjectGuid>{EC86DD86-8BC4-45C2-9DF8-11FFCE9339E2}</ProjectGuid>
         <ProjectVersion>16.1</ProjectVersion>
-        <FrameworkType>None</FrameworkType>
+        <FrameworkType>VCL</FrameworkType>
         <MainSource>AsfTool.dpr</MainSource>
         <Base>True</Base>
-        <Config Condition="'$(Config)'==''">Release</Config>
+        <Config Condition="'$(Config)'==''">Debug</Config>
         <Platform Condition="'$(Platform)'==''">Win32</Platform>
         <TargetedPlatforms>1</TargetedPlatforms>
         <AppType>Library</AppType>
@@ -53,7 +53,7 @@
     <PropertyGroup Condition="'$(Base)'!=''">
         <SanitizedProjectName>AsfTool</SanitizedProjectName>
         <GenDll>true</GenDll>
-        <DCC_Namespace>System;Xml;Data;Datasnap;Web;Soap;$(DCC_Namespace)</DCC_Namespace>
+        <DCC_Namespace>System;Xml;Data;Datasnap;Web;Soap;Vcl;Vcl.Imaging;Vcl.Touch;Vcl.Samples;Vcl.Shell;$(DCC_Namespace)</DCC_Namespace>
         <DCC_DcuOutput>.\$(Platform)\$(Config)</DCC_DcuOutput>
         <DCC_ExeOutput>.\$(Platform)\$(Config)</DCC_ExeOutput>
         <DCC_E>false</DCC_E>
@@ -67,7 +67,7 @@
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base_Win32)'!=''">
         <DCC_UsePackage>EurekaLogCore;NxGridRun_dxe7;FireDACSqliteDriver;FireDACDSDriver;DBXSqliteDriver;FireDACPgDriver;fmx;RaizeComponentsVcl;IndySystem;frxe21;TeeDB;tethering;vclib;DBXInterBaseDriver;DataSnapClient;DataSnapServer;DataSnapCommon;frx21;DataSnapProviderClient;DBXSybaseASEDriver;DbxCommonDriver;vclimg;NxDBGridRun_dxe7;dbxcds;DatasnapConnectorsFreePascal;MetropolisUILiveTile;NxCommonDsgn_dxe7;vcldb;vcldsnap;NxSheetRun_dxe7;fmxFireDAC;DBXDb2Driver;DBXOracleDriver;CustomIPTransport;NxCollectionDsgn_dxe7;vclribbon;dsnap;IndyIPServer;fmxase;vcl;IndyCore;DBXMSSQLDriver;IndyIPCommon;CloudService;FmxTeeUI;FireDACIBDriver;CodeSiteExpressPkg;DataSnapFireDAC;FireDACDBXDriver;soapserver;inetdbxpress;dsnapxml;FireDACInfxDriver;FireDACDb2Driver;NxDBGridDsgn_dxe7;adortl;NxAddonsRun_dxe7;FireDACASADriver;bindcompfmx;NxInspectorRun_dxe7;FireDACODBCDriver;RESTBackendComponents;emsclientfiredac;rtl;dbrtl;DbxClientDriver;FireDACCommon;bindcomp;inetdb;frxTee21;Tee;DBXOdbcDriver;frxDB21;vclFireDAC;xmlrtl;DataSnapNativeClient;svnui;ibxpress;IndyProtocols;DBXMySQLDriver;FireDACCommonDriver;bindengine;vclactnband;bindcompdbx;soaprtl;FMXTee;TeeUI;bindcompvcl;NxCommonRun_dxe7;vclie;FireDACADSDriver;vcltouch;NxInspectorDsgn_dxe7;emsclient;VCLRESTComponents;FireDACMSSQLDriver;FireDAC;VclSmp;DBXInformixDriver;Intraweb;NxGridDsgn_dxe7;DataSnapConnectors;dsnapcon;DBXFirebirdDriver;inet;fmxobj;NxCollectionRun_dxe7;FireDACMySQLDriver;soapmidas;vclx;svn;DBXSybaseASADriver;FireDACOracleDriver;fmxdae;RESTComponents;FireDACMSAccDriver;dbexpress;DataSnapIndy10ServerTransport;IndyIPClient;$(DCC_UsePackage)</DCC_UsePackage>
-        <DCC_UnitSearchPath>..\..\ShareUnit\Common;..\..\ShareUnit\Common\Cipher;..\..\ShareUnit\Common\Cipher\AES;..\..\ShareUnit\Common\Cipher\RSA;..\..\ShareUnit\Common\Cipher\MD5;..\..\ShareUnit\Common\Cipher\CRC;..\..\ShareUnit\Common\Thread\Impl;..\..\ShareUnit\Common\Thread;..\..\ShareUnit\Common\Cipher\Base64;..\..\ShareUnit\Common\Utils;..\..\ShareUnit\Common\WCSyncAsync;..\..\ShareUnit\Common\WCSyncAsync\Impl;..\..\ShareUnit\Common\WDPlugIn;..\..\ShareUnit\Common\WDPlugIn\Impl;..\..\ShareUnit\Common\WFactory;..\..\ShareUnit\Common\WFactory\Impl;..\..\ShareUnit\InterfacesOld;..\..\ShareUnit\Interfaces\AsfSdk\;..\..\ShareUnit\Interfaces\AsfSdk\CipherMgr;..\..\ShareUnit\Interfaces\AsfSdk\FastLogMgr;..\..\ShareUnit\Interfaces\AsfMain\AppContext;..\..\ShareUnit\Interfaces\AsfMain\Config;..\..\ShareUnit\Interfaces\AsfMain\Config\Info;..\..\ShareUnit\Interfaces\AsfMain\Service;..\..\ShareUnit\Interfaces\AsfMsg\Msg;..\..\ShareUnit\Interfaces\AsfMsg\MsgReceiver;..\..\ShareUnit\Interfaces\AsfMsg\MsgService;..\..\ShareUnit\Interfaces\AsfCache\Cache;..\..\ShareUnit\Interfaces\AsfCache\BaseCache;..\..\ShareUnit\Interfaces\AsfCache\UserCache;..\..\ShareUnit\Interfaces\AsfCache\UserAssetCache;..\..\ShareUnit\Interfaces\AsfMem\WCMemTable\SecuMain;..\..\ShareUnit\Interfaces\AsfCmd\Behavior;..\..\ShareUnit\Interfaces\AsfAuth\HqAuth;..\..\ShareUnit\Interfaces\AsfAuth\ProductAuth;..\..\ShareUnit\Interfaces\AsfLanguage\Language;..\..\ShareUnit\Delphi3rd\NativeXML;..\..\ShareUnit\Delphi3rd\UniDAC5_5_12\Source\UniProviders\SQLite;..\..\ShareUnit\Delphi3rd\UniDAC5_5_12\Source;..\..\ShareUnit\Delphi3rd\UniDAC5_5_12\Lib\Delphi21\Win32;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
+        <DCC_UnitSearchPath>..\..\ShareUnit\Common;..\..\ShareUnit\Common\Cipher;..\..\ShareUnit\Common\Cipher\AES;..\..\ShareUnit\Common\Cipher\RSA;..\..\ShareUnit\Common\Cipher\MD5;..\..\ShareUnit\Common\Cipher\CRC;..\..\ShareUnit\Common\Cipher\Base64;..\..\ShareUnit\Common\OpenSSL;..\..\ShareUnit\Common\Thread;..\..\ShareUnit\Common\Thread\Impl;..\..\ShareUnit\Common\Utils;..\..\ShareUnit\Common\WCSyncAsync;..\..\ShareUnit\Common\WCSyncAsync\Impl;..\..\ShareUnit\Common\WDPlugIn;..\..\ShareUnit\Common\WDPlugIn\Impl;..\..\ShareUnit\Common\WFactory;..\..\ShareUnit\Common\WFactory\Impl;..\..\ShareUnit\InterfacesOld;..\..\ShareUnit\Interfaces\AsfMain\EDCrypt;..\..\ShareUnit\Interfaces\AsfMain\Log;..\..\ShareUnit\Interfaces\AsfMain\AppContext;..\..\ShareUnit\Interfaces\AsfMain\Cfg;..\..\ShareUnit\Interfaces\AsfMain\Cfg\Info;..\..\ShareUnit\Interfaces\AsfMain\Cfg\SysCfg;..\..\ShareUnit\Interfaces\AsfMain\Cfg\WebCfg;..\..\ShareUnit\Interfaces\AsfMain\Cfg\ServerCfg;..\..\ShareUnit\Interfaces\AsfMain\Cfg\CacheCfg;..\..\ShareUnit\Interfaces\AsfMain\Login;..\..\ShareUnit\Interfaces\AsfService\GFData;..\..\ShareUnit\Interfaces\AsfService\Proxy;..\..\ShareUnit\Interfaces\AsfService\Service;..\..\ShareUnit\Interfaces\AsfService\BasicService;..\..\ShareUnit\Interfaces\AsfService\AssetService;..\..\ShareUnit\Interfaces\AsfMsg\Msg;..\..\ShareUnit\Interfaces\AsfMsg\MsgReceiver;..\..\ShareUnit\Interfaces\AsfMsg\MsgService;..\..\ShareUnit\Interfaces\AsfCache\Cache;..\..\ShareUnit\Interfaces\AsfCache\BaseCache;..\..\ShareUnit\Interfaces\AsfCache\UserCache;..\..\ShareUnit\Interfaces\AsfCache\UserAssetCache;..\..\ShareUnit\Interfaces\AsfMem\WCMemTable\SecuMain;..\..\ShareUnit\Interfaces\AsfCmd\Behavior;..\..\ShareUnit\Interfaces\AsfAuth\HqAuth;..\..\ShareUnit\Interfaces\AsfAuth\ProAuth;..\..\ShareUnit\Interfaces\AsfLanguage\ErrorCode;..\..\ShareUnit\Interfaces\AsfLanguage\Language;..\..\ShareUnit\Delphi3rd\NativeXML;..\..\ShareUnit\Delphi3rd\UniDAC5_5_12\Source\UniProviders\SQLite;..\..\ShareUnit\Delphi3rd\UniDAC5_5_12\Source;..\..\ShareUnit\Delphi3rd\UniDAC5_5_12\Lib\Delphi21\Win32;..\..\ShareUnit\Delphi3rd\NextComps5_4-15\Sources;..\..\ShareUnit\Delphi3rd\NextComps5_4-15\Sources\Next Addons;..\..\ShareUnit\Delphi3rd\NextComps5_4-15\Sources\Next Collection;..\..\ShareUnit\Delphi3rd\NextComps5_4-15\Sources\Next DBGrid;..\..\ShareUnit\Delphi3rd\NextComps5_4-15\Sources\Next Grid;..\..\ShareUnit\Delphi3rd\NextComps5_4-15\Sources\Next Inspector;..\..\ShareUnit\Delphi3rd\NextComps5_4-15\Sources\Next Sheet;..\..\ShareUnit\Delphi3rd\NextComps5_4-15\Sources\Next TBX;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
         <DCC_Namespace>Winapi;System.Win;Data.Win;Datasnap.Win;Web.Win;Soap.Win;Xml.Win;Bde;$(DCC_Namespace)</DCC_Namespace>
         <VerInfo_Keys>CompanyName=;FileDescription=;FileVersion=1.0.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProductName=;ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
@@ -109,6 +109,22 @@
         <DelphiCompile Include="$(MainSource)">
             <MainSource>MainSource</MainSource>
         </DelphiCompile>
+        <DCCReference Include="WExport\WExport.pas"/>
+        <DCCReference Include="WExport\Impl\FactoryAsfToolImpl.pas"/>
+        <DCCReference Include="ServiceExplorer\ServiceExplorer.pas"/>
+        <DCCReference Include="ServiceExplorer\Impl\ServiceExplorerImpl.pas"/>
+        <DCCReference Include="ServiceExplorer\UI\ServiceExplorerUI.pas">
+            <Form>ServiceExplorerUI</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="WDPlugIn\Impl\ServiceExplorerPlugInImpl.pas"/>
+        <DCCReference Include="UpdateExplorer\UpdateExplorer.pas"/>
+        <DCCReference Include="UpdateExplorer\Impl\UpdateExplorerImpl.pas"/>
+        <DCCReference Include="UpdateExplorer\UpdateExplorerUI\UpdateExplorerUI.pas">
+            <Form>UpdateExplorerUI</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="WDPlugIn\Impl\UpdateExplorerPlugInImpl.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>
@@ -150,6 +166,12 @@
                         <Overwrite>true</Overwrite>
                     </Platform>
                     <Platform Name="iOSSimulator">
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="..\..\Run\Debug\Bin\AsfTool.dll" Configuration="Debug" Class="ProjectOutput">
+                    <Platform Name="Win32">
+                        <RemoteName>AsfTool.dll</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
@@ -489,6 +511,7 @@
                 <Platform value="Win32">True</Platform>
                 <Platform value="Win64">False</Platform>
             </Platforms>
+            <ModelSupport>False</ModelSupport>
         </BorlandProject>
         <ProjectFileVersion>12</ProjectFileVersion>
     </ProjectExtensions>

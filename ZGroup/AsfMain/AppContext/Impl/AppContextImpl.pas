@@ -12,21 +12,28 @@ unit AppContextImpl;
 interface
 
 uses
+  Log,
+  Cfg,
+  Login,
+  GFData,
   Vcl.Forms,
+  EDCrypt,
   Windows,
   Classes,
   SysUtils,
+  LogLevel,
   Behavior,
   CacheType,
   BaseCache,
   UserCache,
   AppContext,
+  FactoryMgr,
   ServiceType,
-  ServiceBase,
-  ServiceAsset,
-  FastLogLevel,
+  ResourceCfg,
+  ResourceSkin,
+  BasicService,
+  AssetService,
   WNDataSetInf,
-  GFDataMngr_TLB,
   CommonRefCounter,
   Generics.Collections;
 
@@ -35,45 +42,41 @@ type
   // Application Context Interface Implementation
   TAppContextImpl = class(TAutoInterfacedObject, IAppContext)
   private
-    // Hq Authority Interface
+    // Log
+    FLog: ILog;
+    // Cfg
+    FCfg: ICfg;
+    // Login
+    FLogin: ILogin;
+    // EDCrypt
+    FEDCrypt: IEDCrypt;
+    // Resource Cfg
+    FResourceCfg: IResourceCfg;
+    // Resource Skin
+    FResourceSkin: IResourceSkin;
+    // Factory Manager
+    FFactoryMgr: IFactoryMgr;
+    // Basic Service
+    FBasicService: IBasicService;
+    // Asset Service
+    FAssetService: IAssetService;
+    // Hq Authority
     FHqAuth: IInterface;
-    // Product Authority Interface
-    FProductAuth: IInterface;
-    // Config Interface
-    FConfig: IInterface;
+    // Product Authority
+    FProAuth: IInterface;
     // Behavior
     FBehavior: IBehavior;
-    // SecuMain Memory Table Interface
+    // SecuMain Memory Table
     FSecuMain: IInterface;
-    // LoginMgr Interface
-    FLoginMgr: IInterface;
-    // CipherMgr Interface
-    FCipherMgr: IInterface;
-    // Base Cache Interface
+    // Base Cache
     FBaseCache: IBaseCache;
-    // User Cache Interface
+    // User Cache
     FUserCache: IUserCache;
     // Message Service
     FMsgService: IInterface;
-    // Base Service
-    FServiceBase: IServiceBase;
-    // Asset Service
-    FServiceAsset: IServiceAsset;
-    // Base GF Data Manager
-    FBaseGFDataManager: IGFDataManager;
-    // Asset GF Data Manager
-    FAssetGFDataManager: IGFDataManager;
     // Interface Dictionary
     FInterfaceDic: TDictionary<string, IUnknown>;
   protected
-    // Wait For Single Object
-    function DoWaitForSingleObject(AGFData: IGFData; AWaitTime: DWORD; ALogSuffix: string): IWNDataSet;
-    // GF Sync Query
-    function DoGFSyncQuery(AGFDataManager: IGFDataManager; ASql: string; ATag: Int64; AWaitTime: DWORD; LogSuffix: string): IWNDataSet;
-    // GF Async Query
-    function DoGFASyncQuery(AGFDataManager: IGFDataManager; ASql: WideString; ADataArrive: Int64; ATag: Int64; LogSuffix: string): IGFData;
-    // GF Sync High Query
-    function DoGFSyncHighQuery(AGFDataManager: IGFDataManager; ASql: string; ATag: Int64; AWaitTime: DWORD; LogSuffix: string): IWNDataSet;
   public
     // Constructor
     constructor Create; override;
@@ -86,40 +89,62 @@ type
     procedure ExitApp; safecall;
     // Restart Application
     procedure ReStartApp; safecall;
+    // Initialize
+    procedure Initialize; safecall;
+    // Un Initialize
+    procedure UnInitialize; safecall;
     // Get Config
-    function GetConfig: IInterface; safecall;
+    function GetCfg: ICfg; safecall;
+    // Get Login
+    function GetLogin: ILogin; safecall;
+    // Get EDCrypt
+    function GetEDCrypt: IEDCrypt; safecall;
+    // Get Resource Cfg
+    function GetResourceCfg: IResourceCfg; safecall;
+    // Get Resource Skin
+    function GetResourceSkin: IResourceSkin; safecall;
     // Get Hq Authority
     function GetHqAuth: IInterface; safecall;
     // Get Product Authority
-    function GetProductAuth: IInterface; safecall;
-    // Get LoginMgr
-    function GetLoginMgr: IInterface; safecall;
+    function GetProAuth: IInterface; safecall;
     // Get SecuMain
     function GetSecuMain: IInterface; safecall;
-    // Get CipherMgr
-    function GetCipherMgr: IInterface; safecall;
     // Get MsgService
     function GetMsgService: IInterface; safecall;
-    // Get Service Base
-    function GetServiceBase: IInterface; safecall;
-    // Get Service Asset
-    function GetServiceAsset: IInterface; safecall;
-    // Register Interface
-    procedure RegisterInterface(AGuid: TGUID; AObj: IUnknown); safecall;
+    // Get BasicService
+    function GetBasicService: IBasicService; safecall;
+    // Get AssetService
+    function GetAssetService: IAssetService; safecall;
     // Un Register Interface
     procedure UnRegisterInterface(AGuid: TGUID); safecall;
+    // Register Interface
+    procedure RegisterInterface(AGuid: TGUID; AObj: IUnknown); safecall;
     // Get Interfacec By Guid
     function GetInterfaceByGuid(AGuid: TGUID): IUnknown; safecall;
     // Add Behavior
     function AddBehavior(ABehavior: WideString): Boolean; safecall;
+    // Get Error Info
+    function GetErrorInfo(AErrorCode: Integer): WideString; safecall;
+    // Create interface
+    function CreatePlugInById(APlugInId: Integer): IInterface; safecall;
+    // HQ Log
+    procedure HQLog(ALevel: TLogLevel; ALog: WideString; AUseTime: Integer = 0); safecall;
+    // Web Log
+    procedure WebLog(ALevel: TLogLevel; ALog: WideString; AUseTime: Integer = 0); safecall;
+    // Sys Log
+    procedure SysLog(ALevel: TLogLevel; ALog: WideString; AUseTime: Integer = 0); safecall;
+    // Indicator Log
+    procedure IndicatorLog(ALevel: TLogLevel; ALog: WideString; AUseTime: Integer = 0); safecall;
     // Cache Synchronous Query
     function CacheSyncQuery(ACacheType: TCacheType; ASql: WideString): IWNDataSet; safecall;
-    // GF Synchronous Query
-    function GFSyncQuery(AServiceType: TServiceType; ASQL: WideString; ATag: Int64; AWaitTime: DWORD): IWNDataSet; safecall;
-    // GF ASynchronous Query
-    function GFASyncQuery(AServiceType: TServiceType; ASql: WideString; ADataArrive: Int64; ATag: Int64): IGFData; safecall;
-    // GF ASynchronous High Query
-    function GFSyncHighQuery(AServiceType: TServiceType; ASQL: WideString; ATag: Int64; AWaitTime: DWORD): IWNDataSet; safecall;
+    // Synchronous POST
+    function GFSyncQuery(AServiceType: TServiceType; AIndicator: WideString; AWaitTime: DWORD): IWNDataSet; safecall;
+    // Asynchronous POST
+    function GFAsyncQuery(AServiceType: TServiceType; AIndicator: WideString; AEvent: TGFDataEvent; AKey: Int64): IGFData; safecall;
+    // Priority Synchronous POST
+    function GFPrioritySyncQuery(AServiceType: TServiceType; AIndicator: WideString; AWaitTime: DWORD): IWNDataSet; safecall;
+    // Priority Asynchronous POST
+    function GFPriorityAsyncQuery(AServiceType: TServiceType; AIndicator: WideString; AEvent: TGFDataEvent; AKey: Int64): IGFData; safecall;
   end;
 
 implementation
@@ -127,13 +152,17 @@ implementation
 uses
   Utils,
   HqAuth,
-  Config,
+  ProAuth,
+  LogImpl,
+  CfgImpl,
   SecuMain,
-  LoginMgr,
-  CipherMgr,
+  ErrorCode,
   MsgService,
-  ProductAuth,
-  AsfSdkExport;
+  EDCryptImpl,
+  PlugInConst,
+  FactoryMgrImpl,
+  ResourceCfgImpl,
+  ResourceSkinImpl;
 
 { TAppContextImpl }
 
@@ -157,9 +186,51 @@ begin
 
 end;
 
-function TAppContextImpl.GetConfig: IInterface;
+procedure TAppContextImpl.Initialize;
 begin
-  Result := FConfig;
+  FLog := TLogImpl.Create as ILog;
+  FLog.Initialize;
+  FEDCrypt := TEDCryptImpl.Create as IEDCrypt;
+  FEDCrypt.Initialize(Self);
+  FResourceCfg := TResourceCfgImpl.Create as IResourceCfg;
+  FResourceCfg.Initialize(Self);
+  FResourceSkin := TResourceSkinImpl.Create as IResourceSkin;
+  FResourceSkin.Initialize(Self);
+  FCfg := TCfgImpl.Create as ICfg;
+  FCfg.Initialize(Self);
+  FFactoryMgr := TFactoryMgrImpl.Create as IFactoryMgr;
+  FFactoryMgr.Initialize(Self);
+  FResourceSkin.ChangeSkin;
+end;
+
+procedure TAppContextImpl.UnInitialize;
+begin
+  FInterfaceDic.Clear;
+  FLogin := nil;
+  FBasicService := nil;
+  FAssetService := nil;
+  FFactoryMgr.UnInitialize;
+  FFactoryMgr := nil;
+  FCfg.UnInitialize;
+  FCfg := nil;
+  FResourceSkin.UnInitialize;
+  FResourceSkin := nil;
+  FResourceCfg.UnInitialize;
+  FResourceCfg := nil;
+  FEDCrypt.UnInitialize;
+  FEDCrypt := nil;
+  FLog.UnInitialize;
+  FLog := nil;
+end;
+
+function TAppContextImpl.GetCfg: ICfg;
+begin
+  Result := FCfg;
+end;
+
+function TAppContextImpl.GetLogin: ILogin;
+begin
+  Result := FLogin;
 end;
 
 function TAppContextImpl.GetHqAuth;
@@ -167,14 +238,9 @@ begin
   Result := FHqAuth;
 end;
 
-function TAppContextImpl.GetProductAuth;
+function TAppContextImpl.GetProAuth;
 begin
-  Result := FProductAuth;
-end;
-
-function TAppContextImpl.GetLoginMgr: IInterface;
-begin
-  Result := FLoginMgr;
+  Result := FProAuth;
 end;
 
 function TAppContextImpl.GetSecuMain: IInterface;
@@ -182,9 +248,19 @@ begin
   Result := FSecuMain;
 end;
 
-function TAppContextImpl.GetCipherMgr: IInterface;
+function TAppContextImpl.GetEDCrypt: IEDCrypt;
 begin
-  Result := FCipherMgr;
+  Result := FEDCrypt;
+end;
+
+function TAppContextImpl.GetResourceCfg: IResourceCfg;
+begin
+  Result := FResourceCfg;
+end;
+
+function TAppContextImpl.GetResourceSkin: IResourceSkin;
+begin
+  Result := FResourceSkin;
 end;
 
 function TAppContextImpl.GetMsgService: IInterface;
@@ -192,14 +268,14 @@ begin
   Result := FMsgService;
 end;
 
-function TAppContextImpl.GetServiceBase: IInterface;
+function TAppContextImpl.GetBasicService: IBasicService;
 begin
-  Result := FServiceBase;
+  Result := FBasicService;
 end;
 
-function TAppContextImpl.GetServiceAsset: IInterface;
+function TAppContextImpl.GetAssetService: IAssetService;
 begin
-  Result := FServiceAsset;
+  Result := FAssetService;
 end;
 
 procedure TAppContextImpl.RegisterInterface(AGUID: TGUID; AObj: IUnknown);
@@ -209,12 +285,10 @@ begin
   if AObj = nil then Exit;
   LGUID := GUIDToString(AGUID);
   FInterfaceDic.AddOrSetValue(LGUID, AObj);
-  if LGUID = GUIDToString(IConfig) then begin
-    FConfig := AObj as IInterface;
-  end else if LGUID = GUIDToString(ILoginMgr) then begin
-    FLoginMgr := AObj as IInterface;
-  end else if LGUID = GUIDToString(ICipherMgr) then begin
-    FCipherMgr := AObj as IInterface;
+  if LGUID = GUIDToString(IBasicService) then begin
+    FBasicService := AObj as IBasicService;
+  end else if LGUID = GUIDToString(IAssetService) then begin
+    FAssetService := AObj as IAssetService;
   end else if LGUID = GUIDToString(ISecuMain) then begin
     FSecuMain := AObj as IInterface;
   end else if LGUID = GUIDToString(IMsgService) then begin
@@ -225,16 +299,12 @@ begin
     FBaseCache := AObj as IBaseCache;
   end else if LGUID = GUIDToString(IUserCache) then begin
     FUserCache := AObj as IUserCache;
-  end else if LGUID = GUIDToString(IServiceBase) then begin
-    FServiceBase := AObj as IServiceBase;
-    FBaseGFDataManager := FServiceBase.GetGFDataManager;
-  end else if LGUID = GUIDToString(IServiceAsset) then begin
-    FServiceAsset := AObj as IServiceAsset;
-    FAssetGFDataManager := FServiceAsset.GetGFDataManager;
   end else if LGUID = GUIDToString(IHqAuth) then begin
     FHqAuth := AObj as IInterface;
-  end else if LGUID = GUIDToString(IProductAuth) then begin
-    FProductAuth := AObj as IInterface;
+  end else if LGUID = GUIDToString(IProAuth) then begin
+    FProAuth := AObj as IInterface;
+  end else if LGUID = GUIDToString(ILogin) then begin
+    FLogin := AObj as ILogin;
   end;
 end;
 
@@ -260,6 +330,36 @@ begin
   end;
 end;
 
+function TAppContextImpl.GetErrorInfo(AErrorCode: Integer): WideString;
+begin
+  Result := ErrorCodeToErrorInfo(AErrorCode);
+end;
+
+function TAppContextImpl.CreatePlugInById(APlugInId: Integer): IInterface;
+begin
+  Result := FFactoryMgr.CreatePlugInById(APlugInId);
+end;
+
+procedure TAppContextImpl.HQLog(ALevel: TLogLevel; ALog: WideString; AUseTime: Integer = 0);
+begin
+  FLog.HQLog(ALevel, ALog, AUseTime);
+end;
+
+procedure TAppContextImpl.WebLog(ALevel: TLogLevel; ALog: WideString; AUseTime: Integer = 0); safecall;
+begin
+  FLog.WebLog(ALevel, ALog, AUseTime);
+end;
+
+procedure TAppContextImpl.SysLog(ALevel: TLogLevel; ALog: WideString; AUseTime: Integer = 0); safecall;
+begin
+  FLog.SysLog(ALevel, ALog, AUseTime);
+end;
+
+procedure TAppContextImpl.IndicatorLog(ALevel: TLogLevel; ALog: WideString; AUseTime: Integer = 0);
+begin
+  FLog.IndicatorLog(ALevel, ALog, AUseTime);
+end;
+
 function TAppContextImpl.CacheSyncQuery(ACacheType: TCacheType; ASql: WideString): IWNDataSet;
 begin
   case ACacheType of
@@ -278,223 +378,162 @@ begin
   end;
 end;
 
-function TAppContextImpl.GFSyncQuery(AServiceType: TServiceType; ASQL: WideString; ATag: Int64; AWaitTime: DWORD): IWNDataSet;
-{$IFDEF DEBUG}
+function TAppContextImpl.GFSyncQuery(AServiceType: TServiceType; AIndicator: WideString; AWaitTime: DWORD): IWNDataSet;
 var
+{$IFDEF DEBUG}
   LTick: Cardinal;
 {$ENDIF}
-begin
-{$IFDEF DEBUG}
-  LTick := GetTickCount;
-  try
-{$ENDIF}
-    case AServiceType of
-      stBase:
-        begin
-          Result := DoGFSyncQuery(FBaseGFDataManager, ASql, ATag, AWaitTime, '[TAppContextImpl.GFSyncQueryData FBaseGFDataManager]');
-        end;
-      stAsset:
-        begin
-          Result := DoGFSyncQuery(FAssetGFDataManager, ASql, ATag, AWaitTime, '[TAppContextImpl.GFSyncQueryData FAssetGFDataManager]');
-        end;
-    end;
-{$IFDEF DEBUG}
-  finally
-    LTick := GetTickCount - LTick;
-    case AServiceType of
-      stBase:
-        begin
-          FastIndicatorLog(llSlow, Format('[FBaseGFDataManager.QueryDataSet DoGFSyncQueryDataSet] Execute Indicator(%s) use time is %d ms.', [ASql, LTick]), LTick);
-        end;
-      stAsset:
-        begin
-          FastIndicatorLog(llSlow, Format('[FAssetGFDataManager.QueryDataSet DoGFSyncQueryDataSet] Execute Indicator(%s) use time is %d ms.', [ASql, LTick]), LTick);
-        end;
-    end;
-  end;
-{$ENDIF}
-end;
-
-function TAppContextImpl.GFASyncQuery(AServiceType: TServiceType; ASql: WideString; ADataArrive: Int64; ATag: Int64): IGFData;
-{$IFDEF DEBUG}
-var
-  LTick: Cardinal;
-{$ENDIF}
-begin
-{$IFDEF DEBUG}
-  LTick := GetTickCount;
-  try
-{$ENDIF}
-    case AServiceType of
-      stBase:
-        begin
-          Result := DoGFASyncQuery(FBaseGFDataManager, ASql, ADataArrive, ATag, '[TAppContextImpl.GFASyncQueryData FBaseGFDataManager]');
-        end;
-      stAsset:
-        begin
-          Result := DoGFASyncQuery(FAssetGFDataManager, ASql, ADataArrive, ATag, '[TAppContextImpl.GFASyncQueryData FAssetGFDataManager]');
-        end;
-    end;
-{$IFDEF DEBUG}
-  finally
-    LTick := GetTickCount - LTick;
-    case AServiceType of
-      stBase:
-        begin
-          FastIndicatorLog(llSlow, Format('[FBaseGFDataManager.QueryDataSet DoGFASyncQueryData] Execute Indicator(%s) use time is %d ms.', [ASql, LTick]), LTick);
-        end;
-      stAsset:
-        begin
-          FastIndicatorLog(llSlow, Format('[FAssetGFDataManager.QueryDataSet DoGFASyncQueryData] Execute Indicator(%s) use time is %d ms.', [ASql, LTick]), LTick);
-        end;
-    end;
-  end;
-{$ENDIF}
-end;
-
-function TAppContextImpl.GFSyncHighQuery(AServiceType: TServiceType; ASQL: WideString; ATag: Int64; AWaitTime: DWORD): IWNDataSet;
-{$IFDEF DEBUG}
-var
-  LTick: Cardinal;
-{$ENDIF}
-begin
-{$IFDEF DEBUG}
-  LTick := GetTickCount;
-  try
-{$ENDIF}
-    case AServiceType of
-      stBase:
-        begin
-          Result := DoGFSyncHighQuery(FBaseGFDataManager, ASql, ATag, AWaitTime, '[TAppContextImpl.GFSyncQueryHighData FBaseGFDataManager]');
-        end;
-      stAsset:
-        begin
-          Result := DoGFSyncHighQuery(FAssetGFDataManager, ASql, ATag, AWaitTime, '[TAppContextImpl.GFSyncQueryHighData FAssetGFDataManager]');
-        end;
-    end;
-{$IFDEF DEBUG}
-  finally
-    LTick := GetTickCount - LTick;
-    case AServiceType of
-      stBase:
-        begin
-          FastIndicatorLog(llSlow, Format('[FBaseGFDataManager.QueryHighDataSet DoGFSyncQueryHighDataSet] Execute Indicator(%s) use time is %d ms.', [ASql, LTick]), LTick);
-        end;
-      stAsset:
-        begin
-          FastIndicatorLog(llSlow, Format('[FAssetGFDataManager.QueryHighDataSet DoGFSyncQueryHighDataSet] Execute Indicator(%s) use time is %d ms.', [ASql, LTick]), LTick);
-        end;
-    end;
-  end;
-{$ENDIF}
-end;
-
-function TAppContextImpl.DoWaitForSingleObject(AGFData: IGFData; AWaitTime: DWORD; ALogSuffix: string): IWNDataSet;
-var
-  LResult: Cardinal;
-begin
-  LResult := WaitForSingleObject(AGFData.WaitEvent, AWaitTime);
-  case LResult of
-    WAIT_OBJECT_0:
-      begin
-        Result := Utils.GFData2WNDataSet(AGFData);
-        if Result = nil then begin
-          FastSysLog(llError, ALogSuffix + ' WaitForSingleObject return is nil.');
-        end;
-      end;
-    WAIT_TIMEOUT:
-      begin
-        FastSysLog(llError, ALogSuffix + ' WaitForSingleObject is timeout.');
-      end;
-    WAIT_FAILED:
-      begin
-        FastSysLog(llError, ALogSuffix + ' WaitForSingleObject is Failed.');
-      end;
-  end;
-end;
-
-function TAppContextImpl.DoGFSyncQuery(AGFDataManager: IGFDataManager; ASql: string; ATag: Int64; AWaitTime: DWORD; LogSuffix: string): IWNDataSet;
-var
-  LEvent: Int64;
   LGFData: IGFData;
 begin
-  if AGFDataManager <> nil then begin
-    if AGFDataManager.Login then begin
-      LEvent := 0;
-      try
-        LGFData := AGFDataManager.QueryDataSet(0, ASql, wmBlocking, LEvent, ATag);
-        if LGFData <> nil then begin
-          Result := DoWaitForSingleObject(LGFData, AWaitTime, Format('[%s] GFDataManager.QueryDataSet Execute Indicator(%s),', [LogSuffix, ASql]));
-        end else begin
-          Result := nil;
+{$IFDEF DEBUG}
+  LTick := GetTickCount;
+  try
+{$ENDIF}
+    case AServiceType of
+      stBasic:
+        begin
+          LGFData := FBasicService.SyncPost(AIndicator, AWaitTime);
         end;
-      except
-        on Ex: Exception do begin
-          Result := nil;
-          FastSysLog(llError, Format('[%s] GFDataManager.QueryDataSet is exception, exception is %s, Execute Indicator(%s).', [LogSuffix, Ex.Message, ASql]));
+      stAsset:
+        begin
+          LGFData := FAssetService.SyncPost(AIndicator, AWaitTime);
         end;
-      end;
-    end else begin
-      Result := nil;
-      FastSysLog(llError, Format('[%s] GFDataManager.Login is false, Execute Indicator(%s).', [LogSuffix, ASql]));
     end;
-  end else begin
-    Result := nil;
-    FastSysLog(llError, Format('[%s] GFDataManager is nil, Execute Indicator(%s).', [LogSuffix, ASql]));
+    Result := Utils.GFData2WNDataSet(LGFData);
+    if LGFData <> nil then begin
+      LGFData := nil;
+    end;
+{$IFDEF DEBUG}
+  finally
+    LTick := GetTickCount - LTick;
+    case AServiceType of
+      stBasic:
+        begin
+          IndicatorLog(llSlow, Format('[TAppContextImpl][GFSyncQuery] FBasicService.SyncPost Execute Indicator(%s) use time is %d ms.', [AIndicator, LTick]), LTick);
+        end;
+      stAsset:
+        begin
+          IndicatorLog(llSlow, Format('[TAppContextImpl][GFSyncQuery] FAssetService.SyncPost Execute Indicator(%s) use time is %d ms.', [AIndicator, LTick]), LTick);
+        end;
+    end;
   end;
+{$ENDIF}
 end;
 
-function TAppContextImpl.DoGFASyncQuery(AGFDataManager: IGFDataManager; ASql: WideString; ADataArrive: Int64; ATag: Int64; LogSuffix: string): IGFData;
-begin
-  if (AGFDataManager <> nil) then begin
-    if AGFDataManager.Login then begin
-      try
-        Result := FBaseGFDataManager.QueryDataSet(0, ASql, wmNonBlocking, ADataArrive, ATag);
-      except
-        on Ex: Exception do begin
-          Result := nil;
-          FastSysLog(llError, Format('[%s] GFDataManager.QueryDataSet is exception, exception is %s, Execute Indicator(%s).', [LogSuffix, Ex.Message, ASql]));
-        end;
-      end;
-    end else begin
-      Result := nil;
-      FastSysLog(llError, Format('[%s] GFDataManager.Login is false, Execute Indicator(%s).', [LogSuffix, ASql]));
-    end;
-  end else begin
-    Result := nil;
-    FastSysLog(llError, Format('[%s] GFDataManager is nil, Execute Indicator(%s).', [LogSuffix, ASql]));
-  end;
-end;
-
-function TAppContextImpl.DoGFSyncHighQuery(AGFDataManager: IGFDataManager; ASql: string; ATag: Int64; AWaitTime: DWORD; LogSuffix: string): IWNDataSet;
+function TAppContextImpl.GFAsyncQuery(AServiceType: TServiceType; AIndicator: WideString; AEvent: TGFDataEvent; AKey: Int64): IGFData;
+{$IFDEF DEBUG}
 var
-  LEvent: Int64;
+  LTick: Cardinal;
+{$ENDIF}
+begin
+{$IFDEF DEBUG}
+  LTick := GetTickCount;
+  try
+{$ENDIF}
+    case AServiceType of
+      stBasic:
+        begin
+          Result := FBasicService.AsyncPOST(AIndicator, AEvent, AKey);
+        end;
+      stAsset:
+        begin
+          Result := FAssetService.AsyncPOST(AIndicator, AEvent, AKey);
+        end;
+    end;
+{$IFDEF DEBUG}
+  finally
+    LTick := GetTickCount - LTick;
+    case AServiceType of
+      stBasic:
+        begin
+          IndicatorLog(llSlow, Format('[TAppContextImpl][GFAsyncQuery] FBasicService.AsyncPOST Execute Indicator(%s) use time is %d ms.', [AIndicator, LTick]), LTick);
+        end;
+      stAsset:
+        begin
+          IndicatorLog(llSlow, Format('[TAppContextImpl][GFAsyncQuery] FAssetService.AsyncPOST Execute Indicator(%s) use time is %d ms.', [AIndicator, LTick]), LTick);
+        end;
+    end;
+  end;
+{$ENDIF}
+end;
+
+function TAppContextImpl.GFPrioritySyncQuery(AServiceType: TServiceType; AIndicator: WideString; AWaitTime: DWORD): IWNDataSet;
+var
+{$IFDEF DEBUG}
+  LTick: Cardinal;
+{$ENDIF}
   LGFData: IGFData;
 begin
-  if AGFDataManager <> nil then begin
-    if AGFDataManager.Login then begin
-      LEvent := 0;
-      try
-        LGFData := AGFDataManager.QueryHighDataSet(0, ASql, wmBlocking, LEvent, ATag);
-        if LGFData <> nil then begin
-          Result := DoWaitForSingleObject(LGFData, AWaitTime, Format('[%s] GFDataManager.QueryHighDataSet Execute Indicator(%s),', [LogSuffix, ASql]));
-        end else begin
-          Result := nil;
+{$IFDEF DEBUG}
+  LTick := GetTickCount;
+  try
+{$ENDIF}
+    case AServiceType of
+      stBasic:
+        begin
+          LGFData := FBasicService.PrioritySyncPost(AIndicator, AWaitTime);
         end;
-      except
-        on Ex: Exception do begin
-          Result := nil;
-          FastSysLog(llError, Format('[%s] GFDataManager.QueryHighDataSet is exception, exception is %s, Execute Indicator(%s).', [LogSuffix, Ex.Message, ASql]));
+      stAsset:
+        begin
+          LGFData := FAssetService.PrioritySyncPost(AIndicator, AWaitTime);
         end;
-      end;
-    end else begin
-      Result := nil;
-      FastSysLog(llError, Format('[%s] GFDataManager.Login is false, Execute Indicator(%s).', [LogSuffix, ASql]));
     end;
-  end else begin
-    Result := nil;
-    FastSysLog(llError, Format('[%s] GFDataManager is nil, Execute Indicator(%s).', [LogSuffix, ASql]));
+    Result := Utils.GFData2WNDataSet(LGFData);
+    if LGFData <> nil then begin
+      LGFData := nil;
+    end;
+{$IFDEF DEBUG}
+  finally
+    LTick := GetTickCount - LTick;
+    case AServiceType of
+      stBasic:
+        begin
+          IndicatorLog(llSlow, Format('[TAppContextImpl][GFPrioritySyncQuery] FBasicService.PrioritySyncPost Execute Indicator(%s) use time is %d ms.', [AIndicator, LTick]), LTick);
+        end;
+      stAsset:
+        begin
+          IndicatorLog(llSlow, Format('[TAppContextImpl][GFPrioritySyncQuery] FBasicService.PrioritySyncPost Execute Indicator(%s) use time is %d ms.', [AIndicator, LTick]), LTick);
+        end;
+    end;
   end;
+{$ENDIF}
+end;
+
+function TAppContextImpl.GFPriorityAsyncQuery(AServiceType: TServiceType; AIndicator: WideString; AEvent: TGFDataEvent; AKey: Int64): IGFData;
+{$IFDEF DEBUG}
+var
+  LTick: Cardinal;
+{$ENDIF}
+begin
+{$IFDEF DEBUG}
+  LTick := GetTickCount;
+  try
+{$ENDIF}
+    case AServiceType of
+      stBasic:
+        begin
+          Result := FBasicService.PriorityAsyncPOST(AIndicator, AEvent, AKey);
+        end;
+      stAsset:
+        begin
+          Result := FAssetService.PriorityAsyncPOST(AIndicator, AEvent, AKey);
+        end;
+    end;
+{$IFDEF DEBUG}
+  finally
+    LTick := GetTickCount - LTick;
+    case AServiceType of
+      stBasic:
+        begin
+          IndicatorLog(llSlow, Format('[TAppContextImpl][GFPriorityAsyncQuery] FBasicService.AsyncPOST Execute Indicator(%s) use time is %d ms.', [AIndicator, LTick]), LTick);
+        end;
+      stAsset:
+        begin
+          IndicatorLog(llSlow, Format('[TAppContextImpl][GFPriorityAsyncQuery] FAssetService.AsyncPOST Execute Indicator(%s) use time is %d ms.', [AIndicator, LTick]), LTick);
+        end;
+    end;
+  end;
+{$ENDIF}
 end;
 
 end.

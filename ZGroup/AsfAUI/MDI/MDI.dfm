@@ -1,0 +1,62 @@
+object MDIForm: TMDIForm
+  Left = 0
+  Top = 0
+  Caption = 'MDIForm'
+  ClientHeight = 643
+  ClientWidth = 1325
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  Position = poScreenCenter
+  OnClose = FormClose
+  OnCreate = FormCreate
+  OnDestroy = FormDestroy
+  OnResize = FormResize
+  OnShow = FormShow
+  PixelsPerInch = 96
+  TextHeight = 13
+  object pnlSuperTab: TPanel
+    Left = 0
+    Top = 0
+    Width = 60
+    Height = 643
+    Align = alLeft
+    BevelOuter = bvNone
+    Caption = 'pnlSuperTab'
+    TabOrder = 0
+  end
+  object pnlClient: TPanel
+    Left = 60
+    Top = 0
+    Width = 1265
+    Height = 643
+    Align = alClient
+    BevelOuter = bvNone
+    Caption = 'pnlClient'
+    TabOrder = 1
+    object pnlAppMenu: TPanel
+      Left = 0
+      Top = 0
+      Width = 1265
+      Height = 30
+      Align = alTop
+      BevelOuter = bvNone
+      Caption = 'pnlAppMenu'
+      TabOrder = 0
+    end
+    object pnlStatusBar: TPanel
+      Left = 0
+      Top = 613
+      Width = 1265
+      Height = 30
+      Align = alBottom
+      BevelOuter = bvNone
+      Caption = 'pnlStatusBar'
+      TabOrder = 1
+    end
+  end
+end

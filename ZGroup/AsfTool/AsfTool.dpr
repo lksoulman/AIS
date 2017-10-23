@@ -12,7 +12,17 @@ library AsfTool;
 
 uses
   System.SysUtils,
-  System.Classes;
+  System.Classes,
+  WExport in 'WExport\WExport.pas',
+  FactoryAsfToolImpl in 'WExport\Impl\FactoryAsfToolImpl.pas',
+  ServiceExplorer in 'ServiceExplorer\ServiceExplorer.pas',
+  ServiceExplorerImpl in 'ServiceExplorer\Impl\ServiceExplorerImpl.pas',
+  ServiceExplorerUI in 'ServiceExplorer\UI\ServiceExplorerUI.pas' {ServiceExplorerUI},
+  ServiceExplorerPlugInImpl in 'WDPlugIn\Impl\ServiceExplorerPlugInImpl.pas',
+  UpdateExplorer in 'UpdateExplorer\UpdateExplorer.pas',
+  UpdateExplorerImpl in 'UpdateExplorer\Impl\UpdateExplorerImpl.pas',
+  UpdateExplorerUI in 'UpdateExplorer\UpdateExplorerUI\UpdateExplorerUI.pas' {UpdateExplorerUI},
+  UpdateExplorerPlugInImpl in 'WDPlugIn\Impl\UpdateExplorerPlugInImpl.pas';
 
 {$R *.res}
 

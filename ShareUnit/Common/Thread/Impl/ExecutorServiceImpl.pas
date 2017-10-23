@@ -1,5 +1,14 @@
 unit ExecutorServiceImpl;
 
+////////////////////////////////////////////////////////////////////////////////
+//
+// Description： Executor Service Interface implementation
+// Author：      lksoulman
+// Date：        2017-5-1
+// Comments：    {Doug Lea thread}
+//
+////////////////////////////////////////////////////////////////////////////////
+
 interface
 
 uses
@@ -16,54 +25,61 @@ uses
 
 type
 
+  // Executor Service Interface implementation
   TExecutorServiceImpl = class(TAutoInterfacedObject, IExecutorService)
   private
   protected
-    // 是不是关闭
+    // Is Start
     FIsStart: Boolean;
-    // 是不是已经终止
+    // Is Terminated
     FIsTerminated: Boolean;
-    // 执行线程个数
+    // Thread Count
     FExecutorThreadCount: Integer;
-    // 管理任务线程
+    // Monitor Thread
     FMonitorThread: TExecutorThread;
-    // 所有创建的线程
+    // Create Executor Function
+    FCreateExecutorFunc: TCreateExecutorFunc;
+    // Work Thread
     FWorkerThreads: TList<TExecutorThread>;
-    // 提交的任务队列
+    // Submit Task Queue
     FSubmitTaskQueue: TSafeSemaphoreQueue<IExecutorTask>;
 
-    // 启动所有线程
-    procedure DoStart; virtual;
-    // 关闭
-    procedure DoShutDown; virtual;
-    // 返回是不是所有的线程都终止
-    function DoIsTerminated: Boolean; virtual;
-    // 提交任务
-    function DoSubmitTask(ATask: IExecutorTask): Boolean; virtual;
-    // 初始化换执行线程
-    procedure DoInitExecutorThreads; virtual;
-    // 终端执行线程
-    procedure DoUnInitExecutorThreads; virtual;
-    // 执行线程
-    procedure DoTaskExcute(AObject: TObject); virtual;
-    // 监控任务执行方法
-    procedure DoTaskMonitor(AObject: TObject); virtual;
+    // Start Service
+    procedure DoStart;
+    // Shutdown
+    procedure DoShutDown;
+    // Is all Thread Terminated
+    function DoIsTerminated: Boolean;
+    // Submit Task
+    function DoSubmitTask(ATask: IExecutorTask): Boolean;
+    // Shutdown Thread
+    procedure DoShutDownThread;
+    // Start ACount Thread
+    procedure DoStartThread(ACount: Integer);
+    // Create Executor
+    function DoCreateExecutor: TExecutorThread;
+    // Execute Task
+    procedure DoTaskExecute(AObject: TObject);
+    // Monitor Task
+    procedure DoTaskMonitor(AObject: TObject);
   public
-    // 构造函数
+    // Constructor
     constructor Create; virtual;
-    // 析构函数
+    // Destructor
     destructor Destroy; override;
 
-    { IExecuterService }
+    { IExecutorService }
 
-    // 启动
+    // Start
     procedure Start; safecall;
-    // 关闭
+    // Shutdown
     procedure ShutDown; safecall;
-    // 是不是已经结束
+    // Is Terminated
     function IsTerminated: boolean; safecall;
-    // 提交任务
+    // Submit Task
     function SubmitTask(ATask: IExecutorTask): Boolean; safecall;
+    // Set Create Executor Function
+    function SetCreateExecutorFunc(AFunc: TCreateExecutorFunc): Boolean; safecall;
   end;
 
 implementation
@@ -112,14 +128,26 @@ begin
   Result := DoSubmitTask(ATask);
 end;
 
+function TExecutorServiceImpl.SetCreateExecutorFunc(AFunc: TCreateExecutorFunc): Boolean;
+begin
+  if Assigned(AFunc) then begin
+    FCreateExecutorFunc := AFunc;
+    Result := True;
+  end else begin
+    FCreateExecutorFunc := nil;
+  end;
+end;
+
 procedure TExecutorServiceImpl.DoStart;
 begin
-  DoInitExecutorThreads;
+  DoStartThread(FExecutorThreadCount);
+  FMonitorThread.StartEx;
 end;
 
 procedure TExecutorServiceImpl.DoShutDown;
 begin
-  DoUnInitExecutorThreads;
+  FMonitorThread.ShutDown;
+  DoShutDownThread;
 end;
 
 function TExecutorServiceImpl.DoIsTerminated: Boolean;
@@ -143,22 +171,7 @@ begin
   FSubmitTaskQueue.ReleaseSemaphore;
 end;
 
-procedure TExecutorServiceImpl.DoInitExecutorThreads;
-var
-  LIndex: Integer;
-  LWorker: TExecutorThread;
-begin
-  for LIndex := 0 to FExecutorThreadCount - 1 do begin
-    LWorker := TExecutorThread.Create;
-    LWorker.Name := 'Worker_' + IntToStr(LIndex);
-    LWorker.ThreadMethod := DoTaskExcute;
-    LWorker.StartEx;
-    FWorkerThreads.Add(LWorker);
-  end;
-  FMonitorThread.StartEx;
-end;
-
-procedure TExecutorServiceImpl.DoUnInitExecutorThreads;
+procedure TExecutorServiceImpl.DoShutDownThread;
 var
   LIndex: Integer;
   LWorker: TExecutorThread;
@@ -171,7 +184,32 @@ begin
   FWorkerThreads.Clear;
 end;
 
-procedure TExecutorServiceImpl.DoTaskExcute(AObject: TObject);
+procedure TExecutorServiceImpl.DoStartThread(ACount: Integer);
+var
+  LIndex: Integer;
+  LWorker: TExecutorThread;
+begin
+  for LIndex := 0 to ACount - 1 do begin
+    LWorker := DoCreateExecutor;
+    if LWorker <> nil then begin
+      LWorker.Name := 'Worker_' + IntToStr(LIndex);
+      LWorker.ThreadMethod := DoTaskExecute;
+      LWorker.StartEx;
+      FWorkerThreads.Add(LWorker);
+    end;
+  end;
+end;
+
+function TExecutorServiceImpl.DoCreateExecutor: TExecutorThread;
+begin
+  if Assigned(FCreateExecutorFunc) then begin
+    Result := FCreateExecutorFunc;
+  end else begin
+    Result := TExecutorThread.Create;
+  end;
+end;
+
+procedure TExecutorServiceImpl.DoTaskExecute(AObject: TObject);
 var
   LName: string;
   LResult: Cardinal;

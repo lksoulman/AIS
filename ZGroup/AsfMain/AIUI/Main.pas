@@ -2,7 +2,7 @@ unit Main;
 
 ////////////////////////////////////////////////////////////////////////////////
 //
-// Description：
+// Description： Main Form
 // Author：      lksoulman
 // Date：        2017-8-14
 // Comments：
@@ -21,22 +21,35 @@ uses
   Variants,
   Graphics,
   Controls,
-  AppContext;
+  AppContext, Vcl.StdCtrls;
 
 type
+
   //
   TfrmMain = class(TForm)
-    // 窗口创建
+    BtnServiceExplorer: TButton;
+    BtnProAuth: TButton;
+    BtnHqAuth: TButton;
+    BtnBaseCache: TButton;
+    BtnSecuMain: TButton;
+    BtnUpdate: TButton;
+    BtnMainFrameUI: TButton;
+    // Form Create
     procedure FormCreate(Sender: TObject);
-    // 窗口释放
+    // Form Destroy
     procedure FormDestroy(Sender: TObject);
+    procedure BtnServiceExplorerClick(Sender: TObject);
+    procedure BtnProAuthClick(Sender: TObject);
+    procedure BtnHqAuthClick(Sender: TObject);
+    procedure BtnBaseCacheClick(Sender: TObject);
+    procedure BtnSecuMainClick(Sender: TObject);
+    procedure BtnUpdateClick(Sender: TObject);
+    procedure BtnMainFrameUIClick(Sender: TObject);
   private
-    // 当屏幕激活窗口改变的时候
+    // Active Form Change
     procedure ActiveFormChange(Sender: TObject);
   protected
-//    // 插件管理对象
-//    FPlugInMgr: TPlugInMgr;
-    // 应用程序上下文接口
+    // Application Context
     FAppContext: IAppContext;
 
 
@@ -53,22 +66,63 @@ var
 implementation
 
 uses
+  ServiceType,
+  PlugInConst,
   AppContextImpl;
 
 {$R *.dfm}
 
+procedure TfrmMain.BtnHqAuthClick(Sender: TObject);
+begin
+  FAppContext.CreatePlugInById(PLUGIN_ID_HQAUTH);
+end;
+
+procedure TfrmMain.BtnMainFrameUIClick(Sender: TObject);
+begin
+  FAppContext.CreatePlugInById(PLUGIN_ID_MAINFRAMEUI);
+end;
+
+procedure TfrmMain.BtnProAuthClick(Sender: TObject);
+begin
+  FAppContext.CreatePlugInById(PLUGIN_ID_PROAUTH);
+end;
+
+procedure TfrmMain.BtnBaseCacheClick(Sender: TObject);
+begin
+  FAppContext.CreatePlugInById(PLUGIN_ID_BASECACHE);
+end;
+
+procedure TfrmMain.BtnSecuMainClick(Sender: TObject);
+begin
+  FAppContext.CreatePlugInById(PLUGIN_ID_SECUMAIN);
+end;
+
+procedure TfrmMain.BtnServiceExplorerClick(Sender: TObject);
+begin
+  if (FAppContext.GetLogin <> nil)
+    and FAppContext.GetLogin.IsLoginService(stAll) then begin
+    FAppContext.CreatePlugInById(LIB_PLUGIN_ID_SERVICEEXPLORER);
+  end;
+end;
+
+procedure TfrmMain.BtnUpdateClick(Sender: TObject);
+begin
+  FAppContext.CreatePlugInById(LIB_PLUGIN_ID_UPDATEEXPLORER);
+end;
+
 procedure TfrmMain.FormCreate(Sender: TObject);
 begin
-//  FPlugInMgr := TPlugInMgr.Create;
   FAppContext := TAppContextImpl.Create as IAppContext;
-//  FPlugInMgr.Initialize(FAppContext);
+  FAppContext.Initialize;
+  FAppContext.CreatePlugInById(LIB_PLUGIN_ID_BASICSERVICE);
+  FAppContext.CreatePlugInById(LIB_PLUGIN_ID_ASSETSERVICE);
+  FAppContext.CreatePlugInById(LIB_PLUGIN_ID_LOGIN);
 end;
 
 procedure TfrmMain.FormDestroy(Sender: TObject);
 begin
-//  FPlugInMgr.UnInitialize;
+  FAppContext.UnInitialize;
   FAppContext := nil;
-//  FPlugInMgr.Free;
 end;
 
 procedure TfrmMain.ActiveFormChange(Sender: TObject);
@@ -83,7 +137,6 @@ end;
 
 procedure TfrmMain.InitConfig;
 begin
-
 
 end;
 

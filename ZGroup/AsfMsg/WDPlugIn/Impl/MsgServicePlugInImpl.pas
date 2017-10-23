@@ -24,7 +24,7 @@ type
   //  Message Service Interface implementation
   TMsgServicePlugInImpl = class(TPlugInImpl)
   private
-    // Message Service Interface
+    // Message Service
     FMsgService: IMsgService;
   protected
   public

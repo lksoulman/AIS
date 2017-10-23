@@ -2,7 +2,7 @@ unit SQLiteAdapter;
 
 ////////////////////////////////////////////////////////////////////////////////
 //
-// Description：
+// Description： SQLite Adapter
 // Author：      lksoulman
 // Date：        2017-8-8
 // Comments：
@@ -12,99 +12,107 @@ unit SQLiteAdapter;
 interface
 
 uses
-  Windows,
-  Classes,
-  SysUtils,
   DB,
   Uni,
   CRTypes,
+  Windows,
+  Classes,
+  SysUtils,
   DBAccess,
   UniScript,
+  AppContext,
   LiteCallUni,
+  WNDataSetInf,
+  SQLiteDataSet,
   LiteClassesUni,
   LiteFunctionUni,
-  SQLiteUniProvider,
-  WNDataSetInf,
-  SQLiteDataSet;
+  CommonRefCounter,
+  SQLiteUniProvider;
 
 type
 
-  // Sqlite 数据库
-  TSQLiteAdapter = class
+  // SQLite Adapter
+  TSQLiteAdapter = class(TAutoObject)
   private
-    // 加载类名称
+    // Load Class Name
     FLoadClassName: string;
-    // 数据加载 DLL
+    // SQLite DLL
     FDLLName: string;
-    // 数据库名称
+    // DataBase Name
     FDataBaseName: string;
-    // 数据库密码
+    // DataBase Password
     FDataPassword: string;
-    // Sqlite3 API 接口
+    // Application Context
+    FAppContext: IAppContext;
+    // SQLite3 API
     FSQLite3API: TSQLite3API;
-    // Sqlite 连接
+    // SQLite Connection
     FSQLiteConn: TUniConnection;
-    // 关联 Sql
+    // AttachDB Sql
     FAttachDBSql: string;
-    // 关联数据库文件
+    // AttachDB File
     FAttachDBFile: string;
-    // 关联数据库别名
+    // AttachDB Alias
     FAttachDBAlias: string;
-    // 关联数据库密码
+    // AttachDB Password
     FAttachDBPassword: string;
-    // 是不是存在关联数据库文件
+    // Is Exist AttachDB File
     FIsExistAttachDBFile: boolean;
-    // 读写锁
+    // Read And Write Lock
     FReadWriteLock: TMultiReadExclusiveWriteSynchronizer;
   protected
-    // 创建数据库连接
+    // Create SQLite Connection
     function CreateSQLiteConn: TUniConnection;
-    // 创建关联数据库连接
+    // Create AttachDB SQLite Connection
     function CreateAttachDBSQLiteConn: TUniConnection;
   public
-    // 构造方法
-    constructor Create;
-    // 析构函数
+    // Constructor
+    constructor Create; override;
+    // Destructor
     destructor Destroy; override;
-    // 开始读锁
+    // Init
+    procedure Initialize(AContext: IAppContext);
+    // Un Init
+    procedure UnInitialize;
+    // Begin Read
     procedure BeginRead;
-    // 结束读锁
+    // End Read
     procedure EndRead;
-    // 开始写锁
+    // Begin Write
     procedure BeginWrite;
-    // 结束写锁
+    // End Write
     procedure EndWrite;
-    // 提交
+    // Commit
     procedure Commit;
-    // 回滚
+    // Rollback
     procedure Rollback;
-    // 设置事务开始
+    // StartTransaction
     procedure StartTransaction;
-    // 单步
+    // Step
     function Step(ASQLite3Stmt: pSQLite3Stmt): Int64;
-    // 重新设置
+    // Reset
     procedure Reset(ASQLite3Stmt: pSQLite3Stmt);
-    // 完成处理
+    // Finalize
     procedure Finalize(ASQLite3Stmt: pSQLite3Stmt);
     // SQL Prepare
     function Prepare(const ASql: AnsiString; var ASQLite3Stmt: pSQLite3Stmt): Int64;
-    // 初始化数据库连接
+    // Init DataBase Connection
     procedure InitDataBaseConn;
-    // 关闭数据连接
+    // Un Init DataBase Connection
     procedure UnInitDataBaseConn;
-    // 是不是存在数据库
+    // Is Exist DataBase
     function IsExistDataBase: Boolean;
-    // 执行 SQL
+    // Execute SQL
     procedure ExecuteSql(const ASql: string);
-    // 执行脚本
+    // Execute Script
     procedure ExecuteScript(const AScript: string);
-    // 查询 SQL
+    // Query SQL
     function QuerySql(const ASql: string): IWNDataSet;
-    // 多数据库关联查询 SQL
+    // AttachDBQuery SQL
     function AttachDBQuerySql(const ASql: string): IWNDataSet;
-    // 关联数据库
+    // Set AttachBD
     procedure SetAttachDB(ADBFile, ADBAlias, APassword: string);
-    // 绑定数据集的数据
+    // BindField
     procedure BindField(SQLite3Stmt: pSQLite3Stmt; AField: IWNField; ACount: Integer);
 
     property DLLName: string read FDLLName write FDLLName;
@@ -117,8 +125,7 @@ implementation
 
 uses
   Utils,
-  FastLogLevel,
-  AsfSdkExport;
+  LogLevel;
 
 { TSQLiteAdapter }
 
@@ -133,6 +140,18 @@ destructor TSQLiteAdapter.Destroy;
 begin
   FReadWriteLock.Free;
   inherited;
+end;
+
+procedure TSQLiteAdapter.Initialize(AContext: IAppContext);
+begin
+  FAppContext := AContext;
+
+end;
+
+procedure TSQLiteAdapter.UnInitialize;
+begin
+
+  FAppContext := nil;
 end;
 
 procedure TSQLiteAdapter.BeginRead;
@@ -158,7 +177,9 @@ end;
 procedure TSQLiteAdapter.Commit;
 begin
   if FSQLiteConn = nil then begin
-    FastSysLog(llError, Format('[TSQLiteDataBase][Commit] Load Class is %s, FSQLiteConn is nil.', [FLoadClassName]));
+    if FAppContext <> nil then begin
+      FAppContext.SysLog(llError, Format('[TSQLiteDataBase][Commit] Load Class is %s, FSQLiteConn is nil.', [FLoadClassName]));
+    end;
     Exit;
   end;
 
@@ -168,7 +189,9 @@ end;
 procedure TSQLiteAdapter.Rollback;
 begin
   if FSQLiteConn = nil then begin
-    FastSysLog(llError, Format('[TSQLiteDataBase][Rollback] Load Class is %s, FSQLiteConn is nil.', [FLoadClassName]));
+    if FAppContext <> nil then begin
+      FAppContext.SysLog(llError, Format('[TSQLiteDataBase][Rollback] Load Class is %s, FSQLiteConn is nil.', [FLoadClassName]));
+    end;
     Exit;
   end;
 
@@ -178,7 +201,9 @@ end;
 procedure TSQLiteAdapter.StartTransaction;
 begin
   if FSQLiteConn = nil then begin
-    FastSysLog(llError, Format('[TSQLiteDataBase][StartTransaction] Load Class is %s, FSQLiteConn is nil.', [FLoadClassName]));
+    if FAppContext <> nil then begin
+      FAppContext.SysLog(llError, Format('[TSQLiteDataBase][StartTransaction] Load Class is %s, FSQLiteConn is nil.', [FLoadClassName]));
+    end;
     Exit;
   end;
 
@@ -189,7 +214,9 @@ function TSQLiteAdapter.Step(ASQLite3Stmt: pSQLite3Stmt): Int64;
 begin
   Result := -1;
   if FSQLite3API = nil then begin
-    FastSysLog(llError, Format('[TSQLiteDataBase][Step] Load Class is %s, FSQLite3API is nil.', [FLoadClassName]));
+    if FAppContext <> nil then begin
+      FAppContext.SysLog(llError, Format('[TSQLiteDataBase][Step] Load Class is %s, FSQLite3API is nil.', [FLoadClassName]));
+    end;
     Exit;
   end;
 
@@ -199,7 +226,9 @@ end;
 procedure TSQLiteAdapter.Reset(ASQLite3Stmt: pSQLite3Stmt);
 begin
   if FSQLite3API = nil then begin
-    FastSysLog(llError, Format('[TSQLiteDataBase][Reset] Load Class is %s, FSQLite3API is nil.', [FLoadClassName]));
+    if FAppContext <> nil then begin
+      FAppContext.SysLog(llError, Format('[TSQLiteDataBase][Reset] Load Class is %s, FSQLite3API is nil.', [FLoadClassName]));
+    end;
     Exit;
   end;
 
@@ -209,7 +238,9 @@ end;
 procedure TSQLiteAdapter.Finalize(ASQLite3Stmt: pSQLite3Stmt);
 begin
   if FSQLite3API = nil then begin
-    FastSysLog(llError, Format('[TSQLiteDataBase][Finalize] Load Class is %s, FSQLite3API is nil.', [FLoadClassName]));
+    if FAppContext <> nil then begin
+      FAppContext.SysLog(llError, Format('[TSQLiteDataBase][Finalize] Load Class is %s, FSQLite3API is nil.', [FLoadClassName]));
+    end;
     Exit;
   end;
 
@@ -222,7 +253,9 @@ var
 begin
   if FSQLite3API = nil then begin
     Result := -1;
-    FastSysLog(llError, Format('[TSQLiteDataBase][Prepare] Load Class is %s, FSQLite3API is nil.', [FLoadClassName]));
+    if FAppContext <> nil then begin
+      FAppContext.SysLog(llError, Format('[TSQLiteDataBase][Prepare] Load Class is %s, FSQLite3API is nil.', [FLoadClassName]));
+    end;
     Exit;
   end;
 
@@ -290,22 +323,30 @@ begin
       ExecuteSql('PRAGMA synchronous=NORMAL');
     except
       on Ex: Exception do begin
-        FastSysLog(llError, Format('[TSQLiteAdapter][InitDataBaseConn] Load Class is %s, FSqliteConn.Open is exception, exception is %s.', [FLoadClassName, Ex.Message]));
+        if FAppContext <> nil then begin
+          FAppContext.SysLog(llError, Format('[TSQLiteAdapter][InitDataBaseConn] Load Class is %s, FSqliteConn.Open is exception, exception is %s.', [FLoadClassName, Ex.Message]));
+        end;
       end;
     end;
     try
       FSQLite3API := (TDBAccessUtils.GetIConnection(FSQLiteConn) as TSQLiteConnection).api;
     except
       on Ex: Exception do begin
-        FastSysLog(llError, Format('[TSQLiteAdapter][InitDataBaseConn] Load Class is %s, Init FSQLite3API is exception, exception is %s.', [FLoadClassName, Ex.Message]));
+        if FAppContext <> nil then begin
+          FAppContext.SysLog(llError, Format('[TSQLiteAdapter][InitDataBaseConn] Load Class is %s, Init FSQLite3API is exception, exception is %s.', [FLoadClassName, Ex.Message]));
+        end;
       end;
     end;
   end else begin
-    FastSysLog(llError, Format('[TSQLiteAdapter][InitDataBaseConn] Load Class is %s, FSqliteConn is nil.', [FLoadClassName]));
+    if FAppContext <> nil then begin
+      FAppContext.SysLog(llError, Format('[TSQLiteAdapter][InitDataBaseConn] Load Class is %s, FSqliteConn is nil.', [FLoadClassName]));
+    end;
   end;
 {$IFDEF DEBUG}
   LTick := GetTickCount - LTick;
-  FastSysLog(llSLOW, Format('[TSQLiteAdapter][InitDataBaseConn] Load Class is %s, execute use time %d ms.', [FLoadClassName, LTick]), LTick);
+  if FAppContext <> nil then begin
+    FAppContext.SysLog(llSLOW, Format('[TSQLiteAdapter][InitDataBaseConn] Load Class is %s, execute use time %d ms.', [FLoadClassName, LTick]), LTick);
+  end;
 {$ENDIF}
 end;
 
@@ -319,7 +360,9 @@ begin
     end;
   except
     on Ex: Exception do begin
-      FastSysLog(llError, Format('[TSQLiteAdapter][UnInitDataBaseConn] Load Class is %s, FSQLiteConn.Free or FSQLiteConn.Close is exception, exception is %s.', [FLoadClassName, Ex.Message]));
+      if FAppContext <> nil then begin
+        FAppContext.SysLog(llError, Format('[TSQLiteAdapter][UnInitDataBaseConn] Load Class is %s, FSQLiteConn.Free or FSQLiteConn.Close is exception, exception is %s.', [FLoadClassName, Ex.Message]));
+      end;
     end;
   end;
 end;
@@ -336,13 +379,17 @@ begin
   FAttachDBSql := '';
   if ADBFile = '' then begin
     FIsExistAttachDBFile := False;
-    FastSysLog(llWARN, Format('[TSQLiteAdapter][SetAttachDB] Load Class is %s, AttachDBFile is nil.', [FLoadClassName]));
+    if FAppContext <> nil then begin
+      FAppContext.SysLog(llWARN, Format('[TSQLiteAdapter][SetAttachDB] Load Class is %s, AttachDBFile is nil.', [FLoadClassName]));
+    end;
     Exit;
   end;
 
   if not FileExists(ADBFile) then begin
     FIsExistAttachDBFile := True;
-    FastSysLog(llWARN, Format('[TSQLiteAdapter][SetAttachDB] Load Class is %s, AttachDBFile(%s) is not exist.', [FLoadClassName, ADBFile]));
+    if FAppContext <> nil then begin
+      FAppContext.SysLog(llWARN, Format('[TSQLiteAdapter][SetAttachDB] Load Class is %s, AttachDBFile(%s) is not exist.', [FLoadClassName, ADBFile]));
+    end;
     Exit;
   end;
   FAttachDBFile := ADBFile;
@@ -374,7 +421,9 @@ begin
   LTick := GetTickCount;
 {$ENDIF}
   if FSQLiteConn = nil then begin
-    FastSysLog(llError, Format('[TSQLiteAdapter][ExcuteSql] Load Class is %s, FSqliteConn is nil, Execute Sql(%s).', [FLoadClassName, Utils.ReplaceEnterNewLine(ASql, '')]));
+    if FAppContext <> nil then begin
+      FAppContext.SysLog(llError, Format('[TSQLiteAdapter][ExcuteSql] Load Class is %s, FSqliteConn is nil, Execute Sql(%s).', [FLoadClassName, Utils.ReplaceEnterNewLine(ASql, '')]));
+    end;
     Exit;
   end;
 
@@ -386,7 +435,9 @@ begin
       LSqliteExec.Execute;
     except
       on Ex: Exception do begin
-        FastSysLog(llError, Format('[TSQLiteAdapter][ExcuteSql] Load Class is %s, Execute Sql(%s) is exception, exception is %s.', [FLoadClassName, Utils.ReplaceEnterNewLine(ASql, ''), Ex.Message]));
+        if FAppContext <> nil then begin
+          FAppContext.SysLog(llError, Format('[TSQLiteAdapter][ExcuteSql] Load Class is %s, Execute Sql(%s) is exception, exception is %s.', [FLoadClassName, Utils.ReplaceEnterNewLine(ASql, ''), Ex.Message]));
+        end;
       end;
     end;
   finally
@@ -394,7 +445,9 @@ begin
   end;
 {$IFDEF DEBUG}
   LTick := GetTickCount - LTick;
-  FastSysLog(llSLOW, Format('[TSQLiteAdapter][ExecuteSql] Load Class is %s, Execute Sql(%s) use time %d ms.', [FLoadClassName, Utils.ReplaceEnterNewLine(ASql, ''), LTick]), LTick);
+  if FAppContext <> nil then begin
+    FAppContext.SysLog(llSLOW, Format('[TSQLiteAdapter][ExecuteSql] Load Class is %s, Execute Sql(%s) use time %d ms.', [FLoadClassName, Utils.ReplaceEnterNewLine(ASql, ''), LTick]), LTick);
+  end;
 {$ENDIF}
 end;
 
@@ -411,7 +464,9 @@ begin
   LTick := GetTickCount;
 {$ENDIF}
   if FSQLiteConn = nil then begin
-    FastSysLog(llError, Format('[TSQLiteAdapter][ExcuteScript] Load Class is %s, FSqliteConn is nil, Execute Script(%s).', [FLoadClassName, Utils.ReplaceEnterNewLine(AScript, ' ')]));
+    if FAppContext <> nil then begin
+      FAppContext.SysLog(llError, Format('[TSQLiteAdapter][ExcuteScript] Load Class is %s, FSqliteConn is nil, Execute Script(%s).', [FLoadClassName, Utils.ReplaceEnterNewLine(AScript, ' ')]));
+    end;
     Exit;
   end;
   // 说明: 由于TUniScript多语句执行回滚有问题，暂时不使用，
@@ -424,7 +479,9 @@ begin
       LUniScript.Execute;
     except
       on Ex: Exception do begin
-        FastSysLog(llError, Format('[TSQLiteAdapter][ExcuteScript] Load Class is %s, Execute Script(%s) is exception, exception is %s.', [FLoadClassName, Utils.ReplaceEnterNewLine(AScript, ' '), Ex.Message]));
+        if FAppContext <> nil then begin
+          FAppContext.SysLog(llError, Format('[TSQLiteAdapter][ExcuteScript] Load Class is %s, Execute Script(%s) is exception, exception is %s.', [FLoadClassName, Utils.ReplaceEnterNewLine(AScript, ' '), Ex.Message]));
+        end;
       end;
     end;
   finally
@@ -432,7 +489,9 @@ begin
   end;
 {$IFDEF DEBUG}
   LTick := GetTickCount - LTick;
-  FastSysLog(llSLOW, Format('[TSQLiteAdapter][ExecuteScript] Load Class is %s, Execute Script(%s) use time %d ms.', [FLoadClassName, Utils.ReplaceEnterNewLine(AScript, ' '), LTick]), LTick);
+  if FAppContext <> nil then begin
+    FAppContext.SysLog(llSLOW, Format('[TSQLiteAdapter][ExecuteScript] Load Class is %s, Execute Script(%s) use time %d ms.', [FLoadClassName, Utils.ReplaceEnterNewLine(AScript, ' '), LTick]), LTick);
+  end;
 {$ENDIF}
 end;
 
@@ -455,7 +514,9 @@ begin
   try
     LSQLiteConn := CreateSQLiteConn;
     if LSQLiteConn = nil then begin
-      FastSysLog(llError, Format('[TSQLiteAdapter][QuerySql] Load Class is %s, LSQLiteConn is nil, Query Sql(%s).', [FLoadClassName, Utils.ReplaceEnterNewLine(ASql, '')]));
+      if FAppContext <> nil then begin
+        FAppContext.SysLog(llError, Format('[TSQLiteAdapter][QuerySql] Load Class is %s, LSQLiteConn is nil, Query Sql(%s).', [FLoadClassName, Utils.ReplaceEnterNewLine(ASql, '')]));
+      end;
       Exit;
     end;
 
@@ -470,7 +531,9 @@ begin
         LQuery.Open;
       except
         on Ex: Exception do begin
-          FastSysLog(llError, Format('[TSQLiteAdapter][QuerySql] Load Class is %s, Execute Sql(%s) is exception, exception is %s.', [FLoadClassName, Utils.ReplaceEnterNewLine(ASql, ''), Ex.Message]));
+          if FAppContext <> nil then begin
+            FAppContext.SysLog(llError, Format('[TSQLiteAdapter][QuerySql] Load Class is %s, Execute Sql(%s) is exception, exception is %s.', [FLoadClassName, Utils.ReplaceEnterNewLine(ASql, ''), Ex.Message]));
+          end;
         end;
       end;
       if LQuery.RecordCount = 10000 then begin
@@ -485,7 +548,9 @@ begin
   end;
 {$IFDEF DEBUG}
   LTick := GetTickCount - LTick;
-  FastSysLog(llSLOW, Format('[TSQLiteAdapter][QuerySql] Load Class is %s, Execute Sql(%s) use time %d ms.', [FLoadClassName, Utils.ReplaceEnterNewLine(ASql, ''), LTick]), LTick);
+  if FAppContext <> nil then begin
+    FAppContext.SysLog(llSLOW, Format('[TSQLiteAdapter][QuerySql] Load Class is %s, Execute Sql(%s) use time %d ms.', [FLoadClassName, Utils.ReplaceEnterNewLine(ASql, ''), LTick]), LTick);
+  end;
 {$ENDIF}
 end;
 
@@ -508,7 +573,9 @@ begin
   try
     LSQLiteConn := CreateSQLiteConn;
     if LSQLiteConn = nil then begin
-      FastSysLog(llError, Format('[TSQLiteAdapter][AttachDBQuerySql] Load Class is %s, LSQLiteConn is nil, Query Sql(%s).', [FLoadClassName, Utils.ReplaceEnterNewLine(ASql, '')]));
+      if FAppContext <> nil then begin
+        FAppContext.SysLog(llError, Format('[TSQLiteAdapter][AttachDBQuerySql] Load Class is %s, LSQLiteConn is nil, Query Sql(%s).', [FLoadClassName, Utils.ReplaceEnterNewLine(ASql, '')]));
+      end;
       Exit;
     end;
 
@@ -523,7 +590,9 @@ begin
         LQuery.Open;
       except
         on Ex: Exception do begin
-          FastSysLog(llError, Format('[TSQLiteAdapter][AttachDBQuerySql] Load Class is %s, Execute Sql(%s) is exception, exception is %s.', [FLoadClassName, Utils.ReplaceEnterNewLine(ASql, ''), Ex.Message]));
+          if FAppContext <> nil then begin
+            FAppContext.SysLog(llError, Format('[TSQLiteAdapter][AttachDBQuerySql] Load Class is %s, Execute Sql(%s) is exception, exception is %s.', [FLoadClassName, Utils.ReplaceEnterNewLine(ASql, ''), Ex.Message]));
+          end;
         end;
       end;
       if LQuery.RecordCount = 10000 then begin
@@ -538,7 +607,9 @@ begin
   end;
 {$IFDEF DEBUG}
   LTick := GetTickCount - LTick;
-  FastSysLog(llSLOW, Format('[TSQLiteAdapter][AttachDBQuerySql] Load Class is %s, Execute Sql(%s) use time %d ms.', [FLoadClassName, Utils.ReplaceEnterNewLine(ASql, ''), LTick]), LTick);
+  if FAppContext <> nil then begin
+    FAppContext.SysLog(llSLOW, Format('[TSQLiteAdapter][AttachDBQuerySql] Load Class is %s, Execute Sql(%s) use time %d ms.', [FLoadClassName, Utils.ReplaceEnterNewLine(ASql, ''), LTick]), LTick);
+  end;
 {$ENDIF}
 end;
 
@@ -570,7 +641,9 @@ begin
           FSQLite3API.sqlite3_bind_double(SQLite3Stmt, ACount, AField.AsFloat);
         fteBcd, fteblob, fteImage:
           begin
-            FastSysLog(llWARN, Format('[TSQLiteAdapter][BindField] Load Class is %s, fteBcd, fteblob, fteImage without handling', [FLoadClassName]));
+            if FAppContext <> nil then begin
+              FAppContext.SysLog(llWARN, Format('[TSQLiteAdapter][BindField] Load Class is %s, fteBcd, fteblob, fteImage without handling', [FLoadClassName]));
+            end;
           end;
       end;
     end else begin
@@ -600,7 +673,9 @@ begin
         fteImage:
           LValue := 'fteImage';
       end;
-      FastSysLog(llERROR, Format('[TSQLiteAdapter][BindField] Load Class is %s, AField.FieldType is %s.', [LValue]));
+      if FAppContext <> nil then begin
+        FAppContext.SysLog(llERROR, Format('[TSQLiteAdapter][BindField] Load Class is %s, AField.FieldType is %s.', [LValue]));
+      end;
     end;
   end;
 end;

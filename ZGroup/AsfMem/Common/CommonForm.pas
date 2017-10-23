@@ -1,0 +1,25 @@
+unit CommonForm;
+
+////////////////////////////////////////////////////////////////////////////////
+//
+// Description£º Key Fairy Manager Interface implementation
+// Author£º      lksoulman
+// Date£º        2017-8-24
+// Comments£º
+//
+////////////////////////////////////////////////////////////////////////////////
+
+interface
+
+uses
+  Windows,
+  Classes,
+  SysUtils;
+
+type
+
+
+
+implementation
+
+end.

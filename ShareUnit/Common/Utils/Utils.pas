@@ -13,14 +13,15 @@ interface
 
 uses
   Json,
+  GFData,
   Windows,
   Classes,
   SysUtils,
+  ErrorCode,
   NativeXml,
   GFDataSet,
   ComDataSet,
-  WNDataSetInf,
-  GFDataMngr_TLB;
+  WNDataSetInf;
 
 
   { Replace Enter and Newline}
@@ -56,9 +57,6 @@ uses
 
 implementation
 
-uses
-  FastLogLevel,
-  AsfSdkExport;
 
   { Replace Enter and Newline}
 
@@ -74,9 +72,9 @@ uses
   // GFData 转化 GFDataSet 数据集
   function GFData2GFDataSet(AGFData: IGFData): TGFDataSet;
   begin
-    if (AGFData <> nil) and (AGFData.Succeed) then begin
-      Result := TGFDataSet.Create(nil);
-      Result.CreateDataSet(AGFData);
+    if (AGFData <> nil)
+      and (AGFData.GetErrorCode = ErrorCode_Success) then begin
+      Result := TGFDataSet.Create(AGFData);
     end else begin
       Result := nil;
     end;
@@ -103,7 +101,7 @@ uses
     except
       on Ex: Exception do begin
         Result := nil;
-        FastSysLog(llERROR, Format('[GetJsonObjectByString] TJSONObject.ParseJSONValue(%s) return json is exception, exception is %s.', [AString]));
+//        FastSysLog(llERROR, Format('[GetJsonObjectByString] TJSONObject.ParseJSONValue(%s) return json is exception, exception is %s.', [AString]));
       end;
     end;
   end;
@@ -117,7 +115,7 @@ uses
     except
       on Ex: Exception do begin
         Result := '';
-        FastSysLog(llERROR, Format('[GetStringByJsonObject] The parse tag name(%s) does not match, exception is %s.', [ATagName, Ex.Message]));
+//        FastSysLog(llERROR, Format('[GetStringByJsonObject] The parse tag name(%s) does not match, exception is %s.', [ATagName, Ex.Message]));
       end;
     end;
   end;
@@ -130,7 +128,7 @@ uses
     except
       on Ex: Exception do begin
         Result := nil;
-        FastSysLog(llERROR, Format('[GetJsonObjectByJsonObject] The parse tag name(%s) does not match, exception is %s.', [ATagName, Ex.Message]));
+//        FastSysLog(llERROR, Format('[GetJsonObjectByJsonObject] The parse tag name(%s) does not match, exception is %s.', [ATagName, Ex.Message]));
       end;
     end;
   end;
@@ -148,7 +146,7 @@ uses
     if LNode <> nil then begin
       Result := string(LNode.Value);
     end else begin
-      FastSysLog(llERROR, Format('[GetStringByChildNodeName] NativeXml find nodename(%s) is nil.', [AName]));
+//      FastSysLog(llERROR, Format('[GetStringByChildNodeName] NativeXml find nodename(%s) is nil.', [AName]));
     end;
   end;
 
@@ -163,7 +161,7 @@ uses
     if LNode <> nil then begin
       Result := StrToInt64Def(string(LNode.Value), ADefault);
     end else begin
-      FastSysLog(llERROR, Format('[GetInt64ByChildNodeName] NativeXml find nodename(%s) is nil.', [AName]));
+//      FastSysLog(llERROR, Format('[GetInt64ByChildNodeName] NativeXml find nodename(%s) is nil.', [AName]));
     end;
   end;
 
@@ -178,7 +176,7 @@ uses
     if LNode <> nil then begin
       Result := StrToIntDef(string(LNode.Value), ADefault);
     end else begin
-      FastSysLog(llERROR, Format('[GetIntegerByChildNodeName] NativeXml find nodename(%s) is nil.', [AName]));
+//      FastSysLog(llERROR, Format('[GetIntegerByChildNodeName] NativeXml find nodename(%s) is nil.', [AName]));
     end;
   end;
 

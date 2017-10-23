@@ -1,0 +1,1739 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Skins>
+	<Color Key="CFrame" Val="0x00666666"/>
+	<Color Key="CLeftMuneBk" Val="0x00121011"/>
+	<Color Key="CLeftMuneMoreItemBorderColor" Val="0x004D4D4D"/>
+	<Color Key="CLeftMuneMoreFormBorderColor" Val="0x00040000"/>
+	<Color Key="CTitleBarText" Val="0x00A1A1A1" />
+	<Color Key="CTitleBar" Val="0x00232323" /> 
+	<Color Key="CTitleBarHot" Val="0x00018FFB" />
+	<Color Key="CTitleBarHotText" Val="0x00FFFFFF" />
+	<Color Key="CTitleBarSel" Val="0x00018FFE" />
+	<Color Key="CTitleBarTextSel" Val="0x00FEFAF4" />
+	<Color Key="CTitleBarDis" Val="0x00232323" />
+	<Color Key="CTitleBarTextDis" Val="0x00A1A1A1" />
+	<Color Key="CSysMenu" Val="0x00222222" />
+	<Color Key="CSysMenuText" Val="0x00848484" />    
+	<Color Key="CSysMenuHot" Val="0x00018FFB" />
+	<Color Key="CSysMenuTextHot" Val="0x00FFFFFF" />
+	<Color Key="CSysMenuCloseHot" Val="0x002A00FF"/> 
+	<Color Key="CStatusBar" Val="0x00222222" />
+	<Color Key="CBorderLine" Val="0x00131313" />
+	<FontName  Key="MenuFont" Val="微软雅黑"/>
+	<FontSize  Key="MenuFontSize" Val="11"/>
+	<Color Key="PopWinBorder" Val="0x00666666"/>
+	<FontName  Key="FNKeyFairy" Val="微软雅黑"/>
+	<FontSize  Key="FSKeyFairy" Val="9"/>
+	<Color Key="CKeyFairyText" Val="0x00868686"/>
+	<Color Key="CKeyFairy" Val="0x001A1A1A"/>
+	<Color Key="CKeyFairyFrame" Val="0x00161616"/>
+	<Color Key="CKeyFairySel" Val="0x00595959"/>
+
+	<!-- MBaseForm -->
+	<Color Key="MBaseFormBorderColor" Val="0x001C1C1C"/>
+	
+<!--                  行情报价牌深色皮肤                     -->
+    <FontName  Key="QuotePriceColumnFontName" Val="微软雅黑"/>
+	<FontSize  Key="QuotePriceColumnFontSize" Val="-13"/>
+	<FontSize  Key="QuotePriceColumnFontSize_Big" Val="-15"/>
+	<Color Key="QuotePriceColumnFontColor" Val="0x00EAE601"/>
+	
+	<FontName  Key="QuotePriceOrderColumnFontName" Val="微软雅黑"/>
+	<FontSize  Key="QuotePriceOrderColumnFontSize" Val="-13"/>
+	<FontSize  Key="QuotePriceOrderColumnFontSize_Big" Val="-15"/>
+	<Color Key="QuotePriceOrderColumnFontColor" Val="0x00a8a8a8"/>
+	<Color Key="QuotePriceColumnBackgroundColor" Val="0x00000000"/>
+	<Color Key="QuotePriceColumnGridColor" Val="0x00000000"/>
+	<Color Key="QuotePriceColumnGridColor1" Val="0x00C2C2C2"/>
+	<Color Key="QuotePriceGridLineColor" Val="0x00000000"/>
+	
+	<FontSize  Key="QuotePriceHintFontSize" Val="-10"/>
+	<Color Key="QuotePriceHintFontColor" Val="0x00ffae0b"/>
+	<Color Key="QuotePriceHintColor" Val="0x00333333"/>
+	
+	<FontName  Key="QuotePriceRowFontName" Val="微软雅黑"/>
+	<FontSize  Key="QuotePriceRowFontSize" Val="-13"/>
+	<FontSize  Key="QuotePriceRowFontSize_Big" Val="-15"/>
+	
+	<FontSize  Key="QuotePriceRowHeight" Val="30"/>
+	<FontSize  Key="QuotePriceRowHeight_Big" Val="34"/>
+	<FontSize  Key="QuotePriceColumnHeight" Val="24"/>
+	<FontSize  Key="QuotePriceColumnHeight_Big" Val="28"/>
+	<Color Key="QuotePriceRowFontColor" Val="0x00fcfcfc"/>
+	<Color Key="QuotePriceAddPlateColor" Val="0x00e6e6e6"/>
+	<Color Key="QuotePriceAddPlateFocusedColor" Val="0x00CCCCCC"/>
+	<Color Key="QuotePriceRowBackgroundColor1" Val="0x00000000"/>
+	<Color Key="QuotePriceRowBackgroundColor2" Val="0x00000000"/>
+	<Color Key="QuotePriceRowGridColor" Val="0x000D0D0D"/>
+	
+	<Color Key="QuotePriceSelectedBackgroundColor" Val="0x00000000"/>
+	<Color Key="QuotePriceSelectedGridColor" Val="0x00ffffff"/>
+	<Color Key="QuotePriceMouseInColor" Val="0x00000000"/>
+	<Color Key="QuotePriceBorderColor" Val="0x0001018A"/>
+	<Color Key="QuotePriceSortArrowColor" Val="0x0031A3FD"/>
+	<Color Key="QuotePriceGridUnderLineColor" Val="0x0031A3FD"/>
+	<Color Key="QuotePriceCellFlashColor1" Val="0x00101076"/>
+	<Color Key="QuotePriceCellFlashColor2" Val="0x00124516"/>
+	<Color Key="QuotePriceCellSignTextBackColor" Val="0x001A1A1A"/>
+	<Color Key="QuotePriceCellSignTextFontColor" Val="0x000B51D1"/>
+	
+	<Color Key="QuotePriceFixTextColor" Val="0x00000000"/>
+	<Color Key="QuotePriceCustomStockColor" Val="0x00E68826"/>
+	<Color Key="QuotePriceStockNameColor" Val="0x0054fcfc"/>
+	<Color Key="QuotePriceStockCodeColor" Val="0x00fcfc54"/>
+	<Color Key="QuotePriceIllumTextColor" Val="0x005454FC"/>
+	<Color Key="QuotePriceShadeTextColor" Val="0x003cfc54"/>
+	<Color Key="QuotePriceEqualTextColor" Val="0x00fcfcfc"/>
+	
+	<Color Key="QuotePriceConfirmBtnBackColor" Val="0x00E6E6E6"/>
+	<Color Key="QuotePriceConfirmBtnFontColor" Val="0x00000000"/>
+	<Color Key="QuotePriceCaptionBackColor" Val="0x00000000"/>
+	
+	<Color Key="QuotePriceEditBorderColor" Val="0x00656565"/>
+	<Color Key="QuotePriceEditBackColor" Val="0x00000000"/>
+	<Color Key="QuotePriceEditFontColor" Val="0x00656565"/>
+	
+	<Color Key="QuotePriceTreeRootBackColor" Val="0x00000000"/>
+	<Color Key="QuotePriceTreeRootFontColor" Val="0x00FCFC54"/>
+	<Color Key="QuotePriceTreeNodeBackColor" Val="0x00000000"/>
+	<Color Key="QuotePriceTreeNodeFontColor" Val="0x00ffffff"/>
+	<Color Key="QuotePriceTreeBorderColor" Val="0x00CCCCCC"/>
+	<Color Key="QuotePriceTreeBackGroundColor" Val="0x00000000"/>
+	<Color Key="QuotePriceTreeSelectedFontColor" Val="0x00ffffff"/>
+	<Color Key="QuotePriceTreeSelectedBackColor" Val="0x00000000"/>
+	<Color Key="QuotePriceTreeColumnBackgroundColor" Val="0x00000000"/>
+	<Color Key="QuotePriceTreeRowBackgroundColor" Val="0x00000000"/>
+<!--                  综合排名深色皮肤                     -->
+	<Color Key="MultiRankBackGroundColor" Val="0x00000000"/>
+	<Color Key="MultiRankBorderLineColor" Val="0x00000000"/>
+	<Color Key="MultiRankCutLineColor" Val="0x00a8a8a8"/>
+	<FontSize  Key="MultiRankRowHeight" Val="30"/>
+	<FontSize  Key="MultiRankRowHeight_Big" Val="34"/>
+	
+	<FontName  Key="MultiRankTitleFontName" Val="微软雅黑"/>
+	<FontSize  Key="MultiRankTitleFontSize" Val="-14"/>
+	<FontSize  Key="MultiRankTitleFontSize_Big" Val="-16"/>
+	<Color Key="MultiRankTitleFontColor" Val="0x00fcfcfc"/>
+	<Color Key="MultiRankTitleBorderColor" Val="0x00353535"/>
+	<Color Key="MultiRankTitleBackColor" Val="0x00000000"/>
+	
+	<FontName  Key="MultiRankCaptionFontName" Val="微软雅黑"/>
+	<FontSize  Key="MultiRankCaptionFontSize" Val="-14"/>
+	<FontSize  Key="MultiRankCaptionFontSize_Big" Val="-16"/>
+	<Color Key="MultiRankCaptionFontColor" Val="0x00fcfc54"/>
+	<Color Key="MultiRankCaptionBackColor" Val="0x00000000"/>
+	
+	<FontName  Key="MultiRankItemTittleFontName" Val="微软雅黑"/>
+	<FontSize  Key="MultiRankItemTittleFontSize" Val="-14"/>
+	<FontSize  Key="MultiRankItemTittleFontSize_Big" Val="-16"/>
+	<Color Key="MultiRankItemTittleFontColor" Val="0x00fcfc54"/>
+	
+	<FontName  Key="MultiRankItemValueFontName" Val="微软雅黑"/>
+	<FontSize  Key="MultiRankItemValueFontSize" Val="-14"/>
+	<FontSize  Key="MultiRankItemValueFontSize_Big" Val="-16"/>
+	<Color Key="MultiRankItemValueFontColor" Val="0x00fcfc54"/>
+	
+	<FontName  Key="MultiRankRootFontName" Val="微软雅黑"/>
+	<FontSize  Key="MultiRankRootFontSize" Val="-13"/>
+	<FontSize  Key="MultiRankRootFontSize_Big" Val="-15"/>
+	<Color Key="MultiRankRootFontColor" Val="0x00fcfcfc"/>
+	<Color Key="MultiRankRootBackColor" Val="0x002F2F2F"/>
+	
+	<FontName  Key="MultiRankTreeNodeFontName" Val="微软雅黑"/>
+	<FontSize  Key="MultiRankTreeNodeFontSize" Val="-12"/>
+	<FontSize  Key="MultiRankTreeNodeFontSize_Big" Val="-14"/>
+	<Color Key="MultiRankTreeNodeFontColor" Val="0x00CCCCCC"/>
+	<Color Key="MultiRankTreeNodeBackColor" Val="0x00282828"/>
+	<Color Key="MultiRankTreeBorderColor" Val="0x00121212"/>
+	
+	<Color Key="MultiRankStockNameColor" Val="0x0054fcfc"/>
+	<Color Key="MultiRankIllumTextColor" Val="0x005454fc"/>
+	<Color Key="MultiRankShadeTextColor" Val="0x003CFC54"/>
+	<Color Key="MultiRankEqualTextColor" Val="0x00fcfcfc"/>
+	<Color Key="MultiRankSubItemSelectedBackColor" Val="0x00000000"/>
+	<Color Key="MultiRankSelectedBorderColor" Val="0x00fcfcfc"/>
+	<Color Key="MultiRankSelectedBackColor" Val="0x00000000"/>
+	<Color Key="MultiRankSubBackColor" Val="0x00000000"/>
+	<Color Key="MultiRankSearchBackColor" Val="0x00BBBBBB"/>
+<!--                  底部业务栏深色皮肤                     -->
+    <FontSize  Key="BottomBarStockPanelSize" Val="540"/>
+	<FontSize  Key="BottomBarStockPanelSize_Big" Val="580"/>
+	<Color Key="BottomBarDropColor" Val="0x003cfc54"/>
+	<Color Key="BottomBarHighColor" Val="0x005454fc"/>
+	<Color Key="BottomBarTurnOverColor" Val="0x0054fcfc"/>
+	<Color Key="BottomBarStatuTextColor" Val="0x00fcfcfc"/>
+    <Color Key="BottomBarBackColor" Val="0x00232323"/>
+	<Color Key="BottomBarBorderColor" Val="0x001C1C1C"/>
+	<Color Key="BottomBarIndexNameColor" Val="0x00fcfcfc"/>
+	<Color Key="BottomBarDetailFormBackColor" Val="0x002D2D2D"/>
+	<Color Key="BottomBarDetailForm1stBackColor" Val="0x002D2D2D"/>
+	<Color Key="BottomBarDetailFormFontColor" Val="0x00D8D8D8"/>
+	<Color Key="BottomBarDetailFormBorderColor" Val="0x00444444"/>
+	<Color Key="BottomBarDetailFormMouseInColor" Val="0x00595959"/>
+	<Color Key="BottomBarIndexDetialRowBackColor1" Val="0x002D2D2D"/>
+	<Color Key="BottomBarIndexDetialRowBackColor2" Val="0x002D2D2D"/>
+	<Color Key="BottomBarIndexDetialBackColor" Val="0x002D2D2D"/>
+	
+	<FontName  Key="BottomBarScrollFontName" Val="微软雅黑"/>
+	<FontSize  Key="BottomBarScrollFontSize" Val="-12"/>
+	<FontSize  Key="BottomBarScrollFontSize_Big" Val="-14"/>
+	<Color Key="BottomBarScrollFontColor" Val="0x00fcfcfc"/>
+	
+	<FontName  Key="BottomBarInfoFontName" Val="微软雅黑"/>
+	<FontSize  Key="BottomBarInfoFontSize" Val="-12"/>
+	<FontSize  Key="BottomBarInfoFontSize_Big" Val="-14"/>
+	<Color Key="BottomBarInfoFontColor" Val="0x0054fcfc"/>
+	
+	<FontName  Key="BottomBarStatusDetialFontName" Val="微软雅黑"/>
+	<FontSize  Key="BottomBarStatusDetialFontSize" Val="-14"/>
+	<Color Key="BottomBarStatusDetialFontColor" Val="0x003F3F3F"/>
+
+	<FontName  Key="BottomBarIndexDetialFontName" Val="微软雅黑"/>
+	<FontSize  Key="BottomBarIndexDetialFontSize" Val="-14"/>
+	<Color Key="BottomBarIndexDetialFontColor" Val="0x00D8D8D8"/>
+<!--                  指数成分股、十大重仓股深色皮肤                     -->
+	<Color Key="IndexStockCaptionBackColor" Val="0x00000000"/>
+<!--                  基金基本资料深色皮肤                     -->
+	<Color Key="FundInfoCaptionBackColor" Val="0x00000000"/>
+<!--                  表格字段控制窗体深色皮肤                     -->
+	<Color Key="ColumnCtrlFormBackColor" Val="0x00444444"/>
+	<Color Key="ColumnCtrlFormBorderColor" Val="0x00444444"/>
+	<Color Key="ColumnCtrlNxGridBorderColor" Val="0x00292929"/>
+	<Color Key="ColumnCtrlBtnBackColor" Val="0x00444444"/>
+	<Color Key="ColumnCtrlBtnBackHotColor" Val="0x00008FFD"/>
+	<Color Key="ColumnCtrlBtnBackDownColor" Val="0x00008FFD"/>
+	<Color Key="ColumnCtrlBtnLineColor" Val="0x00CCCCCC"/>
+	
+	<FontName  Key="ColumnCtrlBtnFontName" Val="微软雅黑"/>
+	<FontSize  Key="ColumnCtrlBtnFontSize" Val="-15"/>
+	<Color Key="ColumnCtrlBtnFontColor" Val="0x00CCCCCC"/>
+	<Color Key="ColumnCtrlBtnFontHotColor" Val="0x00CCCCCC"/>
+	<Color Key="ColumnCtrlBtnFontDownColor" Val="0x00CCCCCC"/>
+	
+	<FontName  Key="ColumnCtrlListBoxFontName" Val="微软雅黑"/>
+	<FontSize  Key="ColumnCtrlListBoxFontSize" Val="-14"/>
+	<Color  Key="ColumnCtrlListBoxFontColor" Val="0x00CCCCCC"/>
+	
+	<FontName  Key="ColumnCtrlTreeNodeFontName" Val="微软雅黑"/>
+	<FontSize  Key="ColumnCtrlTreeNodeFontSize" Val="-14"/>
+	<Color Key="ColumnCtrlTreeNodeFontColor" Val="0x00CCCCCC"/>
+	<Color Key="ColumnCtrlTreeNodeBackColor" Val="0x00333333"/>
+	<Color Key="ColumnCtrlSelectedBackColor" Val="0x00B8763C"/>
+	<Color Key="ColumnCtrlSelectedFontColor" Val="0x00FFFFFF"/>
+	<Color Key="ColumnCtrlFixedFontColor" Val="0x00a8a8a8"/>
+	
+	<Color Key="ColumnCtrlSpinEditBackColor" Val="0x00444444"/>
+	<Color Key="ColumnCtrlSpinEditFontColor" Val="0x00CCCCCC"/>
+	<FontSize  Key="ColumnCtrlRowHeight" Val="20"/>
+	<Num  Key="ColumnCtrlSpinEdit3D" Val="-1"/>
+<!--                  PlateChange窗体深色皮肤                     -->
+	<Color Key="PlateChangeBtnBackColor" Val="0x00444444"/>
+	<Color Key="PlateChangeBtnBackHotColor" Val="0x00008FFD"/>
+	<Color Key="PlateChangeBtnBackDownColor" Val="0x00008FFD"/>
+	<Color Key="PlateChangeBtnFontColor" Val="0x00CCCCCC"/>
+	<Color Key="PlateChangeBtnFontHotColor" Val="0x00CCCCCC"/>
+	<Color Key="PlateChangeBtnFontDownColor" Val="0x00CCCCCC"/>
+	<Color Key="PlateChangeBtnLineColor" Val="0x00CCCCCC"/>
+	
+	<FontName  Key="PlateChangeBtnFontName" Val="微软雅黑"/>
+	<FontSize  Key="PlateChangeBtnFontSize" Val="-15"/>
+	<Color Key="PlateChangeBtnFontColor" Val="0x00CCCCCC"/>
+	
+	<FontName  Key="PlateChangeTreeNodeFontName" Val="微软雅黑"/>
+	<FontSize  Key="PlateChangeTreeNodeFontSize" Val="-14"/>
+	<Color Key="PlateChangeTreeNodeFontColor" Val="0x00CCCCCC"/>
+	<Color Key="PlateChangeTreeNodeBackColor" Val="0x00333333"/>
+	<Color Key="PlateChangeSelectedBackColor" Val="0x00B8763C"/>
+	<Color Key="PlateChangeSelectedFontColor" Val="0x00FFFFFF"/>
+	
+	<FontName  Key="PlateChangeTextFontName" Val="微软雅黑"/>
+	<FontSize  Key="PlateChangeTextFontSize" Val="-12"/>
+	<Color Key="PlateChangeTextFontColor" Val="0x00CCCCCC"/>
+	<Color Key="PlateChangeBackColor" Val="0x00444444"/>
+	<FontSize  Key="PlateChangeRowHeight" Val="20"/>
+	<Color Key="PlateChangeFrameLineColor" Val="0x00444444"/>
+<!--                  持仓明细表深色皮肤                     -->
+	<Color Key="HoldingStockRowBackgroundColor1" Val="0x001A1A1A"/>
+	<Color Key="HoldingStockRowBackgroundColor2" Val="0x001A1A1A"/>
+	<Color Key="HoldingStockHeadBackColor" Val="0x00292929"/>
+	<Color Key="HoldingStockHeadFontColor" Val="0x00e6e6e6"/>
+	<Color Key="HoldingStockDotCutLineColor" Val="0x001A1A1A"/>
+	<Color Key="HoldingStockDotCutLineBackColor" Val="0x001A1A1A"/>
+	<Color Key="HoldingStockBorderLineColor" Val="0x00444444"/>
+	
+	<Color Key="HoldingStockCaptionBackColor" Val="0x00444444"/>
+	<Color Key="HoldingStockContentBackColor" Val="0x00444444"/>
+	<Color Key="HoldingStockContentFontColor" Val="0x00b4b4b4"/>
+	
+	<Color Key="HoldingStockBtnBackColor" Val="0x00444444"/>
+	<Color Key="HoldingStockBtnMouseDownColor" Val="0x00008FFD"/>
+	<Color Key="HoldingStockBtnMouseInColor" Val="0x00008FFD"/>
+	<Color Key="HoldingStockBtnFontColor" Val="0x00CCCCCC"/>
+	<Color Key="HoldingStockBtnMouseDownFontColor" Val="0x00CCCCCC"/>
+	<Color Key="HoldingStockBtnMouseInFontColor" Val="0x00CCCCCC"/>
+	<Color Key="HoldingStockBtnBorderColor" Val="0x00767676"/>
+	
+	
+	<FontName  Key="HoldingStockCellFontName" Val="微软雅黑"/>
+	<FontSize  Key="HoldingStockCellFontSize" Val="-15"/>
+	<Color Key="HoldingStockCellFontColor" Val="0x00CCCCCC"/>
+	
+	<FontName  Key="HoldingStockColFontName" Val="微软雅黑"/>
+	<FontSize  Key="HoldingStockColFontSize" Val="-15"/>
+	<Color Key="HoldingStockColFontColor" Val="0x00e6e6e6"/>
+	
+	<FontName  Key="MessageDlgBtnFontName" Val="微软雅黑"/>
+	<FontSize  Key="MessageDlgBtnFontSize" Val="-13"/>
+	<Color Key="MessageDlgBtnFontColor" Val="0x00000000"/>	
+	
+	<FontName  Key="MessageDlgCaptionFontName" Val="微软雅黑"/>
+	<FontSize  Key="MessageDlgCaptionFontSize" Val="-14"/>
+	<Color Key="MessageDlgCaptionFontColor" Val="0x00000000"/>	
+	
+	<FontName  Key="MessageDlgContentFontName" Val="微软雅黑"/>
+	<FontSize  Key="MessageDlgContentFontSize" Val="-14"/>
+	<Color Key="MessageDlgContentFontColor" Val="0x00000000"/>
+<!--                  K线                     -->
+	<FontName  Key="MarketGraphTextFont" Val="微软雅黑"/>
+	<FontSize  Key="MarketGraphTextSize" Val="-12"/>
+	<FontName  Key="MarketDetailTextFont" Val="微软雅黑"/>
+	<FontSize  Key="MarketDetailTextSize" Val="-12"/>
+	<Color Key="MarketDetailBackColor" Val="0x00020202"/>
+	<Color Key="MarketDetailFrameLineColor" Val="0x00FCFCFC"/>
+	<Color Key="MarketDetailTitleColor" Val="0x00ECE810"/>
+	<Color Key="MarketDetailVolMoneyColor" Val="0x0054FCFC"/>
+	<Color Key="MarketTitleBarBackColor" Val="0x00000000"/>
+	<Color Key="MarketBackgroundColor" Val="0x00000000"/>
+	<Color Key="MarketFrameLineColor" Val="0x00101095"/>
+	<Color Key="MarketGridLineColor" Val="0x00101095"/>
+	<Color Key="MarketBorderColor" Val="0x002A2421"/>
+	<Color Key="MarketBorderFocusColor" Val="0x000A0A0A"/>
+	<Color Key="MarketHighLightBkColor" Val="0x002D2D2D"/>
+	<Color Key="MarketGraphTextColor" Val="0x00F8F8F8"/>
+	<Color Key="MarketPointOfInflexionColor" Val="0x00A3A3A3"/>
+	<Color Key="MarketSelfStockColor" Val="0x0054FCFC"/>
+	<Color Key="MarketStockNameColor" Val="0x0069FCFC"/>
+	<Color Key="MarketStockCodeColor" Val="0x00FCFC6C"/>
+	<Color Key="MarketIllumColor" Val="0x005454FC"/>
+	<Color Key="MarketDownColor" Val="0x003BF752"/>
+	<Color Key="MarketEqualColor" Val="0x00FCFCFC"/>
+	<Color Key="MarketVolumeColor" Val="0x00FA9F02"/>
+	<Color Key="MarketRulerCrossColor" Val="0x00808080"/>
+	<Color Key="MarketRulerHintLineColor" Val="0x00C0C0C0"/>
+	<Color Key="MarketRulerHintBgColor" Val="0x00857440"/>
+	<Color Key="MarketBtnFontColor" Val="0x00CCCCCC"/>
+	<Color Key="MarketBtnFontHotColor" Val="0x00FDFDFD"/>
+	<Color Key="MarketInfoMineDotColor" Val="0x00F1BF27"/>
+	<Color Key="MarketCurrPriceHintBackColor" Val="0x0017252F"/>
+	<Color Key="MarketCurrPriceHintFrameColor" Val="0x00162C3E"/>
+	<Color Key="MarketExDividendColor" Val="0x00AB6733"/>
+	<Color Key="MarketExDividendZoomColor" Val="0x00F3A842"/>
+	<Color Key="MarketExDividendFormBackColor" Val="0x003C3C3C"/>
+	<Color Key="MarketExDividendFormTitleColor" Val="0x00E4AC21"/>
+	<Color Key="MarketExDividendFormBorderColor" Val="0x00131313"/>
+	<Color Key="MarketIntervalStatFrameColor" Val="0x001E8DFF"/>
+	<Color Key="MarketIntervalStatBackColor" Val="0x00EEFDFC"/>
+	<Color Key="MarketIntervalStatFormLineColor" Val="0x00D3D3D3"/>
+	<Color Key="MarketPaintToolsBackColor" Val="0x003C3C3C"/>
+	<Color Key="MarketPaintToolsInnerLineColor" Val="0x00222222"/>
+	<Color Key="MarketPaintToolsBtnBackColor" Val="0x00605D5D"/>
+	<Color Key="MarketPaintToolsBtnLineColor" Val="0x00272727"/>
+	<Color Key="MarketPaintToolsBtnHotBackColor" Val="0x00BF6A20"/>
+	<Color Key="MarketPaintToolsBtnHotLineColor" Val="0x000A0A0A"/>
+	<Color Key="MarketPaintToolsBtnDownBackColor" Val="0x00885325"/>
+	<Color Key="MarketPaintToolsBtnDownLineColor" Val="0x000A0A0A"/>
+	<Color Key="MarketPaintToolsBottomBarColor" Val="0x00322C27"/>
+	<Color Key="MarketPaintLineColor" Val="0x002A2421"/>
+	<Color Key="MarketFormTitleBarBackColor" Val="0x00444444"/>
+	<Color Key="MarketFormTitleBarTextColor" Val="0x00B4B4B4"/>
+	<Color Key="MarketFormTextColor" Val="0x00FFFFFF"/>
+	<Color Key="MarketFormFrameColor" Val="0x002A2421"/>
+	<Color Key="MarketFormBackColor" Val="0x00444444"/>
+	<Color Key="MarketCloseBtnTextColor" Val="0x00FCF4EA"/>
+	<Color Key="MarketCloseBtnColor" Val="0x002A2421"/>
+	<Color Key="MarketCloseBtnHotColor" Val="0x001A30BA"/>
+	<Color Key="MarketCtrlBackColor" Val="0x00333333"/>
+	<Color Key="MarketCtrlBorderColor" Val="0x00303030"/>
+	<Color Key="MarketDetailTitleBackColor" Val="0x00303030"/>
+	<Color Key="MarketDetailTitleTextColor" Val="0x00C3C3C3"/>
+	<Color Key="MarketDetailTitleVLineColor" Val="0x00262626"/>
+	<Color Key="MarketDetailDataHLineColor" Val="0x00313131"/>
+	<Color Key="MarketTotalBackColor" Val="0x00383838"/>
+	<Color Key="MarketBottomBtnsRectBackColor" Val="0x00000000"/>
+	<Color Key="MarketBottomBtnsBackColor" Val="0x00000000"/>
+	<Color Key="MarketBottomBtnsBackHotColor" Val="0x00000000"/>
+	<Color Key="MarketBottomBtnsBackDownColor" Val="0x00080808"/>
+	<Color Key="MarketBottomBtnsLineColor" Val="0x00101095"/>
+	<Color Key="MarketBottomBtnsLineHotColor" Val="0x00101095"/>
+	<Color Key="MarketBottomBtnsLineDownColor" Val="0x00101095"/>
+	<Color Key="MarketBottomBtnsTextColor" Val="0x00A7A7A7"/>
+	<Color Key="MarketBottomBtnsTextHotColor" Val="0x00A7A7A7"/>
+	<Color Key="MarketBottomBtnsTextDownColor" Val="0x000000FF"/>
+	<Color Key="MarketDisabledColor1" Val="0x001A1A1A"/>
+	<Color Key="MarketDisabledColor2" Val="0x00646464"/>
+	<Color Key="MarketEPSConsistentLineColor" Val="0x00DF8002"/>
+	<Color Key="MarketEPSInnerLineColor" Val="0x00009FFF"/>
+<!--                  BaseForm  TitleBar                            -->
+	<Color Key="BaseTitleBar_TextFontName" Val="微软雅黑" />
+	<Color Key="BaseTitleBar_BackColor" Val="0x003D3D3D" />
+	<Color Key="BaseTitleBar_CaptionColor" Val="0x00a8a8a8" />
+	<Color Key="BaseTitleBar_CloseButtonFocusBackColor" Val="0x002A00FF" />    
+	<Color Key="BaseTitleBar_CloseButtonDownBackColor" Val="0x001E1ED2" />
+	<Color Key="BaseTitleBar_ButtonFocusBackColor" Val="0x00018FFB" />
+	<Color Key="BaseTitleBar_ButtonDownBackColor" Val="0x00146EFB" />
+	<Color Key="BaseTitleBar_ToolFontColor" Val="0x00646464" />
+	<Color Key="BaseTitleBar_FocusToolFontColor" Val="0x00969696" />
+	<Color Key="BaseTitleBar_BorderLineColor" Val="0x00262626" />
+<!--                  BaseForm  content                            -->
+	<Color Key="BaseForm_ContentColor" Val="0x00cccccc" />
+	<Color Key="BaseForm_BackColor" Val="0x00313131" />
+	<Color Key="BaseForm_BorderLine" Val="0x004d4d4d" />
+	
+<!--带确定、取消按钮的公共弹出窗体-->	
+    <FontName  Key="CommPopFormLabelFontName" Val="微软雅黑"/>
+	<FontSize  Key="CommPopFormLabelFontSize" Val="-13"/>
+	<Color Key="CommPopFormLabelFontColor" Val="0x00CCCCCC"/>
+
+	<Color Key="CommPopFormBtnLineColor" Val="0x00626262"/>
+	<Color Key="CommPopFormBtnLineHotColor" Val="0x00E6E6E6"/>
+    <Color Key="CommPopFormBtnColor" Val="0x00313131"/>
+	<Color Key="CommPopFormBtnTextColor" Val="0x00CCCCCC"/>
+	<Color Key="CommPopFormSaveBtnColor" Val="0x00075FFF"/>
+	<Color Key="CommPopFormSaveBtnHotColor" Val="0x001F97EC"/>
+	<Color Key="CommPopFormSaveBtnTextColor" Val="0x00EFF2FF"/>
+	<Color Key="CommPopFormBorderColor" Val="0x004D4D4D"/>
+	<Color Key="CommPopFormBackColor" Val="0x00313131"/>
+	<Color Key="CommPopFormTitleBackColor" Val="0x003D3D3D"/>
+	<Color Key="CommPopFormTitleFontColor" Val="0x00CCCCCC"/>
+	
+	<Color Key="CommPopFormListBoxImportBackColor" Val="0x001A1A1A"/>
+	<Color Key="CommPopFormListBoxBackColor" Val="0x00313131"/>
+	<Color Key="CommPopFormListBoxSelectedBackColor" Val="0x00404040"/>
+	<Color Key="CommPopFormListBoxRangeCountColor" Val="0x009E9E9E"/>	
+<!--                       分时                                    -->
+	<Color Key="Time_TextFontName" Val="微软雅黑" />
+	<Color Key="Time_TextFontHeight" Val="-12" />
+	<Color Key="Time_BackColor" Val="0x00000000" />
+	<Color Key="Time_TitleBackColor" Val="0x00000000" />
+	<Color Key="Time_HistoryBackColor" Val="0x00000000" />
+	<Color Key="Time_AuctionBackColor" Val="0x00131313" />
+	<Color Key="Time_CrossDetailBackColor" Val="0x00040404" />
+	<Color Key="Time_CrossXYRulerHintBackColor" Val="0x00857440" />
+	<Color Key="Time_CurrentPriceHintBackColor" Val="0x0017252F" /> 
+	<Color Key="Time_VolumeButtonBackColor" Val="0x006D6058" />
+	<Color Key="Time_VolumeButtonFocusBackColor" Val="0x00BF6A20" />
+	<Color Key="Time_BorderLineColor" Val="0x000000B8" />
+	<Color Key="Time_RegionDivideLineColor" Val="0x000000B8" />
+	<Color Key="Time_CenterRegionFrameLineColor" Val="0x00131313" />
+	<Color Key="Time_TitleFrameLineColor" Val="0x000000B8" />
+	<Color Key="Time_CrossDetailFrameLineColor" Val="0x00A8A8A8" />
+	<Color Key="Time_CrossXYRulerHintFrameLineColor" Val="0x00C0C0C0" />
+	<Color Key="Time_CurrentPriceHintFrameLineColor" Val="0x00143755" />
+	<Color Key="Time_CrossLineColor" Val="0x00808080" />
+	<Color Key="Time_GridLineColor" Val="0x00101095" />
+	<Color Key="Time_TimeLineColor" Val="0x00FFFFFF" />
+	<Color Key="Time_AverageLineColor" Val="0x0054FCFC" />
+	<Color Key="Time_StopFlagTextColor" Val="0x00595959" />
+	<Color Key="Time_StockNameTextColor" Val="0x0054FCFC" />
+	<Color Key="Time_SelfStockNameTextColor" Val="0x0054FCFC" />
+	<Color Key="Time_SelfStockCodeTextColor" Val="0x00EAE601" />
+	<Color Key="Time_CrossDetailTextColor" Val="0x00EAE601" />
+	<Color Key="Time_CrossDetailVolumeColor" Val="0x00EAE601" />
+	<Color Key="Time_CrossDetailDateTimeColor" Val="0x00FFFFFF" />
+	<Color Key="Time_CrossXYRulerHintTextColor" Val="0x00FFFFFF" />
+	<Color Key="Time_YRulerTextColor" Val="0x0054FCFC" />
+	<Color Key="Time_VolumeButtonTextColor" Val="0x00969696" />
+	<Color Key="Time_VolumeButtonFocusTextColor" Val="0x00FFCC66" />
+	<Color Key="Time_InfoMineIconColor" Val="0x00F1BF27" />
+	<Color Key="Time_DownColor" Val="0x001EFF00" />
+	<Color Key="Time_EqualColor" Val="0x00E6E6E6" />
+	<Color Key="Time_UpColor" Val="0x004B41FF" />
+	<Color Key="Time_VolumeDownColor" Val="0x0054FCFC" />
+	<Color Key="Time_VolumeEqualColor" Val="0x0054FCFC" />
+	<Color Key="Time_VolumeUpColor" Val="0x0054FCFC" />
+	<Color Key="Time_ShadowRValue" Val="26" />
+	<Color Key="Time_ShadowGValue" Val="26" />
+	<Color Key="Time_ShadowBValue" Val="26" />
+	<Color Key="Time_ShadowRValueInc" Val="0.5" />
+	<Color Key="Time_ShadowGValueInc" Val="0.8" />
+	<Color Key="Time_ShadowBValueInc" Val="2.16" />
+<!--                       信息地雷                                -->
+	<Color Key="TimeTradeDetail_TextFontName" Val="微软雅黑" />
+	<Color Key="TimeTradeDetail_BackColor" Val="0x00444444" />
+	<Color Key="TimeTradeDetail_TitleBackColor" Val="0x00444444" />
+	<Color Key="TimeTradeDetail_HeaderBackColor" Val="0x00303030" />
+	<Color Key="TimeTradeDetail_BorderLineColor" Val="0x00444444" />
+	<Color Key="TimeTradeDetail_TitleCaptionColor" Val="0x00E6E6E6" />
+	<Color Key="TimeTradeDetail_HeaderFontColor" Val="0x00FFFFFF" />
+	<Color Key="TimeTradeDetail_FontColor" Val="0x00E6E6E6" />
+	<Color Key="TimeTradeDetail_UpColor" Val="0x003127F5" />
+	<Color Key="TimeTradeDetail_DownColor" Val="0x0029B81E" />
+	<Color Key="TimeTradeDetail_RowBottomLineColor" Val="0x003B3B3B" />
+<!--                       叠加品种                                -->
+  	<Color Key="StockStack_TextFontName" Val="微软雅黑" />
+	<Color Key="StockStack_BackColor" Val="0x00444444" />
+	<Color Key="StockStack_EditBackColor" Val="0x00333333" />
+	<Color Key="StockStack_BottomBackColor" Val="0x00383838" />
+	<Color Key="StockStack_TitleBackColor" Val="0x00444444" />
+	<Color Key="StockStack_BorderLineColor" Val="0x00505050" />
+	<Color Key="StockStack_EidtFrameLineColor" Val="0x00646464" />
+	<Color Key="StockStack_DivideLineColor" Val="0x003A3A3A" />    
+	<Color Key="StockStack_HintFontColor" Val="0x00C8C8C8" />
+	<Color Key="StockStack_IndexFontColor" Val="0x00DCDCDC" />
+	<Color Key="StockStack_FontColor" Val="0x00FFFFFF" />
+	<Color Key="StockStack_FocusRowBackColor" Val="0x00737373" />
+	<Color Key="StockStack_ClearAllHintFontColor" Val="0x00C2C2C2" />
+<!--                       右键菜单                                -->
+	<Color Key="RightMenu_TextFontName" Val="微软雅黑" />
+	<Color Key="RightMenu_BackColor" Val="0x00242424" />
+	<Color Key="RightMenu_IconRectBackColor" Val="0x00383838" />
+	<Color Key="RightMenu_FocusBackColor" Val="0x00595959" />
+	<Color Key="RightMenu_UnEnableBackColor" Val="0x001F1F1F" />    
+	<Color Key="RightMenu_BorderLineColor" Val="0x00444444" />
+	<Color Key="RightMenu_TextFontColor" Val="0x00AAAAAA" />
+	<Color Key="RightMenu_IconTextFontColor" Val="0x00DCDCDC" />
+	<Color Key="RightMenu_UnEnableTextFontColor" Val="0x005A5A5A" />
+	<Color Key="RightMenu_TriangleColor" Val="0x00969696" />
+	<Color Key="RightMenu_DivideLineColor" Val="0x00161616" />
+<!--                       信息地雷                                -->
+	<Color Key="InfoMine_TextFontName" Val="微软雅黑" />
+	<Color Key="InfoMine_BackColor" Val="0x00000000" />
+	<Color Key="InfoMine_BorderLineColor" Val="0x000F0F0F" />
+	<Color Key="InfoMine_FocusRowBackColor" Val="0x00000000" />
+	<Color Key="InfoMine_FontColor" Val="0x0000ECEE" />
+	<Color Key="InfoMine_FocusFontColor" Val="0x00EAE601" />
+<!--                       简单报价                                -->
+	<Color Key="SimplePrice_HeaderFontName" Val="微软雅黑" />
+	<Color Key="SimplePrice_GridFontName" Val="微软雅黑" />
+	<Color Key="SimplePrice_BackColor" Val="0x00000000" />
+	<Color Key="SimplePrice_HeaderFontColor" Val="0x00DCDCDC" />
+	<Color Key="SimplePrice_HeaderFrameLineColor" Val="0x003A3A3A" />
+	<Color Key="SimplePrice_HeaderArrowColor" Val="0x0031A3FD" />    
+	<Color Key="SimplePrice_HeaderSubColor" Val="0x000090FD" />
+	<Color Key="SimplePrice_GridSelectRowBackColor" Val="0x00474747" />
+	<Color Key="SimplePrice_GridFocusRowBackColor" Val="0x00404040" />
+	<Color Key="SimplePrice_GridSelfStockSecuAbbrColor" Val="0x0000ECEE" />
+	<Color Key="SimplePrice_GridSecuAbbrColor" Val="0x0000ECEE" />
+	<Color Key="SimplePrice_GridSecuCodeColor" Val="0x00EAE601" />
+	<Color Key="SimplePrice_GridStockFlagColor" Val="0x000000FF" />    
+	<Color Key="SimplePrice_GridDataNullColor" Val="0x00D2D2D2" />
+	<Color Key="SimplePrice_GridBottomLineColor" Val="0x001E1E1E" />
+	<Color Key="SimplePrice_GridDragMoveLineColor" Val="0x0031A3FD" />  
+	<Color Key="SimplePrice_DownColor" Val="0x001EFF00" />  
+	<Color Key="SimplePrice_EqualColor" Val="0x00E6E6E6" />
+	<Color Key="SimplePrice_UpColor" Val="0x004B41FF" />
+	<Color Key="SimplePrice_HighLowRangeRefreshFontColor" Val="0x00FFFFFF" />
+	<Color Key="SimplePrice_SortHintColor" Val="0x00FFAE0B"/>
+	<Color Key="SimplePrice_SortHintBackColor" Val="0x00333333"/>
+<!--                       分时K线菜单                             -->
+	<Color Key="MarketTimeMenu_TextFontName" Val="微软雅黑" />
+	<Color Key="MarketTimeMenu_BackColor" Val="0x00000000" />
+	<Color Key="MarketTimeMenu_FocusBackColor" Val="0x00E6E6E6" />
+	<Color Key="MarketTimeMenu_BorderLineColor" Val="0x00000000" />
+	<Color Key="MarketTimeMenu_ButtonFrameLineColor" Val="0x00505050" />
+	<Color Key="MarketTimeMenu_FontColor" Val="0x00A8A8A8" />
+	<Color Key="MarketTimeMenu_FocusFontColor" Val="0x00000000" />
+	<Color Key="MarketTimeMenu_FlagColor" Val="0x00A8A8A8" />
+<!--                       分时K线菜单                            -->
+	<Color Key="MarketTimeMenuEx_TextFontName" Val="微软雅黑" />
+	<Color Key="MarketTimeMenuEx_BackColor" Val="0x00000000" />
+	<Color Key="MarketTimeMenuEx_BorderLineColor" Val="0x00000000" />
+	<Color Key="MarketTimeMenuEx_ButtonBackColor" Val="0x00000000" />
+	<Color Key="MarketTimeMenuEx_ButtonFocusBackColor" Val="0x00E6E6E6" />
+	<Color Key="MarketTimeMenuEx_ButtonFrameLineColor" Val="0x00505050" />
+	<Color Key="MarketTimeMenuEx_ButtonFontColor" Val="0x00A8A8A8" />
+	<Color Key="MarketTimeMenuEx_ButtonFocusFontColor" Val="0x00000000" />
+	<Color Key="MarketTimeMenuEx_ButtonSubFlagColor" Val="0x00A8A8A8" />
+	<Color Key="MarketTimeMenuEx_SelfStockNameColor" Val="0x0000ECEE" />
+<!--                       行情和资讯菜单                          -->
+	<Color Key="InfoMenu_TextFontName" Val="微软雅黑" />
+	<Color Key="InfoMenu_BackColor" Val="0x00363636" />
+	<Color Key="InfoMenu_BorderLineColor" Val="0x001E1E1E" />
+	<Color Key="InfoMenu_SelectLineColor" Val="0x00075FFF" />
+	<Color Key="InfoMenu_FontColor" Val="0x00CCCCCC" />   
+	<Color Key="InfoMenu_SelectFontColor" Val="0x00E6E6E6" />
+	<Color Key="InfoMenu_FocusFontColor" Val="0x00E6E6E6" />
+<!--                       资讯                                    -->
+	<Color Key="Information_TextFontName" Val="微软雅黑" />
+	<Color Key="Information_DateFontName" Val="微软雅黑" />
+	<Color Key="Information_BackColor" Val="0x00000000" />
+	<Color Key="Information_TextFontColor" Val="0x0054FCFC" />
+	<Color Key="Information_DateFontColor" Val="0x0054FCFC" />
+	<Color Key="Information_SelectTextFontColor" Val="0x00EAE601" />
+	<Color Key="Information_SelectDateFontColor" Val="0x00EAE601" />
+	<Color Key="Information_SelectRowColor" Val="0x00000000" />
+	<Color Key="Information_BottomLineColor" Val="0x001B1B1B" />
+	<Color Key="Information_NoticeTypeColor" Val="0x0000ECEE" />
+	<Color Key="Information_SelectNoticeTypeColor" Val="0x00EAE601" />
+	<Color Key="Information_NoticeTypeLineColor" Val="0x00C8C8C8" />
+	<Color Key="Information_SecuAbbrColor" Val="0x00A0A0A0" />
+	<Color Key="Information_SecuAbbrLineColor" Val="0x00878787" />
+	
+	<Color Key="Information_ReadedTextFontColor" Val="0x00737373" />
+	<Color Key="Information_NoReadTextFontColor" Val="0x00CCCCCC" />
+	<Color Key="Information_NoReadDateFontColor" Val="0x00999999" />
+	<Color Key="Information_DepthNoReadTextFontColor" Val="0x00008FFD" />
+<!--                       简单页签                                -->
+	<Color Key="SimpleTabSheetMenu_TextFontName" Val="微软雅黑" />
+	<Color Key="SimpleTabSheetMenu_BackColor" Val="0x00000000" />
+	<Color Key="SimpleTabSheetMenu_ButtonBackColor" Val="0x007D7D7D" />
+	<Color Key="SimpleTabSheetMenu_BorderLineColor" Val="0x0001018A" />
+	<Color Key="SimpleTabSheetMenu_ButtonSelectBackColor" Val="0x000102B8" />
+	<Color Key="SimpleTabSheetMenu_ButtonFrameLineColor" Val="0x00000000" />
+	<Color Key="SimpleTabSheetMenu_FontColor" Val="0x00000000" />
+	<Color Key="SimpleTabSheetMenu_SelectFontColor" Val="0x00E6E6E6" />
+<!--                       设置级联菜单                              -->
+    <Color Key="SettingCascadeMenu_TextFontName" Val="微软雅黑" />
+	<Color Key="SettingCascadeMenu_MainBackColor" Val="0x00353535" />
+	<Color Key="SettingCascadeMenu_MainButtonFontColor" Val="0x00E6E6E6" />
+	<Color Key="SettingCascadeMenu_MainButtonSelectedFontColor" Val="0x00075fff" />
+	<Color Key="SettingCascadeMenu_MainButtonSelectedLineColor" Val="0x00008CFD" />
+	<Color Key="SettingCascadeMenu_MainButtonFrameLineColor" Val="0x00212121" />
+	<Color Key="SettingCascadeMenu_MainButtonSelectBackColor" Val="0x004D4D4D" />
+
+	<Color Key="SettingCascadeMenu_ChildBackColor" Val="0x001A1A1A" />
+	<Color Key="SettingCascadeMenu_ChildButtonSelectedBackColor" Val="0x00075fff" />
+	<Color Key="SettingCascadeMenu_ChildButtonFocusedFrameLineColor" Val="0x00505050" />
+	<Color Key="SettingCascadeMenu_ChildButtonFontColor" Val="0x00DCDCDC" />
+	<Color Key="SettingCascadeMenu_ChildButtonSelectedFontColor" Val="0x00FFFFFF" />
+<!--                       报价牌菜单                              -->
+	<Color Key="PlateMenu_TextFontName" Val="微软雅黑" />
+	<Color Key="PlateMenu_MainBackColor" Val="0x00363636" />
+	<Color Key="PlateMenu_MainButtonFontColor" Val="0x00CCCCCC" />
+	<Color Key="PlateMenu_MainButtonSelectedFontColor" Val="0x00E6E6E6" />
+	<Color Key="PlateMenu_MainButtonSelectedLineColor" Val="0x00008CFD" />
+	<Color Key="PlateMenu_MainButtonFrameLineColor" Val="0x00141414" />
+	<Color Key="PlateMenu_MainButtonSelectBackColor" Val="0x00575757" />
+	
+	<Color Key="PlateMenu_ChildBackColor" Val="0x00000000" />
+	<Color Key="PlateMenu_ChildButtonSelectedBackColor" Val="0x00E6E6E6" />
+	<Color Key="PlateMenu_ChildButtonFocusedFrameLineColor" Val="0x00505050" />
+	<Color Key="PlateMenu_ChildButtonFontColor" Val="0x00B3B3B3" />
+	<Color Key="PlateMenu_ChildButtonSelectedFontColor" Val="0x00070000" />
+	<Color Key="PlateMenu_ChildSubIconColor" Val="0x000090FD" />
+	<Color Key="PlateMenu_ChildAddColor" Val="0x00DCDCDC" />
+	<Color Key="PlateMenu_ToolsBackColor" Val="0x00000000" />
+	<Color Key="PlateMenu_MultiStockButtonColor" Val="0x00F6C680" />
+	<Color Key="PlateMenu_PricePlateButtonColor" Val="0x000C89FC" />
+	<Color Key="PlateMenu_ComplexRankButtonColor" Val="0x000C89FC" />
+	
+	<Color Key="PlateMenu_ButtonAddPlateFontColor" Val="0x000E89FD" />
+	<Color Key="PlateMenu_ButtonAddPlateFocusFontColor" Val="0x001B7DE1" />
+	<Color Key="PlateMenu_ButtonAddPlateFrameLineColor" Val="0x00000000" />
+	<Color Key="PlateMenu_ButtonAddPlateFocusFrameLineColor" Val="0x00000000" />
+	<Color Key="PlateMenu_ButtonAddPlateBackColor" Val="0x00000000" />
+	<Color Key="PlateMenu_ButtonAddPlateFocusBackColor" Val="0x00000000" />
+<!--                       简单页签                                -->
+	<Color Key="MultiStock_BackColor" Val="0x00292929" />
+	<Color Key="MultiStock_SelectColor" Val="0x00FFAE0B" />
+	<Color Key="MultiStock_BorderColor" Val="0x00121212" />
+<!--                       多股同列菜单                            -->
+	<Color Key="MultiStockMenu_TextFontName" Val="微软雅黑" />
+	<Color Key="MultiStockMenu_BackColor" Val="0x00444444" />
+	<Color Key="MultiStockMenu_BorderLineColor" Val="0x00444444" />
+	<Color Key="MultiStockMenu_ButtonFocusBackColor" Val="0x00323232" />
+	<Color Key="MultiStockMenu_ButtonSelectBackColor" Val="0x0031A3FD" />
+	<Color Key="MultiStockMenu_ButtonFrameLineColor" Val="0x00282828" />
+	<Color Key="MultiStockMenu_ButtonFontColor" Val="0x00E6E6E6" />
+	<Color Key="MultiStockMenu_ButtonSelectFontColor" Val="0x00FFFFFF" />
+	<Color Key="MultiStockMenu_ButtonSubColor" Val="0x0031A3FD" />
+	<Color Key="MultiStockMenu_ButtonLayoutColor" Val="0x0031A3FD" />
+	<Color Key="MultiStockMenu_ButtonEnablePageColor" Val="0x00FFFFFF" />
+	<Color Key="MultiStockMenu_ButtonUnEnablePageColor" Val="0x00C2C2C2" />
+<!--                       多股同列布局弹出框                      -->
+	<Color Key="MultiStockLayoutSet_TextFontName" Val="微软雅黑" />
+	<Color Key="MultiStockLayoutSet_BackColor" Val="0x00AEAEAE" />
+	<Color Key="MultiStockLayoutSet_OperateHintBackColor" Val="0x008E8E8E" />
+	<Color Key="MultiStockLayoutSet_BorderLineColor" Val="0x00131313" />
+	<Color Key="MultiStockLayoutSet_CellBackColor" Val="0x008E8E8E" />
+	<Color Key="MultiStockLayoutSet_SelectBackColor" Val="0x004E4E4E" />
+	<Color Key="MultiStockLayoutSet_CellFrameLineColor" Val="0x00333333" />
+	<Color Key="MultiStockLayoutSet_FontColor" Val="0x00E6E6E6" />	
+<!--                       页签按钮                                -->
+	<Color Key="SheetCtrl_BackColor" Val="0x00000000" />
+	<Color Key="SheetCtrl_BorderLineColor" Val="0x00A8A8A8" />
+	<Color Key="SheetCtrl_ButtonTextFontColor" Val="0x00DCDCDC" />
+	<Color Key="SheetCtrl_ButtonSelectTextFontColor" Val="0x00282828" />
+	<Color Key="SheetCtrl_ButtonSelectBottomLineColor" Val="0x00008CFD" />
+<!--                       沪深综合屏                              -->
+	<Color Key="SHAndSZMarket_BackColor" Val="0x00000000" />
+	<Color Key="SHAndSZMarket_BorderLineColor" Val="0x00A8A8A8" />
+<!--                       持仓股资产分类页签管理                  -->
+	<Color Key="PosManager_BackColor" Val="0x00313131" />
+	<Color Key="PosManager_BorderLineColor" Val="0x00171717" />
+	<Color Key="PosManager_TitleBackColor" Val="0x003D3D3D" />
+	<Color Key="PosManager_TitleFontColor" Val="0x00CCCCCC" />
+	<Color Key="PosManager_CloseBackColor" Val="0x003D3D3D" />
+	<Color Key="PosManager_CloseColor" Val="0x00FFFFFF" />
+	<Color Key="PosManager_CloseFocusBackColor" Val="0x002311E8" />
+	<Color Key="PosManager_CloseFocusColor" Val="0x00FFFFFF" />
+	<Color Key="PosManager_ButtonBorderLineColor" Val="0x00626262" />
+	<Color Key="PosManager_ButtonBackColor" Val="0x00313131" />
+	<Color Key="PosManager_ButtonFocusBackColor" Val="0x00008EFB" />
+	<Color Key="PosManager_ButtonFontColor" Val="0x007A7A7A" />
+	<Color Key="PosManager_ButtonFocusFontColor" Val="0x00FFFFFF" />
+	<Color Key="PosManager_ButtonLabelFontColor" Val="0x00B3B3B3" />
+	<Color Key="PosManager_SheetBackColor" Val="0x001A1A1A" />
+	<Color Key="PosManager_SheetBorderLineColor" Val="0x004D4D4D" />
+	<Color Key="PosManager_ButtonSelectCheckColor" Val="0x00B8763C" />
+	<Color Key="PosManager_ButtonCheckFontColor" Val="0x00CCCCCC" />
+	<Color Key="PosManager_ButtonSelectCheckFontColor" Val="0x00CCCCCC" />
+<!--                       自选股和持仓股 多页签                    -->
+	<Color Key="CustomSheetMenu_BackColor" Val="0x00353535" />
+	<Color Key="CustomSheetMenu_BorderLineColor" Val="0x00555555" />
+	<Color Key="CustomSheetMenu_ButtonBackColor" Val="0x00353535" />
+	<Color Key="CustomSheetMenu_ButtonSelectBackColor" Val="0x00E6E6E6" />
+	<Color Key="CustomSheetMenu_ButtonDivisionLineColor" Val="0x00555555" />
+	<Color Key="CustomSheetMenu_ButtonFontColor" Val="0x00B3B3B3" />
+	<Color Key="CustomSheetMenu_ButtonSelectFontColor" Val="0x00000000" />
+	
+	<Color Key="CustomSheetMenu_ButtonAddSelfFontColor" Val="0x000E89FD" />
+	<Color Key="CustomSheetMenu_ButtonAddSelfSelectFontColor" Val="0x00353535" />
+	<Color Key="CustomSheetMenu_ButtonAddSelfFrameLineColor" Val="0x000E89FD" />
+	<Color Key="CustomSheetMenu_ButtonAddSelfSelectFrameLineColor" Val="0x00353535" />
+	<Color Key="CustomSheetMenu_ButtonAddSelfBackColor" Val="0x00353535" />
+	<Color Key="CustomSheetMenu_ButtonAddSelfSelectBackColor" Val="0x000E89FD" />
+	
+	<Color Key="CustomSheetMenu_ButtonAddPlateFontColor" Val="0x000E89FD" />
+	<Color Key="CustomSheetMenu_ButtonAddPlateFocusFontColor" Val="0x001B7DE1" />
+	<Color Key="CustomSheetMenu_ButtonAddPlateFrameLineColor" Val="0x00353535" />
+	<Color Key="CustomSheetMenu_ButtonAddPlateFocusFrameLineColor" Val="0x00353535" />
+	<Color Key="CustomSheetMenu_ButtonAddPlateBackColor" Val="0x00353535" />
+	<Color Key="CustomSheetMenu_ButtonAddPlateFocusBackColor" Val="0x00353535" />
+<!--					   股指期货综合屏		深色				-->
+	<Color Key="StockIndexFuture_BackgroundColor" Val="0x00000000" />
+	<Color Key="StockIndexFuture_BorderLineColor" Val="0x004C4C4C" />	
+	<Color Key="StockIndexFuture_ColumnGroupHeadColor" Val="0x00000000"/>	
+	<Color Key="StockIndexFuture_ColumnHeadColor" Val="0x00000000"/>
+	<Color Key="StockIndexFuture_ColumnButtonLineColor" Val="0x007D7D7D"/>	
+	<Color Key="StockIndexFuture_ColumnButtonColor" Val="0x00000000"/>	
+	<Color Key="StockIndexFuture_ColumnButtonDownColor" Val="0x000101B8"/>	
+	<Color Key="StockIndexFuture_ChartGridLineColor" Val="0x00161616"/>
+	<Color Key="StockIndexFuture_ChartAxisLineColor" Val="0x00141414"/>
+	<Color Key="StockIndexFuture_ChartLegendLineColor" Val="0x00087DFF"/>
+	
+<!--                       常规设置                            -->
+	<Color Key="NormalSystemSetting_CaptionBackColor" Val="0x004E4E4E" />
+	<Color Key="NormalSystemSetting_CaptionFontColor" Val="0x00FFFFFF" />
+	<Color Key="NormalSystemSetting_BackColor" Val="0x00444444" />
+	<Color Key="NormalSystemSetting_BorderLineColor" Val="0x00121212" />
+	<Color Key="NormalSystemSetting_TextFontColor" Val="0x00FFFFFF" />
+	<Color Key="NormalSystemSetting_ButtonBackColor" Val="0x00444444" /> 
+	<Color Key="NormalSystemSetting_ButtonFocusBackColor" Val="0x00008EFB" />
+	<Color Key="NormalSystemSetting_ButtonFrameLineColor" Val="0x00CCCCCC" />
+	<Color Key="NormalSystemSetting_ButtonFontColor" Val="0x00CCCCCC" />
+	<Color Key="NormalSystemSetting_ButtonFocusFontColor" Val="0x00FFFFFF" />
+<!--                       板块检测的标题                           -->
+	<Color Key="MonitorPrice_BackColor" Val="0x00000000" />
+	<Color Key="MonitorPrice_BorderLineColor" Val="0x00A8A8A8" />
+	<Color Key="MonitorPrice_SelfStockNameColor" Val="0x0054FCFC" />
+	<Color Key="MonitorPrice_StockNameColor" Val="0x0054FCFC" />
+	<Color Key="MonitorPrice_DownColor" Val="0x001EFF00" />  
+	<Color Key="MonitorPrice_EqualColor" Val="0x00E6E6E6" />
+	<Color Key="MonitorPrice_UpColor" Val="0x004B41FF" />
+<!--                      板块检测分时K线菜单                       -->
+	<Color Key="MonitorMarketTimeMenu_BackColor" Val="0x00000000" />
+<!--                      板块检测                                  -->
+	<Color Key="MonitoringPlate_BackColor" Val="0x00A8A8A8" />
+	<Color Key="MonitoringPlate_BackgroundColor" Val="0x00282828" />
+<!--                       自定义模块WSLayout颜色                   -->
+	<Color Key="WSLayout_PageControlTabSetColor" Val="0x00353535" />
+	<Color Key="WSLayout_PageControlColor" Val="0x001A1A1A" />
+	<Color Key="WSLayout_PageControlTabColorUnselected" Val="0x00313131" />
+	<Color Key="WSLayout_PageControlTabColorSelected" Val="0x00575757" />
+	<Color Key="WSLayout_PageControlTabColorShadowColor" Val="0x00585858" />
+	<Color Key="WSLayout_PageControlFrameColor" Val="0x001C1C1C" />
+	<Color Key="WSLayout_PageControlHotTrackColor" Val="0x004D4D4D" />
+	<Color Key="WSLayout_PageControlContainerBackColor" Val="0x00232323" />
+	<Color Key="WSLayout_PageControlGridLineColor" Val="0x00303030" />
+	<Color Key="WSLayout_PageControlTabTextColor" Val="0x00E5E5E5" />
+	<Color Key="WSLayout_PageControlTabSelectTextColor" Val="0x000B88FA" />
+	<Color Key="WSLayout_CtrlTitleBarTextColor" Val="0x00E5E5E5" />
+	<Color Key="WSLayout_CtrlTitleBarBackColor" Val="0x002E2E2E" />
+	<Color Key="WSLayout_CtrlInnerBorderColor" Val="0x00333333" />
+	<Color Key="WSLayout_CtrlBorderColor" Val="0x00393939" />
+	<Color Key="WSLayout_CtrlActiveBorderColor" Val="0x000051FF" />
+	<Color Key="WSLayout_CtrlBackColor" Val="0x001A1A1A" />
+<!--                       自定义模块WSFeaturesMenu                 -->
+	<Color Key="WSFeaturesMenu_BackColor" Val="0x00353535" />
+	<Color Key="WSFeaturesMenu_ButtonBackColor" Val="0x00353535" />
+	<Color Key="WSFeaturesMenu_ButtonFocusBackColor" Val="0x0031A3FD" />
+	<Color Key="WSFeaturesMenu_ButtonUnEnableBackColor" Val="0x00444444" />
+	<Color Key="WSFeaturesMenu_ButtonFrameLineColor" Val="0x00535353" />
+	<Color Key="WSFeaturesMenu_ButtonFontColor" Val="0x00E5E5E5" />
+	<Color Key="WSFeaturesMenu_ButtonFocusFontColor" Val="0x00FFFFFF" />
+	<Color Key="WSFeaturesMenu_ButtonUnEnableFontColor" Val="0x00A0A0A0" />
+	<Color Key="WSFeaturesMenu_BorderLineColor" Val="0x00181613" />
+<!--                       自定义模板                   -->
+    <Color Key="WSTemplateCtrl_BackColor" Val="0x00232323" />
+	<Color Key="WSTemplateCtrl_BorderColor" Val="0x00484848" />
+	<Color Key="WSTemplateCtrl_BorderActiveColor" Val="0x003466FE" />
+	<Color Key="WSTemplateCtrl_GroupCaptionTextColor" Val="0x00979797" />
+	<Color Key="WSTemplateCtrl_CaptionTextColor" Val="0x00979797" />
+	<Color Key="WSTemplateCtrl_RemarkTextColor" Val="0x00979797" />
+	<Color Key="WSTemplateCtrl_EditBackColor" Val="0x002E2E2E" />
+	<Color Key="WSTemplateCtrl_EditBorderColor" Val="0x00666666" />
+	<Color Key="WSTemplateCtrl_MemoBackColor" Val="0x002E2E2E" />
+	<Color Key="WSTemplateCtrl_MemoBorderColor" Val="0x00666666" />
+<!--                       自定义模块行情控件工具                      -->
+	<Color Key="WSToolbox_BackColor" Val="0x00262626" />
+	<Color Key="WSToolbox_BorderLineColor" Val="0x002D2D2D" />
+	<Color Key="WSToolbox_ToolBackColor" Val="0x00262626" />
+	<Color Key="WSToolbox_CaptionBarBackColor" Val="0x00434343" />
+	<Color Key="WSToolbox_CaptionColor" Val="0x00E5E5E5" />
+	<Color Key="WSToolbox_CaptionBottomLineColor" Val="0x00434343" />
+	<Color Key="WSToolbox_CloseBackColor" Val="0x00262626" />
+	<Color Key="WSToolbox_CloseColor" Val="0x008C8478" />
+	<Color Key="WSToolbox_CloseFocusBackColor" Val="0x002311E8" />
+	<Color Key="WSToolbox_CloseFocusColor" Val="0x00FFFFFF" />
+	<Color Key="WSToolbox_ButtonFocusBackColor" Val="0x00262626" />
+	<Color Key="WSToolbox_ButtonFocusFrameLineColor" Val="0x00999999" />
+<!--                       自定义模块分组设置                       -->
+	<Color Key="WSGroupSetting_BackColor" Val="0x001A1A1A" />
+	<Color Key="WSGroupSetting_BorderLineColor" Val="0x00292929" />
+	<Color Key="WSGroupSetting_CaptionBarBackColor" Val="0x004D453C" />
+	<Color Key="WSGroupSetting_CaptionColor" Val="0x00FFFFFF" />
+	<Color Key="WSGroupSetting_CloseBackColor" Val="0x004D453C" />
+	<Color Key="WSGroupSetting_CloseColor" Val="0x00050505" />
+	<Color Key="WSGroupSetting_CloseFocusBackColor" Val="0x002311E8" />
+	<Color Key="WSGroupSetting_CloseFocusColor" Val="0x00FFFFFF" />
+	<Color Key="WSGroupSetting_PageButtonBackColor" Val="0x00202020" />
+	<Color Key="WSGroupSetting_PageSelectButtonBackColor" Val="0x001A1A1A" />
+	<Color Key="WSGroupSetting_PageButtonFontColor" Val="0x00A2A2A2" />
+	<Color Key="WSGroupSetting_PageButtonFrameLineColor" Val="0x00292929" />
+	<Color Key="WSGroupSetting_GroupBackColor" Val="0x001A1A1A" />
+	<Color Key="WSGroupSetting_GroupButtonBackColor" Val="0x001A1A1A" />
+	<Color Key="WSGroupSetting_GroupTextFontColor" Val="0x00A2A2A2" />
+	<Color Key="WSGroupSetting_GroupIconTextFontColor" Val="0x00FFFFFF" />
+	<Color Key="WSGroupSetting_GroupButtonFocusBackColor" Val="0x001A1A1A" />
+	<Color Key="WSGroupSetting_GroupButtonFocusFrameLineColor" Val="0x00EBBB94" />
+	<Color Key="WSGroupSetting_GroupButtonSelectFrameLineColor" Val="0x003266FF" />
+	<Color Key="WSGroupSetting_GroupButtonNoGroupSlashLineColor" Val="0x00736CDB" />
+	<Color Key="WSGroupSetting_GroupButtonNoGroupFrameLineColor" Val="0x00CCCCCC" />
+	<Color Key="WSGroupSetting_ParamButtonFontColor" Val="0x00A2A2A2" />
+	<Color Key="WSGroupSetting_ParamButtonFocusFontColor" Val="0x00FFFFFF" />
+	<Color Key="WSGroupSetting_ParamButtonFrameLineColor" Val="0x00393939" />
+	<Color Key="WSGroupSetting_ParamButtonEditFrameLineColor" Val="0x00393939" />
+	<Color Key="WSGroupSetting_ParamButtonUnEnableBackColor" Val="0x00444444" />
+	<Color Key="WSGroupSetting_ParamButtonUnEnableFontColor" Val="0x00A0A0A0" />
+	<Color Key="WSGroupSetting_BottomBackColor" Val="0x00202020" />
+	<Color Key="WSGroupSetting_BottomButtonBackColor" Val="0x001F1F1F" />
+	<Color Key="WSGroupSetting_BottomButtonFontColor" Val="0x007A7A7A" />
+	<Color Key="WSGroupSetting_BottomButtonFrameLineColor" Val="0x00393939" />
+	<Color Key="WSGroupSetting_BottomButtonFocusBackColor" Val="0x00008EFB" />
+	<Color Key="WSGroupSetting_BottomButtonFocusFontColor" Val="0x00FFFFFF" />
+	<Color Key="WSGroupSetting_GroupColors_1" Val="0x001B1BAF" />
+	<Color Key="WSGroupSetting_GroupColors_2" Val="0x00687EE7" />
+	<Color Key="WSGroupSetting_GroupColors_3" Val="0x0017C0F0" />
+	<Color Key="WSGroupSetting_GroupColors_4" Val="0x007696BD" />
+	<Color Key="WSGroupSetting_GroupColors_5" Val="0x00BB6A95" />
+	<Color Key="WSGroupSetting_GroupColors_6" Val="0x008922EB" />
+	<Color Key="WSGroupSetting_GroupColors_7" Val="0x00E7B237" />
+	<Color Key="WSGroupSetting_GroupColors_8" Val="0x000FCDA0" />
+	<Color Key="WSGroupSetting_GroupColors_9" Val="0x0017822E" />
+	<Color Key="WSGroupSetting_GroupColors_10" Val="0x00FF7734" />
+	<Color Key="WSGroupSetting_GroupColors_11" Val="0x009CB300" />
+	<Color Key="WSGroupSetting_GroupColors_12" Val="0x00008EED" />
+<!--                       指数显示设置                        -->
+	<Color Key="WSAddIndex_BackColor" Val="0x001A1A1A" />
+	<Color Key="WSAddIndex_BorderLineColor" Val="0x002D2D2D" />
+	<Color Key="WSAddIndex_CaptionBarBackColor" Val="0x002E2E2E" />
+	<Color Key="WSAddIndex_CaptionColor" Val="0x00E5E5E5" />
+	<Color Key="WSAddIndex_CaptionBottomLineColor" Val="0x00181613" />
+	<Color Key="WSAddIndex_CloseBackColor" Val="0x00FFFFFF" />
+	<Color Key="WSAddIndex_CloseColor" Val="0x008C8478" />
+	<Color Key="WSAddIndex_CloseFocusBackColor" Val="0x002311E8" />
+	<Color Key="WSAddIndex_CloseFocusColor" Val="0x00FFFFFF" />
+	<Color Key="WSAddIndex_ButtonBackColor" Val="0x00242424" />
+	<Color Key="WSAddIndex_ButtonFocusBackColor" Val="0x00363636" />
+	<Color Key="WSAddIndex_ButtonFrameLineColor" Val="0x00595959" />
+	<Color Key="WSAddIndex_ButtonDeleteColor" Val="0x007E7E7E" />
+	<Color Key="WSAddIndex_ButtonFontColor" Val="0x00A8A8A8" />
+	<Color Key="WSAddIndex_ButtonFocusFontColor" Val="0x00C6C6C6" />
+	<Color Key="WSAddIndex_ButtonOtherFocusBackColor" Val="0x00008FFD" />
+	<Color Key="WSAddIndex_ButtonHintFontColor" Val="0x000000FF" />
+<!--                       研报警告                            -->
+	<Color Key="ResearchReportAlert_BackColor" Val="0x00313131" />
+	<Color Key="ResearchReportAlert_BorderLineColor" Val="0x00878787" />
+	<Color Key="ResearchReportAlert_CaptionBackColor" Val="0x003A3A3A" />
+	<Color Key="ResearchReportAlert_CaptionFontColor" Val="0x00AFAFAF" />
+	<Color Key="ResearchReportAlert_CloseColor" Val="0x00959595" />
+	<Color Key="ResearchReportAlert_CloseFocusBackColor" Val="0x002311E8" />
+	<Color Key="ResearchReportAlert_CloseFocusColor" Val="0x00FFFFFF" />
+	<Color Key="ResearchReportAlert_CaptionButtonFocusBackColor" Val="0x00242424" />
+<!--                       系统提示                            -->
+	<Color Key="SysMsgBase_BackColor" Val="0x00313131" />
+	<Color Key="SysMsgBase_BorderLineColor" Val="0x00878787" />
+	<Color Key="SysMsgBase_CaptionBackColor" Val="0x003A3A3A" />
+	<Color Key="SysMsgBase_CaptionFontColor" Val="0x00AFAFAF" />
+	<Color Key="SysMsgBase_CloseColor" Val="0x00959595" />
+	<Color Key="SysMsgBase_CloseFocusBackColor" Val="0x002311E8" />
+	<Color Key="SysMsgBase_CloseFocusColor" Val="0x00FFFFFF" />
+	<Color Key="SysMsgBase_CaptionButtonFocusBackColor" Val="0x00242424" />
+	<Color Key="SysMsgBase_ButtonFrameLineColor" Val="0x00C0C0C0" />
+	<Color Key="SysMsgBase_ButtonFocusFrameLineColor" Val="0x00008EFB" />
+	<Color Key="SysMsgBase_ButtonBackColor" Val="0x00313131" />
+	<Color Key="SysMsgBase_ButtonFocusBackColor" Val="0x00008EFB" />
+	<Color Key="SysMsgBase_ButtonFontColor" Val="0x00CCCCCC" />
+	<Color Key="SysMsgBase_ButtonFocusFontColor" Val="0x00FFFFFF" />
+<!--                       盘口相关                      -->
+	<Color Key="DetailPrice_StockNameFont" Val="0x0054fcfc" />
+	<Color Key="DetailPrice_StockCodeFont" Val="0x00fcfc54" />
+	<Color Key="DetailPrice_TextFont" Val="0x00A8A8A8" />
+	<Color Key="DetailPrice_NumberFont" Val="0x00FE414B" />
+	<Color Key="DetailPrice_ColumnFont" Val="0x00BFBFBF" />
+	<Color Key="DetailPrice_ButtonFont" Val="0x00666666" />
+	<Color Key="DetailPrice_RowFont" Val="0x00019598" />
+	<Color Key="DetailPrice_TitleFont" Val="0x00C0C0C0" />
+	<Color Key="DetailPrice_HitTextColor" Val="0x00E3D43C" />
+	<Color Key="DetailPrice_TitleTextColor2" Val="0x0031A3FD" />
+	<Color Key="DetailPrice_TitleTextColor3" Val="0x00E3D43C" />
+	<Color Key="DetailPrice_ColumnTextColor" Val="0x00BFBFBF" />
+	<Color Key="DetailPrice_ColumnBackgroundColor" Val="0x00010101" />
+	<Color Key="DetailPrice_ColumnGridColor" Val="0x00252525" />
+	<Color Key="DetailPrice_ButtonFontColor" Val="0x00E3D43C" />
+	<Color Key="DetailPrice_ButtonNurBKColor" Val="0x00E3D43C" />
+	<Color Key="DetailPrice_ButtonHotBKColor" Val="0x00E3D43C" />
+	<Color Key="DetailPrice_ButtonFontHotColor" Val="0x00E3D43C" />
+	<Color Key="DetailPrice_ButtonBackColor" Val="0x00E3D43C" />
+	<Color Key="DetailPrice_ButtonBackHotColor" Val="0x00E3D43C" />
+	<Color Key="DetailPrice_ButtonBackDownColor" Val="0x00E3D43C" />
+	<Color Key="DetailPrice_CellFlashColor" Val="0x00E3D43C" />
+	<Color Key="DetailPrice_RowGridColor" Val="0x00010101" />
+	<Color Key="DetailPrice_RowBackgroundColor" Val="0x00010101" />
+	<Color Key="DetailPrice_RowHistoryBKColor" Val="0x00262626" />
+	<Color Key="DetailPrice_RowHighLightColor" Val="0x00010101" />
+	<Color Key="DetailPrice_RowBuyColor" Val="0x00444444" />
+	<Color Key="DetailPrice_RowSellColor" Val="0x00444444" />
+	<Color Key="DetailPrice_ActiveLineColor" Val="0x00606060" />
+	<Color Key="DetailPrice_LineActiveColor" Val="0x0031A3FD" />
+	<Color Key="DetailPrice_LineRowColor" Val="0x00010101" />
+	<Color Key="DetailPrice_LineFrameColor" Val="0x0001018A" />
+	<Color Key="DetailPrice_LineSplitColor" Val="0x00444444" />
+	<Color Key="DetailPrice_BackgroundColor" Val="0x00010101" />
+	<Color Key="DetailPrice_UpFormBackgroundColor" Val="0x00E3D43C" />
+	
+	
+	<Color Key="DetailPrice_StockNameColor" Val="0x0054fcfc" />
+	<Color Key="DetailPrice_StockCodeColor" Val="0x00fcfc54" />
+	<Color Key="DetailPrice_SelfStockNameColor" Val="0x0054fcfc" />
+	<Color Key="DetailPrice_SelfStockCodeColor" Val="0x00fcfc54" />
+	<Color Key="DetailPrice_IllumTextColor" Val="0x005454FC" />
+	<Color Key="DetailPrice_ShadeTextColor" Val="0x003CFC54" />
+	<Color Key="DetailPrice_BuyColor" Val="0x004B41FF" />
+	<Color Key="DetailPrice_SellColor" Val="0x001EFF00" />
+	<Color Key="DetailPrice_EqualTextColor" Val="0x00FcFcFc" />
+	<Color Key="DetailPrice_DefaultTextColor" Val="0x00A8A8A8" />
+	<Color Key="DetailPrice_VolumeTextColor" Val="0x00fcfc54" />
+	<Color Key="DetailPrice_EntrustTextColor" Val="0x00CCCCCC" />
+<!--           黑色 Splitter 控件颜色                            -->
+	<Color Key="Control_Splitter_BackgroundColor" Val="0x001A1A1A" />
+	<Color Key="Control_Splitter_NormalColor" Val="0x00666666" />
+	<Color Key="Control_Splitter_HotColor" Val="0x00808080" />
+	<Color Key="Control_Splitter_ArrowColor" Val="0x00000000" />
+	<Color Key="Control_Splitter_FrameColor" Val="0x00B1B1B1" />
+<!--           黑色 ScrollBar 控件颜色                            -->	
+	<Color Key="Control_ScrollBar_ScrollBarColor" Val="0x00212121" />
+	<Color Key="Control_ScrollBar_ScrollBarButtonColor" Val="0x00404040" />
+	<Color Key="Control_ScrollBar_ScrollBarHandleColor" Val="0x00404040" />
+	<Color Key="Control_ScrollBar_ScrollBarHandleHotColor" Val="0x00383838" />
+	<Color Key="Control_ScrollBar_ScrollBarHandleDownColor" Val="0x00333333" />
+	<Color Key="Control_ScrollBar_ScrollBarBorderColor" Val="0x002E2E2E" />
+	<Color Key="Control_ScrollBar_ScrollBarHighLightColor" Val="0x00212121" />
+	<Color Key="Control_ScrollBar_ScrollBarShadowColor" Val="0x00212121" />
+	<Color Key="Control_ScrollBar_ScrollBarArrowColor" Val="0x008E8E8E" />
+	
+<!--               黑色 日记                      -->
+	<Color Key="Diary_Tip_BindingClose" Val="0x002F2FFF"/>
+	<Color Key="Diary_Tip_BindingConnect" Val="0x00075FFF"/>
+	<Color Key="Diary_FormTitleTxtColor" Val="0x00a8a8a8"/>
+	<Color Key="Diary_FormTitleBKColor" Val="0x003D3D3D"/>
+	<Color Key="Diary_FormLineColor" Val="0x004D4D4D"/>
+
+<!--               黑色 弹出框 窗体颜色                      -->
+	<Color Key="Form_Pop_FontColor" Val="0x00ACACAC"/>
+	<Color Key="Form_Pop_TitleColor" Val="0x00E5E5E5"/>
+	<Color Key="Form_Pop_BackColor" Val="0x001A1A1A"/>
+	<Color Key="Form_Pop_FrameColor" Val="0x00444444"/>
+	<Color Key="Form_Pop_ControlBorderColor" Val="0x00595959"/>
+	
+<!--               黑色 QuoteButton 控件颜色                      -->
+	<Color Key="Control_QuoteButton_FontColor" 		Val="0x00A6A6A6"/>
+	<Color Key="Control_QuoteButton_FontHotColor" 	Val="0x00A8DCFF"/>
+	<Color Key="Control_QuoteButton_FontDownColor" 	Val="0x00A8DCFF"/>
+
+	<Color Key="Control_QuoteButton_BackColor" Val="0x00333333"/>
+	<Color Key="Control_QuoteButton_BackHotColor" Val="0x00008CFF"/>
+	<Color Key="Control_QuoteButton_BackDownColor" Val="0x00008CFF"/>
+	
+	<Color Key="Control_QuoteButton_LineColor" Val="0x00595959"/>	           
+	<Color Key="Control_QuoteButton_LineHotColor" Val="0x00595959"/>
+	<Color Key="Control_QuoteButton_LineDownColor" Val="0x00595959"/>
+	
+ <!--以下为板块设置的文字边框颜色设置//-->
+	<Color Key="CplatecompositonmenuText" Val="0x00c2c2c2"/>
+	<Color Key="CplatecompositonmenuTexthot" Val="0x000390ff"/>
+	<Color Key="CplatecompositonmenuTextsel" Val="0x000390ff"/>
+	<Color Key="CplatecompositonmenuTextselFrame" Val="0x000390ff"/>
+
+	<Color Key="CamplifysearchcontrolLeft" Val="0x00c3c3c3"/>
+	<Color Key="CamplifysearchcontrolRight" Val="0x00c3c3c3"/>
+	<Color Key="CamplifysearchcontrolLefthot" Val="0x00a2a2a2"/>
+	<Color Key="CamplifysearchcontrolLeftsel" Val="0x00269ffc"/>
+	<Color Key="CamplifysearchcontrolRighthot" Val="0x00a2a2a2"/>
+	<Color Key="CamplifysearchcontrolRightsel" Val="0x00269ffc"/>
+
+	<Color Key="CPlateSettitlebarsel" Val="0x00e4e4e4"/>
+	<Color Key="CPlateSettitlebarunsel" Val="0x00707070"/>
+
+	<Color Key="CPlateSettitlebarsel" Val="0x00dcdcdc"/>
+	<Color Key="CPlateSettitlebarunsel" Val="0x00dcdcdc"/>
+	<Color Key="CPlateSetTittleColor" Val="0x00363636"/>
+	<Color Key="CPlateSetLeftBackColor" Val="0x00444444"/>
+	
+	<FontName  Key="CPlateSetTittle2JFontName" Val="微软雅黑"/>
+	<FontSize  Key="CPlateSetTittle2JFontSize" Val="-15"/>
+	<Color Key="CPlateSetTittle2JFontColor" Val="0x00dcdcdc"/>
+		
+	<FontName  Key="CPlateSetSortHintFontName" Val="微软雅黑"/>
+	<FontSize  Key="CPlateSetSortHintFontSize" Val="-13"/>
+	<Color Key="CPlateSetSortHintFontColor" Val="0x00dcdcdc"/>
+	<Color Key="CPlateSetSortHintBackColor" Val="0x00444444"/>
+	
+	<FontSize  Key="CPlateSetMemoGridRowSize" Val="24"/>
+	<Color Key="CPlateSetTittleCutLineColor" Val="0x001A1A1A"/>
+
+	<Color Key="CPlateSetnodebgsel" Val="0x00595959"/>
+	
+
+	<!--以下为粘贴窗口的文字边框颜色设置//-->
+	<Color Key="CseparationLinePaste" Val="0x00a2a2a2"/>
+
+
+	<!--以下为系统设置的文字边框颜色设置//-->
+	<Color Key="CSystemSetselPbackground" Val="0x00707070"/>
+	<Color Key="CSystemSetunselPbackground" Val="0x00e4e4e4"/>
+	<Color Key="CSystemSetselPtext" Val="0x00ffffff"/>
+	<Color Key="CSystemSetunselPtext" Val="0x00333333"/>
+	<Color Key="CSystemSetrzline" Val="0x00d1d1d1"/>
+
+	<!--以下为工具信息界面的文字边框颜色设置//-->
+	<Color Key="CtoolsMajorText" Val="0x00c2c2c2"/>
+	<Color Key="CtoolsMinorText" Val="0x00ffffff"/>
+	<Color Key="CtoolssearchframeorginalText" Val="0x00c2c2c2"/>
+	<Color Key="Ctoolsbigbackground" Val="0x00404040"/>
+	<Color Key="CtoolsLabelbackground" Val="0x00404040"/>
+	<Color Key="CtoolsFormBorderColor" Val="0x001A1A1A"/>
+	
+	<!--沪深综合屏表格-->
+	<FontName  Key="ViewStockColumnFontName" Val="微软雅黑"/>
+	<FontSize  Key="ViewStockColumnFontSize" Val="-14"/>
+	<FontSize  Key="ViewStockColumnFontSize_Big" Val="-15"/>
+	<Color Key="ViewStockColumnFontColor" Val="0x00fcfc54"/>
+	
+	<FontName  Key="ViewStockRowFontName" Val="微软雅黑"/>
+	<FontSize  Key="ViewStockRowFontSize" Val="-13"/>
+	<FontSize  Key="ViewStockRowFontSize_Big" Val="-15"/>
+	
+	<Color Key="ViewStockColumnHeadColor" Val="0x00000000"/>
+	<Color Key="ViewStockBackgroundColor" Val="0x00000000"/>
+	<Color Key="ViewStockSortArrowColor" Val="0x0031A3FD"/>
+	<Color Key="ViewStockBorderLineColor" Val="0x00a8a8a8"/>
+	<Color Key="ViewStockGridLinesColor" Val="0x00000000"/>
+	<Color Key="ViewStockSelectedRowBGColor" Val="0x00000000"/>
+	<Color Key="ViewStockSelectedBorderColor" Val="0x00fcfcfc"/>
+	<Color Key="ViewStockMouseInColor" Val="0x00000000"/>
+	<Color Key="ViewStockRowCrossBGColor" Val="0x00000000"/>
+	<Color Key="ViewStockRowTextColor" Val="0x00fcfc54"/>
+	<Color Key="ViewStockStockNameColor" Val="0x0054fcfc"/>
+	<Color Key="ViewStockIllumTextColor" Val="0x005454fc"/>
+	<Color Key="ViewStockShadeTextColor" Val="0x003CFC54"/>
+	<Color Key="ViewStockEqualTextColor" Val="0x00fcfcfc"/>
+	<Color Key="ViewStockCellFlashIllumColor" Val="0x00101076"/>
+	<Color Key="ViewStockCellFlashShadeColor" Val="0x00124516"/>
+	
+	<!--沪深综合屏表格页签-->
+	<FontName  Key="ViewStockTabSheetBtnFontName" Val="微软雅黑"/>
+	<FontSize  Key="ViewStockTabSheetBtnFontSize" Val="-14"/>
+	<FontSize  Key="ViewStockTabSheetBtnFontSize_Big" Val="-16"/>
+	<Color Key="ViewStockTabSheetBtnFontColor" Val="0x00DCDCDC"/>
+	
+	<Color Key="ViewStockTabSheetBackColor" Val="0x00000000"/>
+	<Color Key="ViewStockTabSheetSelectedColor" Val="0x00000000"/>
+	<Color Key="ViewStockTabSheetHotColor" Val="0x00444444"/>
+	<Color Key="ViewStockTabSheetCutLineColor" Val="0x00A8A8A8"/>
+	<Color Key="ViewStockTabSheetSelectedCutLineColor" Val="0x00008CFD"/>
+	<Color Key="ViewStockTabSheetSelectedFontColor" Val="0x00DCDCDC"/>
+	<Color Key="ViewStockTabSheetHotFontColor" Val="0x00DCDCDC"/>
+	
+	<!--报价牌自定义控件页签-->	
+	<Color Key="UserSelfTabSheetBackColor" Val="0x00000000"/>
+	<Color Key="UserSelfTabSheetSelectedColor" Val="0x00e6e6e6"/> 
+	<Color Key="UserSelfTabSheetHotColor" Val="0x00000000"/>
+	<Color Key="UserSelfTabSheetSelectedFontColor" Val="0x00000000"/>
+	<Color Key="UserSelfTabSheetAddBtnColor" Val="0x00DCDCDC"/>
+	<Color Key="UserSelfTabSheetPopIconColor" Val="0x00e6e6e6"/>
+	<Color Key="UserSelfTabSheetCutLineColor" Val="0x00666666"/>
+	<Color Key="UserSelfTabSheetFormBorderColor" Val="0x00505050"/>
+	<Color Key="UserSelfTabSheetFormBackColor" Val="0x001A1A1A"/>
+	<Color Key="UserSelfTabSheetFormFontColor" Val="0x00959595"/>
+	<Color Key="UserSelfTabSheetFormBtnColor" Val="0x00018FFE"/>
+	<Color Key="UserSelfTabSheetFormBtnHotColor" Val="0x001F97EC"/>
+	<Color Key="UserSelfTabSheetFormCaptionColor" Val="0x002E2E2E"/>
+	<Color Key="UserSelfTabSheetFormCaptionFontColor" Val="0x00E5E5E5"/>
+	<Color Key="UserSelfTabSheetFormNotSheetBtnBackColor" Val="0x00333333"/>
+	<FontSize Key="UserSelfTabSheetBtnFontSize" Val="-12"/>
+	<FontSize Key="UserSelfTabSheetBtnFontSize_Big" Val="-14"/>
+	<FontSize Key="UserSelfTabSheetBtnSize" Val="20"/>
+	<FontSize Key="UserSelfTabSheetBtnSize_Big" Val="24"/>
+	
+	<!--持仓明细基金树深色皮肤-->
+	<Color Key="PositionDetailTreeHeadColor" Val="0x001A1A1A"/>
+	<Color Key="PositionDetailTreeBackColor" Val="0x001A1A1A"/>
+	<Color Key="PositionDetailTreeCaptionBorderColor" Val="0x00666666"/>
+	<Color Key="PositionDetailTreeBtnColor" Val="0x00008ffd"/>
+	<Color Key="PositionDetailTreeCaptionFontColor" Val="0x00E5E5E5"/>
+	<Color Key="PositionDetailTreeRootFontColor" Val="0x00CCCCCC"/>
+	<Color Key="PositionDetailTreeNodeFontColor" Val="0x00989898"/>
+	<Color Key="PositionDetailTreeRootBackColor" Val="0x002A2A2A"/>
+	<Color Key="PositionDetailTreeNodeBackColor" Val="0x001A1A1A"/>
+	<Color Key="PositionDetailTreeSelectedFontColor" Val="0x002099F9"/>
+	
+	<!--持仓明细表格深色皮肤-->
+	<Color Key="PositionDetailGridBackgroundColor" Val="0x00000000"/>
+	<Color Key="PositionDetailGridRowCrossBGColor" Val="0x00000000"/>
+	<Color Key="PositionDetailGridHeadLineColor" Val="0x00000000"/>
+	<FontSize Key="PositionDetailGridTabSheetBtnFontSize" Val="-12"/>
+	<FontSize Key="PositionDetailGridTabSheetBtnFontSize_Big" Val="-14"/>
+	<FontSize Key="PositionDetailGridTabSheetBtnSize" Val="20"/>
+	<FontSize Key="PositionDetailGridTabSheetBtnSize_Big" Val="24"/>
+	
+	
+	<!--自定义资讯组件深色皮肤-->
+	<Color Key="StocksInformationBorderLineColor" Val="0x00262626"/>
+	<Color Key="StocksInformationGridLinesColor" Val="0x00262626"/>
+	<Color Key="StocksInformationBackgroundColor" Val="0x00262626"/>
+	<Color Key="StocksInformationSelectedRowBGColor" Val="0x00444444"/>
+	<Color Key="StocksInformationMouseInColor" Val="0x00444444"/>
+	<Color Key="StocksInformationRowCrossColor" Val="0x001C1C1C"/>
+	<Color Key="StocksInformationRowTextColor" Val="0x00A3A3A3"/>
+	
+	<FontName  Key="StocksInformationColumnFontName" Val="微软雅黑"/>
+	<FontSize  Key="StocksInformationColumnFontSize" Val="-13"/>
+	<Color Key="StocksInformationColumnFontColor" Val="0x00707070"/>
+	
+	<FontName  Key="StocksInformationRowFontName" Val="微软雅黑"/>
+	<FontSize  Key="StocksInformationRowFontSize" Val="-13"/>
+	
+	<Color Key="StocksInformationToolBarBorderColor" Val="0x001A1A1A"/>
+	<Color Key="StocksInformationToolBarBackColor" Val="0x001A1A1A"/>
+	<Color Key="StocksInformationToolBarBtnBackColor" Val="0x00018FFE"/>
+	<Color Key="StocksInformationToolBarBtnHotBackColor" Val="0x00018FFE"/>
+	<Color Key="StocksInformationToolBarBtnFontColor" Val="0x00E5E5E5"/>
+	
+	<FontName  Key="StocksInformationBtnFontName" Val="微软雅黑"/>
+	<FontSize  Key="StocksInformationBtnFontSize" Val="-13"/>
+	
+	<FontName  Key="StocksInformationLabelFontName" Val="微软雅黑"/>
+	<FontSize  Key="StocksInformationLabelFontSize" Val="-13"/>
+	<Color Key="StocksInformationFormBorderColor" Val="0x002E2E2E"/>
+	<Color Key="StocksInformationFormBackColor" Val="0x001A1A1A"/>
+	<Color Key="StocksInformationCaptionBackColor" Val="0x002E2E2E"/>
+	<Color Key="StocksInformationCaptionFontColor" Val="0x00DADADA"/>
+	<Color Key="StocksInformationFormBtnBackColor" Val="0x00333333"/>
+	<Color Key="StocksInformationFormBtnHotBackColor" Val="0x00018FFE"/>
+	<Color Key="StocksInformationFormBtnFontColor" Val="0x00A5A5A5"/>
+	<Color Key="StocksInformationFormBtnHotFontColor" Val="0x00E5E5E5"/>
+	<Color Key="StocksInformationFormBtnBorderColor" Val="0x001A1A1A"/>
+	
+	<Color Key="StocksInformationFormComboxColor" Val="0x001C1C1C"/>
+	<Color Key="StocksInformationFormComboxPausedColor" Val="0x002F2F2F"/>
+	<!--关于我们窗体深色皮肤-->
+	<FontName  Key="AboutUsTittleFontName" Val="微软雅黑"/>
+	<FontSize  Key="AboutUsTittleFontSize" Val="-18"/>
+	<Color Key="AboutUsTittleFontColor" Val="0x00FFFFFF"/>
+	
+	<FontName  Key="AboutUsUrlFontName" Val="微软雅黑"/>
+	<FontSize  Key="AboutUsUrlFontSize" Val="-14"/>
+	<Color Key="AboutUsUrlFontColor" Val="0x00FFFFFF"/>
+	
+	<Color Key="AboutUsrlSelectedColor" Val="0x00F50A0A"/>
+	<Color Key="AboutUsUrlBackColor" Val="0x001164FF"/>
+	<Color Key="AboutUsCloseColor" Val="0x001164FF"/>
+	<Color Key="AboutUsCloseHotColor" Val="0x000000FF"/>
+	
+	<!--密码设置深色皮肤-->
+	<FontName  Key="PassWordSettingLabFontName" Val="微软雅黑"/>
+	<FontSize  Key="PassWordSettingLabFontSize" Val="-15"/>
+	<Color Key="PassWordSettingLabFontColor" Val="0x00CCCCCC"/>
+	
+	<FontName  Key="PassWordSettingHintLabFontName" Val="微软雅黑"/>
+	<FontSize  Key="PassWordSettingHintLabFontSize" Val="-12"/>
+	<Color Key="PassWordSettingHintLabFontColor" Val="0x00CCCCCC"/>
+	
+	<FontName  Key="PassWordSettingBtnFontName" Val="微软雅黑"/>
+	<FontSize  Key="PassWordSettingBtnFontSize" Val="-15"/>
+	<Color Key="PassWordSettingBtnFontColor" Val="0x00CCCCCC"/>
+	
+	<Color Key="PassWordSettingFormBackColor" Val="0x00444444"/>
+	<Color Key="PassWordSettingBtnFontHotColor" Val="0x00CCCCCC"/>
+	<Color Key="PassWordSettingBtnFontDownColor" Val="0x00CCCCCC"/>
+	<Color Key="PassWordSettingBtnBackColor" Val="0x00444444"/>
+	<Color Key="PassWordSettingBtnBackHotColor" Val="0x00008FFD"/>
+	<Color Key="PassWordSettingBtnBackDownColor" Val="0x00008FFD"/>
+	<Color Key="PassWordSettingBtnLineColor" Val="0x00CCCCCC"/>
+	<Color Key="PassWordSettingWarnFontColor" Val="0x00CCCCCC"/>
+	<Color Key="PassWordSettingErrorFontColor" Val="0x000000FF"/>
+	<Color Key="PassWordSettingEditBackColor" Val="0x00333333"/>
+	<Color Key="PassWordSettingEditBorderColor" Val="0x00C0C0C0"/>
+	<Color Key="PassWordSettingEditWarnBorderColor" Val="0x00FEB547"/>
+	<Color Key="PassWordSettingEditErrorBorderColor" Val="0x000000FF"/>
+	
+	<!--板块监测深色皮肤-->
+	<!--板块指数表格-->
+	<FontName  Key="QuoteConceptColumnFontName" Val="微软雅黑"/>
+	<FontSize  Key="QuoteConceptColumnFontSize" Val="-13"/>
+	<FontSize  Key="QuoteConceptColumnFontSize_Big" Val="-15"/>
+	<Color Key="QuoteConceptColumnFontColor" Val="0x00e6e6e6"/>
+	
+	<FontName  Key="QuoteConceptRowFontName" Val="微软雅黑"/>
+	<FontSize  Key="QuoteConceptRowFontSize" Val="-13"/>
+	<FontSize  Key="QuoteConceptRowFontSize_Big" Val="-15"/>
+	<Color Key="QuoteConceptRowFontColor" Val="0x00CCCCCC"/>
+	
+	<Color Key="QuoteConceptColumnHeadColor" Val="0x00000000"/>
+	<Color Key="QuoteConceptBackgroundColor" Val="0x00000000"/>
+	<Color Key="QuoteConceptSortArrowColor" Val="0x0031A3FD"/>
+	<Color Key="QuoteConceptBorderLineColor" Val="0x00DBDBDB"/>
+	<Color Key="QuoteConceptGridLinesColor" Val="0x00000000"/>
+	<Color Key="QuoteConceptHeadLineColor" Val="0x00000000"/>
+	<FontSize  Key="QuoteConceptRowSize" Val="30"/>
+	<FontSize  Key="QuoteConceptRowSize_Big" Val="34"/>
+	<Color Key="QuoteConceptSelectedRowBGColor" Val="0x00000000"/>
+	<Color Key="QuoteConceptSelectedBorderColor" Val="0x00fcfcfc"/>
+	<Color Key="QuoteConceptMouseInColor" Val="0x00000000"/>
+	<Color Key="QuoteConceptRowCrossBGColor" Val="0x00000000"/>
+	<Color Key="QuoteConceptRowTextColor" Val="0x00fcfc54"/>
+	<Color Key="QuoteConceptStockNameColor" Val="0x0054fcfc"/>
+	<Color Key="QuoteConceptIllumTextColor" Val="0x005454FC"/>
+	<Color Key="QuoteConceptShadeTextColor" Val="0x003CFC54"/>
+	<Color Key="QuoteConceptEqualTextColor" Val="0x00fcfcfc"/>
+	<!--指数成分股表格-->
+	<FontName  Key="ConceptStocksColumnFontName" Val="微软雅黑"/>
+	<FontSize  Key="ConceptStocksColumnFontSize" Val="-13"/>
+	<FontSize  Key="ConceptStocksColumnFontSize_Big" Val="-15"/>
+	<Color Key="ConceptStocksColumnFontColor" Val="0x00EAE601"/>
+	
+	<FontName  Key="ConceptStocksRowSmallFontName" Val="微软雅黑"/>
+	<FontSize  Key="ConceptStocksRowSmallFontSize" Val="-11"/>
+	<FontSize  Key="ConceptStocksRowSmallFontSize_Big" Val="-13"/>
+	<Color Key="ConceptStocksRowSmallFontColor" Val="0x00CCCCCC"/>
+	
+	<FontName  Key="ConceptStocksRowFontName" Val="微软雅黑"/>
+	<FontSize  Key="ConceptStocksRowFontSize" Val="-13"/>
+	<FontSize  Key="ConceptStocksRowFontSize_Big" Val="-15"/>
+	<Color Key="ConceptStocksRowFontColor" Val="0x00CCCCCC"/>
+	
+	<Color Key="ConceptStocksColumnHeadColor" Val="0x00000000"/>
+	<Color Key="ConceptStocksBackgroundColor" Val="0x00000000"/>
+	<Color Key="ConceptStocksSortArrowColor" Val="0x0031A3FD"/>
+	<Color Key="ConceptStocksBorderLineColor" Val="0x00DBDBDB"/>
+	<Color Key="ConceptStocksGridLinesColor" Val="0x00000000"/>
+	<Color Key="ConceptStocksHeadLineColor" Val="0x00000000"/>
+	<FontSize  Key="ConceptStocksRowSize" Val="30"/>
+	<FontSize  Key="ConceptStocksRowSize_Big" Val="34"/>
+	<Color Key="ConceptStocksSelectedRowBGColor" Val="0x00000000"/>
+	<Color Key="ConceptStocksSelectedBorderColor" Val="0x00fcfcfc"/>
+	<Color Key="ConceptStocksMouseInColor" Val="0x00000000"/>
+	<Color Key="ConceptStocksRowCrossBGColor" Val="0x00000000"/>
+	<Color Key="ConceptStocksRowTextColor" Val="0x00fcfc54"/>
+	<Color Key="ConceptStocksStockNameColor" Val="0x0054fcfc"/>
+	<Color Key="ConceptStocksIllumTextColor" Val="0x005454FC"/>
+	<Color Key="ConceptStocksShadeTextColor" Val="0x003CFC54"/>
+	<Color Key="ConceptStocksEqualTextColor" Val="0x00fcfcfc"/>
+	<!--页签-->
+	<FontName  Key="QuoteConceptTabSheetBtnFontName" Val="微软雅黑"/>
+	<FontSize  Key="QuoteConceptTabSheetBtnFontSize" Val="-14"/>
+	<FontSize  Key="QuoteConceptTabSheetBtnFontSize_Big" Val="-16"/>
+	<Color Key="QuoteConceptTabSheetBtnFontColor" Val="0x00B3B3B3"/>
+	
+	<Color Key="QuoteConceptTabSheetBackColor" Val="0x00000000"/>
+	<Color Key="QuoteConceptTabSheetSelectedColor" Val="0x00E6E6E6"/>
+	<Color Key="QuoteConceptTabSheetHotColor" Val="0x00000000"/>
+	<Color Key="QuoteConceptTabSheetCutLineColor" Val="0x00141414"/>
+	<Color Key="QuoteConceptTabSheetSelectedCutLineColor" Val="0x00E6E6E6"/>
+	<Color Key="QuoteConceptTabSheetSelectedFontColor" Val="0x00000000"/>
+	<Color Key="QuoteConceptTabSheetHotFontColor" Val="0x00B3B3B3"/>
+	
+	<!--泛用listbox经典皮肤-->
+	<FontName  Key="CommListBoxColFontName" Val="微软雅黑"/>
+	<FontSize  Key="CommListBoxColFontSize" Val="-13"/>
+	<FontSize  Key="CommListBoxColFontSize_Big" Val="-15"/>
+	<Color Key="CommListBoxColFontColor" Val="0x00e6e6e6"/>
+	<Color Key="CommListBoxColBgColor" Val="0x00292929"/>
+	
+	<FontName  Key="CommListBoxFontName" Val="微软雅黑"/>
+	<FontSize  Key="CommListBoxFontSize" Val="-14"/>
+	<FontSize  Key="CommListBoxFontSize_Big" Val="-16"/>
+	<Color Key="CommListBoxFontColor" Val="0x00CCCCCC"/>
+	
+	<FontSize  Key="CommListBoxRowHeight" Val="20"/>
+	<FontSize  Key="CommListBoxRowHeight_Big" Val="24"/>
+	<FontSize  Key="CommListBoxColHeight" Val="24"/>
+	<FontSize  Key="CommListBoxColHeight_Big" Val="28"/>
+	
+	<Color Key="CommListBoxBorderColor" Val="0x00595959"/>
+	<Color Key="CommListBoxBackColor" Val="0x001A1A1A"/>
+	<Color Key="CommListBoxSelectedBackColor" Val="0x00404040"/>
+	<Color Key="CommListBoxSelectedFontColor" Val="0x00CCCCCC"/>
+	
+	<!--泛用btn经典皮肤-->
+	<Color Key="CommBtnBorderColor" Val="0x007F7F7F"/>
+	<Color Key="CommDefBtnBackColor" Val="0x00008FFD"/>
+	<Color Key="CommDefBtnFontColor" Val="0x00EFF3FF"/>
+	<Color Key="CommBtnBackColor" Val="0x00313131"/>
+	<Color Key="CommBtnFontColor" Val="0x00CCCCCC"/>
+	<Color Key="CommHotBackColor" Val="0x001F97EC"/>
+	<Color Key="CommHotFontColor" Val="0x00EFF3FF"/>
+	
+	<!--泛用form经典皮肤-->
+	<Color Key="CommFormBackColor" Val="0x00313131"/>
+	<Color Key="CommFormTittleBackColor" Val="0x003A3A3A"/>
+	<Color Key="CommFormTittleFontColor" Val="0x00CBCBCB"/>
+	<Color Key="CommFormBorderColor" Val="0x00575757"/>
+	<Color Key="CommFormColseBtnBackColor" Val="0x00313131"/>
+	<Color Key="CommFormColseBtnHotBackColor" Val="0x002A00FF"/>
+	<Color Key="CommFormColseBtnDownBackColor" Val="0x002A00FF"/>
+	<Color Key="CommFormColseBtnFontColor" Val="0x00646464"/>
+	<Color Key="CommFormColseBtnHotFontColor" Val="0x00646464"/>
+	<Color Key="CommFormColseBtnDownFontColor" Val="0x00646464"/>
+	
+	<!--泛用edit经典皮肤-->
+	<Color Key="CommEditBackColor" Val="0x00313131"/>
+	<Color Key="CommEditBorderColor" Val="0x007F7F7F"/>
+	<FontName  Key="CommEditFontName" Val="微软雅黑"/>
+	<FontSize  Key="CommEditFontSize" Val="-13"/>
+	<FontSize  Key="CommEditFontSize_Big" Val="-15"/>
+	<Color Key="CommEditFontColor" Val="0x00CCCCCC"/>
+	
+	<!--泛用Tree经典皮肤-->
+	<FontSize  Key="CommTreeRootFontSize" Val="-15"/>
+	<FontSize  Key="CommTreeRootFontSize_Big" Val="-17"/>
+	<FontSize  Key="CommTreeNodeFontSize" Val="-14"/>
+	<FontSize  Key="CommTreeNodeFontSize_Big" Val="-16"/>
+	
+	<!--持仓K线设置窗口经典皮肤-->
+	<Color Key="KPositionsLabelHintColor" Val="0x000086FD"/>
+	<Color Key="KPositionsEditDefFontColor" Val="0x00666666"/>
+	
+	<!--版块设置经典皮肤-->
+	<FontName  Key="PlateSetLabelFontName" Val="微软雅黑"/>
+	<FontSize  Key="PlateSetLabelFontSize" Val="-16"/>
+	<Color Key="PlateSetLabelFontColor" Val="0x00CCCCCC"/>
+	
+	<FontName  Key="PlateSetFormLabelFontName" Val="微软雅黑"/>
+	<FontSize  Key="PlateSetFormLabelFontSize" Val="-13"/>
+	<Color Key="PlateSetFormLabelFontColor" Val="0x00CCCCCC"/>
+	
+	<FontName  Key="PlateSetFormLabelFont_RedName" Val="微软雅黑"/>
+	<FontSize  Key="PlateSetFormLabelFont_RedSize" Val="-13"/>
+	<Color Key="PlateSetFormLabelFont_RedColor" Val="0x00018FFE"/>
+	
+	<FontName  Key="PlateSetLabel_CountFontName" Val="微软雅黑"/>
+	<FontSize  Key="PlateSetLabel_CountFontSize" Val="-13"/>
+	<Color Key="PlateSetLabel_CountFontColor" Val="0x00888888"/>
+	
+	<FontName  Key="PlateSetBtnFontName" Val="微软雅黑"/>
+	<FontSize  Key="PlateSetBtnFontSize" Val="-12"/>
+	<Color Key="PlateSetBtnFontColor" Val="0x00CCCCCC"/>
+	
+	<Color Key="PlateSetBtnLineColor" Val="0x00626262"/>
+	<Color Key="PlateSetBtnLineHotColor" Val="0x00E6E6E6"/>
+    <Color Key="PlateSetBtnColor" Val="0x00313131"/>
+	<Color Key="PlateSetBtnTextColor" Val="0x00CCCCCC"/>
+	<Color Key="PlateSetSaveBtnColor" Val="0x00075FFF"/>
+	<Color Key="PlateSetSaveBtnHotColor" Val="0x001F97EC"/>
+	<Color Key="PlateSetSaveBtnTextColor" Val="0x00EFF2FF"/>
+	<Color Key="PlateSetBorderColor" Val="0x004D4D4D"/>
+	<Color Key="PlateSetBackColor" Val="0x00313131"/>
+	<Color Key="PlateSetTitleBackColor" Val="0x003D3D3D"/>
+	<Color Key="PlateSetTitleFontColor" Val="0x00CCCCCC"/>
+
+	<Color Key="PlateSetEditBackColor" Val="0x00313131"/>
+	<Color Key="PlateSetEditFontColor" Val="0x00B8B8B8"/>
+	
+	<Color Key="PlateSetListBoxImportBackColor" Val="0x001A1A1A"/>
+	<Color Key="PlateSetListBoxBackColor" Val="0x00313131"/>
+	<Color Key="PlateSetListBoxSelectedBackColor" Val="0x00404040"/>
+	<Color Key="PlateSetListBoxRangeCountColor" Val="0x009E9E9E"/>
+	
+	<FontName  Key="PlateSetListBoxFontName" Val="微软雅黑"/>
+	<FontSize  Key="PlateSetListBoxFontSize" Val="-14"/>
+	<Color Key="PlateSetListBoxFontColor" Val="0x00CCCCCC"/>
+	
+	<FontName  Key="PlateSetListBoxHeaderFontName" Val="微软雅黑"/>
+	<FontSize  Key="PlateSetListBoxHeaderFontSize" Val="-14"/>
+	<Color Key="PlateSetListBoxHeaderFontColor" Val="0x00C2C2C2"/>
+	
+	<FontName  Key="PlateSetListBoxImportFontName" Val="微软雅黑"/>
+	<FontSize  Key="PlateSetListBoxImportFontSize" Val="-14"/>
+	<Color Key="PlateSetListBoxImportFontColor" Val="0x00CCCCCC"/>
+	
+	<!--基金弹出窗口经典皮肤-->
+	<Color Key="FundRankPopFormCutLineColor" Val="0x004B4B4B"/>
+	<Color Key="FundRankPopFormCaptionFontGoldColor" Val="0x0068D4FE"/>
+	<Color Key="FundRankPopFormCaptionFontGrayColor" Val="0x00CBCBCB"/>
+	<Color Key="FundRankPopFormCaptionFontColor" Val="0x00ffffff"/>
+	<Color Key="FundRankPopFormColHeadColor" Val="0x00404040"/>
+	<Color Key="FundRankPopFormFundNameColor" Val="0x00E5E5E5"/>
+	<Color Key="FundRankPopFormIllumColor" Val="0x005656F6"/>
+	<Color Key="FundRankPopFormShadeColor" Val="0x0049A04F"/>
+	<Color Key="FundRankPopFormEqualColor" Val="0x00E5E5E5"/>
+	
+	<FontName  Key="FundRankPopFormCaptionFont_BigName" Val="微软雅黑"/>
+	<FontSize  Key="FundRankPopFormCaptionFont_BigSize" Val="-22"/>
+	<FontName  Key="FundRankPopFormCaptionFont_MidName" Val="微软雅黑"/>
+	<FontSize  Key="FundRankPopFormCaptionFont_MidSize" Val="-16"/>
+	<FontName  Key="FundRankPopFormCaptionFont_SmallName" Val="微软雅黑"/>
+	<FontSize  Key="FundRankPopFormCaptionFont_SmallSize" Val="-14"/>
+	<FontName  Key="FundRankPopFormMoreBtnFontName" Val="微软雅黑"/>
+	<FontSize  Key="FundRankPopFormMoreBtnFontSize" Val="-14"/>
+	<FontName  Key="FundRankPopFormSelectBtnFontName" Val="微软雅黑"/>
+	<FontSize  Key="FundRankPopFormSelectBtnFontSize" Val="-14"/>
+	<FontSize  Key="FundRankPopFormSelectBtnFontColor" Val="0x00CBCBCB"/>
+	<FontName  Key="FundRankPopFormGridFontName" Val="微软雅黑"/>
+	<FontSize  Key="FundRankPopFormGridFontSize" Val="-12"/>
+	<FontName  Key="FundRankPopFormGridColFontName" Val="微软雅黑"/>
+	<FontSize  Key="FundRankPopFormGridColFontSize" Val="-14"/>
+	
+	<!--工具模块弹出窗口公共经典皮肤-->
+	<FontName  Key="ToolModuleLabelFontName" Val="微软雅黑"/>
+	<FontSize  Key="ToolModuleLabelFontSize" Val="-16"/>
+	<Color Key="ToolModuleLabelFontColor" Val="0x00CCCCCC"/>
+	
+	<Color Key="ToolModuleFormBorderColor" Val="0x004D4D4D"/>
+	<Color Key="ToolModuleFormBackColor" Val="0x00313131"/>
+	<Color Key="ToolModuleBtnLineColor" Val="0x00626262"/>
+	<Color Key="ToolModuleBtnLineHotColor" Val="0x00E6E6E6"/>
+    <Color Key="ToolModuleBtnColor" Val="0x00313131"/>
+	<Color Key="ToolModuleBtnTextColor" Val="0x00CCCCCC"/>
+	<Color Key="ToolModuleSaveBtnColor" Val="0x00075FFF"/>
+	<Color Key="ToolModuleSaveBtnHotColor" Val="0x001F97EC"/>
+	<Color Key="ToolModuleSaveBtnTextColor" Val="0x00EFF2FF"/>
+	<Color Key="ToolModulePopFormBorderColor" Val="0x004D4D4D"/>
+	<Color Key="ToolModulePopFormBackColor" Val="0x00313131"/>
+	<Color Key="ToolModulePopFormTitleBackColor" Val="0x003D3D3D"/>
+	<Color Key="ToolModulePopFormTitleFontColor" Val="0x00CCCCCC"/>
+	
+	<!--持仓导出模块经典皮肤-->
+	<FontName  Key="PositionExportCaptionFontName" Val="微软雅黑"/>
+	<FontSize  Key="PositionExportCaptionFontSize" Val="-15"/>
+	<FontSize  Key="PositionExportCaptionFontSize_Big" Val="-17"/>
+	<Color Key="PositionExportCaptionFontColor" Val="0x00C9C9C9"/>
+	
+	<FontName  Key="PositionExportGridColFontName" Val="微软雅黑"/>
+	<FontSize  Key="PositionExportGridColFontSize" Val="-13"/>
+	<FontSize  Key="PositionExportGridColFontSize_Big" Val="-15"/>
+	<Color Key="PositionExportGridColFontColor" Val="0x005C5C5C"/>
+	
+	<Color Key="PositionExportInnerBorderColor" Val="0x001D1D1D"/>
+	<Color Key="PositionExportCaptionBackColor" Val="0x00292929"/>
+	<Color Key="PositionExportCaptionDeepBackColor" Val="0x001D1D1D"/>
+	<Color Key="PositionExportContentBackColor" Val="0x00262626"/>
+	<Color Key="PositionExportGridColBackColor" Val="0x00262626"/>
+	<Color Key="PositionExportGridColCutLineColor" Val="0x00262626"/>
+	<Color Key="PositionExportGridRootRowBackColor" Val="0x001D1D1D"/>
+	<Color Key="PositionExportGridRowBackColor" Val="0x00262626"/>
+	<Color Key="PositionExportGridRowCutLineColor" Val="0x001D1D1D"/>
+	<Color Key="PositionExportGridRowCrossBackColor" Val="0x00262626"/>
+	<Color Key="PositionExportGridFontColor" Val="0x00C9C9C9"/>
+	<Color Key="PositionExportGridFontImportColor" Val="0x00C9C9C9"/>
+	
+	<Color Key="PositionExportTreeRootBackColor" Val="0x00262626"/>
+	<Color Key="PositionExportTreeRootFontColor" Val="0x00888888"/>
+	<Color Key="PositionExportTreeNodeBackColor" Val="0x00262626"/>
+	<Color Key="PositionExportTreeNodeFontColor" Val="0x00888888"/>
+	<Color Key="PositionExportTreeBorderColor" Val="0x00CCCCCC"/>
+	<Color Key="PositionExportTreeBackGroundColor" Val="0x00262626"/>
+	<Color Key="PositionExportTreeSelectedFontColor" Val="0x00888888"/>
+	<Color Key="PositionExportTreeSelectedBackColor" Val="0x00262626"/>
+	<Color Key="PositionExportTreeColumnBackgroundColor" Val="0x00262626"/>
+	<Color Key="PositionExportTreeRowBackgroundColor" Val="0x00262626"/>
+	
+	<Color Key="PositionExportEditBorderColor" Val="0x00444444"/>
+	<Color Key="PositionExportEditBackColor" Val="0x00313131"/>
+	<Color Key="PositionExportEditFontColor" Val="0x00CCCCCC"/>
+	
+	<!--期货保证金设置模块经典皮肤-->
+	<Color Key="MarginSetModuleBackColor" Val="0x001A1A1A"/>
+	<Color Key="MarginSetConteBackColor" Val="0x001A1A1A"/>
+	<Color Key="MarginSetInnerCutLineColor" Val="0x00333333"/>
+	<Color Key="MarginSetColumnBackColor" Val="0x00262626"/>
+	<Color Key="MarginSetTreeBackColor" Val="0x00262626"/>
+	<Color Key="MarginSetEditBackColor" Val="0x00141414"/>
+	<Color Key="MarginSetEditBorderColor" Val="0x00666666"/>
+	<Color Key="MarginSetEditSelectedBorderColor" Val="0x00075FFF"/>
+	<Color Key="MarginSetSaveBtnBackColor" Val="0x00075FFF"/>
+	<Color Key="MarginSetSaveBtnHotBackColor" Val="0x001F97EC"/>
+	<Color Key="MarginSetCopyBtnBackColor" Val="0x00313131"/>
+	<Color Key="MarginSetCopyBtnBorderColor" Val="0x00313131"/>
+	<Color Key="MarginSetHintFormBackColor" Val="0x00313131"/>
+	<Color Key="MarginSetHintFormBorderColor" Val="0x00313131"/>
+	<Color Key="MarginSetHintFormTitleBackColor" Val="0x003D3D3D"/>
+	<Color Key="MarginSetHintFormTitleFontColor" Val="0x00a0a0a0"/>
+	<Color Key="MarginSetTreeSelectedFontColor" Val="0x002099F9"/>
+	<Color Key="MarginSetTreeSelectedBackColor" Val="0x00404040"/>
+	<Color Key="MarginSetTreeNodeBackColor" Val="0x001A1A1A"/>
+	<Color Key="MarginSetTreeRootBackColor" Val="0x001A1A1A"/>
+	<Color Key="MarginSetTreeBackGroundColor" Val="0x001A1A1A"/>
+	<Color Key="MarginSetTreeBorderColor" Val="0x00333333"/>
+	<Color Key="MarginSetSearchEditBackColor" Val="0x00141414"/>
+	<Color Key="MarginSetSearchEditBorderColor" Val="0x00666666"/>
+	<Color Key="MarginSetSearchEditFontColor" Val="0x008c8c8c"/>
+	
+	<FontName  Key="MarginSetCommFontName" Val="微软雅黑"/>
+	<FontSize  Key="MarginSetFontSize" Val="-12"/>
+	<FontSize  Key="MarginSetFontSizeBig" Val="-14"/>
+	<FontSize  Key="MarginSetFontSize_Big" Val="-13"/>
+	<FontSize  Key="MarginSetFontSize_BigBig" Val="-15"/>
+	
+	<FontSize  Key="MarginSetNodeFontSize" Val="-12"/>
+	<FontSize  Key="MarginSetNodeFontSize_Big" Val="-14"/>
+	<FontSize  Key="MarginSetRootFontSize" Val="-14"/>
+	<FontSize  Key="MarginSetRootFontSize_Big" Val="-16"/>
+	
+	<Color Key="MarginSetColumnLabelFontColor" Val="0x00999999"/>
+	<Color Key="MarginSetContractTypeFontColor" Val="0x00d1d1d1"/>
+	<Color Key="MarginSetContractFontColor" Val="0x008c8c8c"/>
+	<Color Key="MarginSetEditFontColor" Val="0x00d1d1d1"/>
+	<Color Key="MarginSetUnitFontColor" Val="0x00cccccc"/>
+	<Color Key="MarginSetSaveBtnFontColor" Val="0x00ffffff"/>
+	<Color Key="MarginSetCopyBtnFontColor" Val="0x00cccccc"/>
+	<Color Key="MarginSetHintFormFontColor" Val="0x00c6c6c6"/>
+	<Color Key="MarginSetHintLabelFontColor" Val="0x00666666"/>
+	
+	<FontName  Key="MarginSetTreeCaptionFontName" Val="微软雅黑"/>
+	<FontSize  Key="MarginSetTreeCaptionFontSize" Val="-16"/>
+	<FontSize  Key="MarginSetTreeCaptionFontSize_Big" Val="-18"/>
+	<Color Key="MarginSetTreeCaptionFontColor" Val="0x00CCCCCC"/>
+	<Color Key="MarginSetTreeRootFontColor" Val="0x00CCCCCC"/>
+	<Color Key="MarginSetTreeNodeFontColor" Val="0x00CCCCCC"/>
+	
+	<!--自定义内部研报经典皮肤-->
+	<FontSize  Key="InnerResRepContentFontSize" Val="-15"/>
+	
+	<Color Key="InnerResRepMoreBtnBackColor" Val="0x00018FFE"/>
+	<Color Key="InnerResRepMoreBtnHotBackColor" Val="0x001F97EC"/>
+	<Color Key="InnerResRepMoreBtnFontColor" Val="0x00ffffff"/>
+	
+	<!--预警 消息中心窗体-->
+	<Color Key="EarlyWarnTips_BackColor" Val="0x00121212"/>
+	<Color Key="EarlyWarnTips_BorderLineColor" Val="0x00404040"/>
+	<Color Key="EarlyWarnTips_TitleBackColor" Val="0x001B1B1B"/>
+	<Color Key="EarlyWarnTips_TitleTextColor" Val="0x00929292"/>
+	<Color Key="EarlyWarnTips_CloseHotBackColor" Val="0x002311E8"/>
+	<Color Key="EarlyWarnTips_CloseHotColor" Val="0x00FFFFFF"/>
+	<Color Key="EarlyWarnTips_CloseColor" Val="0x00FFFFFF"/>
+	<Color Key="EarlyWarnTips_TitleButtonHotBackColor" Val="0x00E9E9E9"/>
+	<Color Key="EarlyWarnTips_GridRowCrossBGColor" Val="0x00161616"/>
+	<Color Key="EarlyWarnTips_GridMouseInColor" Val="0x00000000"/>
+	<Color Key="EarlyWarnTips_RefreshTextColor" Val="0x002F50DB"/>
+	
+	<!--预警管理经典皮肤-->
+	<FontSize  Key="EarlyWarnTabSheetFontSize" Val="-13"/>
+	<FontSize  Key="EarlyWarnTabSheetFontSize_Big" Val="-15"/>
+	
+	<Color Key="EarlyWarnTabSheetFontColor" Val="0x00999999"/>
+	<Color Key="EarlyWarnTabSheetBackColor" Val="0x00262626"/>
+	<Color Key="EarlyWarnTabSheetSelectedColor" Val="0x00262626"/>
+	<Color Key="EarlyWarnTabSheetHotColor" Val="0x00262626"/>
+	<Color Key="EarlyWarnTabSheetCutLineColor" Val="0x00262626"/>
+	<Color Key="EarlyWarnTabSheetSelectedFontColor" Val="0x00999999"/>
+	<Color Key="EarlyWarnTabSheetHotFontColor" Val="0x00999999"/>
+	
+	<FontSize  Key="EarlyWarnResultTabSheetFontSize" Val="-12"/>
+	<FontSize  Key="EarlyWarnResultTabSheetFontSize_Big" Val="-14"/>
+	
+	<Color Key="EarlyWarnResultTabSheetFontColor" Val="0x00999999"/>
+	<Color Key="EarlyWarnResultTabSheetBackColor" Val="0x001A1A1A"/>
+	<Color Key="EarlyWarnResultTabSheetSelectedColor" Val="0x00008ffd"/>
+	<Color Key="EarlyWarnResultTabSheetHotColor" Val="0x001A1A1A"/>
+	<Color Key="EarlyWarnResultTabSheetCutLineColor" Val="0x001A1A1A"/>
+	<Color Key="EarlyWarnResultTabSheetSelectedFontColor" Val="0x00E5E5E5"/>
+	<Color Key="EarlyWarnResultTabSheetHotFontColor" Val="0x00999999"/>
+	
+	<FontName  Key="EarlyWarnBtnFontName" Val="微软雅黑"/>
+	<FontSize  Key="EarlyWarnBtnFontSize" Val="-13"/>
+	<FontSize  Key="EarlyWarnBtnFontSize_Big" Val="-15"/>
+	
+	<FontName  Key="EarlyWarnCaptionFontName" Val="微软雅黑"/>
+	<FontSize  Key="EarlyWarnCaptionFontSize" Val="-13"/>
+	<FontSize  Key="EarlyWarnCaptionFontSize_Big" Val="-15"/>
+	<Color Key="EarlyWarnCaptionFontColor" Val="0x00999999"/>
+	
+	<FontName  Key="EarlyWarnCaptionSmallFontName" Val="微软雅黑"/>
+	<FontSize  Key="EarlyWarnCaptionSmallFontSize" Val="-11"/>
+	<FontSize  Key="EarlyWarnCaptionSmallFontSize_Big" Val="-11"/>
+	<Color Key="EarlyWarnCaptionSmallFontColor" Val="0x00999999"/>
+	
+	<FontName  Key="EarlyWarnGridColFontName" Val="微软雅黑"/>
+	<FontSize  Key="EarlyWarnGridColFontSize" Val="-12"/>
+	<FontSize  Key="EarlyWarnGridColFontSize_Big" Val="-14"/>
+	<Color Key="EarlyWarnGridColFontColor" Val="0x00808080"/>
+	
+	<FontName  Key="EarlyWarnGridRowFontName" Val="微软雅黑"/>
+	<FontSize  Key="EarlyWarnGridRowFontSize" Val="-12"/>
+	<FontSize  Key="EarlyWarnGridRowFontSize_Big" Val="-14"/>
+	<Color Key="EarlyWarnGridRowFontColor" Val="0x00b2b2b2"/>
+	
+	<FontName  Key="EarlyWarnEditFontName" Val="微软雅黑"/>
+	<FontSize  Key="EarlyWarnEditFontSize" Val="-13"/>
+	<FontSize  Key="EarlyWarnEditFontSize_Big" Val="-15"/>
+	<Color Key="EarlyWarnEditFontColor" Val="0x00808080"/>
+	<Color Key="EarlyWarnHintFontColor" Val="0x000000cd"/>
+	
+	<Color Key="EarlyWarnFormBorderColor" Val="0x004D4D4D"/>
+	<Color Key="EarlyWarnTitleBorderColor" Val="0x00333333"/>
+	<Color Key="EarlyWarnTitleBackColor" Val="0x00262626"/>
+	<Color Key="EarlyWarnToolBackColor" Val="0x001C1C1C"/>
+	
+	<Color Key="EarlyWarnBtnBorderColor" Val="0x00666666"/>
+	<Color Key="EarlyWarnBtnBackColor" Val="0x00575757"/>
+	<Color Key="EarlyWarnBtnHotBackColor" Val="0x000e89fd"/>
+	<Color Key="EarlyWarnBtnDownBackColor" Val="0x000e89fd"/>
+	<Color Key="EarlyWarnBtnFontColor" Val="0x00e5e5e5"/>
+	<Color Key="EarlyWarnBtnHotFontColor" Val="0x00ffffff"/>
+	<Color Key="EarlyWarnBtnDownFontColor" Val="0x00ffffff"/>
+	
+	<Color Key="EarlyWarnCloseBtnBackColor" Val="0x00262626"/>
+	<Color Key="EarlyWarnCloseBtnHotBackColor" Val="0x002a00ff"/>
+	<Color Key="EarlyWarnCloseBtnDownBackColor" Val="0x001e1ed2"/>
+	<Color Key="EarlyWarnCloseBtnFontColor" Val="0x00818181"/>
+	<Color Key="EarlyWarnCloseBtnHotFontColor" Val="0x00818181"/>
+	<Color Key="EarlyWarnCloseBtnDownFontColor" Val="0x00818181"/>
+	
+	<Color Key="EarlyWarnGridColBackColor" Val="0x001C1C1C"/>
+	<Color Key="EarlyWarnGridColLineColor" Val="0x00333333"/>
+	<Color Key="EarlyWarnGridRowBackColor" Val="0x001C1C1C"/>
+	<Color Key="EarlyWarnGridRowCrossColor" Val="0x00212121"/>
+	<Color Key="EarlyWarnGridOperateColor" Val="0x000e89fd"/>
+	<Color Key="EarlyWarnSortArrowColor" Val="0x0031A3FD"/>
+	<Color Key="EarlyWarnEditBorderColor" Val="0x00a4a4a4"/>
+	<Color Key="EarlyWarnEditBackColor" Val="0x001C1C1C"/>
+	
+	<!--预警总览经典皮肤-->
+	<FontName  Key="EarlyWarnResultBtnFontName" Val="微软雅黑"/>
+	<FontSize  Key="EarlyWarnResultBtnFontSize" Val="-12"/>
+	<FontSize  Key="EarlyWarnResultBtnFontSize_Big" Val="-14"/>
+	<Color Key="EarlyWarnResultBtnFontColor" Val="0x00075fff"/>
+	
+	<FontName  Key="EarlyWarnResultTreeRootFontName" Val="微软雅黑"/>
+	<FontSize  Key="EarlyWarnResultTreeRootFontSize" Val="-16"/>
+	<FontSize  Key="EarlyWarnResultTreeRootFontSize_Big" Val="-18"/>
+	<Color Key="EarlyWarnResultTreeRootFontColor" Val="0x00cccccc"/>
+	
+	<FontName  Key="EarlyWarnResultTipFontName" Val="微软雅黑"/>
+	<FontSize  Key="EarlyWarnResultTipFontSize" Val="-16"/>
+	<FontSize  Key="EarlyWarnResultTipFontSize_Big" Val="-18"/>
+	<Color Key="EarlyWarnResultTipFontColor" Val="0x00cccccc"/>
+	
+	<FontName  Key="EarlyWarnResultTipEditFontName" Val="微软雅黑"/>
+	<FontSize  Key="EarlyWarnResultTipEditFontSize" Val="-12"/>
+	<FontSize  Key="EarlyWarnResultTipEditFontSize_Big" Val="-14"/>
+	<Color Key="EarlyWarnResultTipEditFontColor" Val="0x00808080"/>
+	
+	<Color Key="EarlyWarnResultTreeToolBackColor" Val="0x00333333"/>
+	<Color Key="EarlyWarnResultBackColor" Val="0x001C1C1C"/>
+	<Color Key="EarlyWarnResultBorderColor" Val="0x00404040"/>
+	<Color Key="EarlyWarnResultCaptionBackColor" Val="0x00333333"/>
+	<Color Key="EarlyWarnResultContentInnerBorderColor" Val="0x00393939"/>
+	<Color Key="EarlyWarnResultContentBorderColor" Val="0x00393939"/>
+	<Color Key="EarlyWarnResultTipEditBackColor" Val="0x001C1C1C"/>
+	<Color Key="EarlyWarnResultTipEditBoderColor" Val="0x00575757"/>
+	
+	<Color Key="EarlyWarnResultBtnLineColor" Val="0x0004294c"/>
+	<Color Key="EarlyWarnResultBtnLineHotColor" Val="0x0004294c"/>
+	<Color Key="EarlyWarnResultBtnLineDownColor" Val="0x0004294c"/>
+	<Color Key="EarlyWarnResultBtnColor" Val="0x00000000"/>
+	<Color Key="EarlyWarnResultBtnHotColor" Val="0x00182a37"/>
+	<Color Key="EarlyWarnResultBtnDownColor" Val="0x00182a37"/>
+	<Color Key="EarlyWarnResultBtnTextColor" Val="0x00075fff"/>
+	<Color Key="EarlyWarnResultBtnTextHotColor" Val="0x00075fff"/>
+	<Color Key="EarlyWarnResultBtnTextDownColor" Val="0x00075fff"/>
+	
+	<Color Key="EarlyWarnResultBtnLineSelectedColor" Val="0x00808080"/>
+	<Color Key="EarlyWarnResultBtnSelectedColor" Val="0x00000000"/>
+	<Color Key="EarlyWarnResultBtnTextSelectedColor" Val="0x00cccccc"/>
+	
+	<!--通用多选多级树经典皮肤-->
+	<FontName  Key="CommonMultiTreeRootFontName" Val="微软雅黑"/>
+	<FontSize  Key="CommonMultiTreeRootFonttSize" Val="-16"/>
+	<FontSize  Key="CommonMultiTreeRootFontSize_Big" Val="-18"/>
+	<Color Key="CommonMultiTreeRootFontColor" Val="0x00cccccc"/>
+	
+	<FontName  Key="CommonMultiTreeParentNodeFontName" Val="微软雅黑"/>
+	<FontSize  Key="CommonMultiTreeParentNodeFonttSize" Val="-14"/>
+	<FontSize  Key="CommonMultiTreeParentNodeFontSize_Big" Val="-16"/>
+	<Color Key="CommonMultiTreeParentNodeFontColor" Val="0x00cccccc"/>
+	
+	<FontName  Key="CommonMultiTreeNodeFontName" Val="微软雅黑"/>
+	<FontSize  Key="CommonMultiTreeNodeFonttSize" Val="-12"/>
+	<FontSize  Key="CommonMultiTreeNodeFontSize_Big" Val="-14"/>
+	<Color Key="CommonMultiTreeNodeFontColor" Val="0x00cccccc"/>
+	
+	<Color Key="CommonMultiTreeBackGroundColor" Val="0x001A1A1A"/>
+	<Color Key="CommonMultiTreeRootBackColor" Val="0x001A1A1A"/>
+	<Color Key="CommonMultiTreeNodeBackColor" Val="0x001A1A1A"/>
+	
+	<!--通用按钮经典皮肤-->
+	<Color Key="CommonConfirmBtnBackColor" Val="0x00075fff"/>
+	<Color Key="CommonConfirmBtnHotColor" Val="0x00064ccc"/>
+	<Color Key="CommonConfirmBtnDownColor" Val="0x00043999"/>
+	<Color Key="CommonConfirmBtnFontColor" Val="0x00ffffff"/>
+	
+	<Color Key="CommonCancelBtnBackColor" Val="0x00000000"/>
+	<Color Key="CommonCancelBtnHotColor" Val="0x00404040"/>
+	<Color Key="CommonCancelBtnDownColor" Val="0x001A1A1A"/>
+	<Color Key="CommonCancelBtnLineColor" Val="0x00808080"/>
+	<Color Key="CommonCancelBtnFontColor" Val="0x00cccccc"/>
+	
+	<!--通用多选控件经典皮肤-->
+	<FontName  Key="CommonCheckBoxFontName" Val="微软雅黑"/>
+	<FontSize  Key="CommonCheckBoxFontSize" Val="-12"/>
+	<FontSize  Key="CommonCheckBoxFontSize_Big" Val="-14"/>
+	<Color Key="CommonCheckBoxFontColor" Val="0x00cccccc"/>
+	
+	<Color Key="CommonCheckBoxBackColor" Val="0x001C1C1C"/>
+	<Color Key="CommonCheckBoxHintColor" Val="0x000000cd"/>
+	
+	<FontName  Key="CommonCheckBoxEditFontName" Val="微软雅黑"/>
+	<FontSize  Key="CommonCheckBoxEditFontSize" Val="-12"/>
+	<FontSize  Key="CommonCheckBoxEditFontSize_Big" Val="-14"/>
+	<Color Key="CommonCheckBoxEditFontColor" Val="0x00cccccc"/>
+	
+	<Color Key="CommonCheckBoxEditBackColor" Val="0x001C1C1C"/>
+	<Color Key="CommonCheckBoxEditParentBackColor" Val="0x001C1C1C"/>
+	<Color Key="CommonCheckBoxEditBorderColor" Val="0x00575757"/>
+	<Color Key="CommonMultiTreeSelectedFontColor" Val="0x00cccccc"/>
+	
+	<!--通用报表经典皮肤-->
+	<FontName  Key="CommonGridColFontName" Val="微软雅黑"/>
+	<FontSize  Key="CommonGridColFontSize" Val="-12"/>
+	<FontSize  Key="CommonGridColFontSize_Big" Val="-14"/>
+	<Color Key="CommonGridColFontColor" Val="0x00999999"/>
+	
+	<FontName  Key="CommonGridRowFontName" Val="微软雅黑"/>
+	<FontSize  Key="CommonGridRowFontSize" Val="-14"/>
+	<FontSize  Key="CommonGridRowFontSize_Big" Val="-16"/>
+	
+	<Color Key="CommonGridColumnHeadColor" Val="0x00333333"/>
+	<Color Key="CommonGridRowBGColor" Val="0x001A1A1A"/>
+	<Color Key="CommonGridRowCrossBGColor" Val="0x00212121"/>
+	
+	<Color Key="CommonGridRowMouseInBGColor" Val="0x00404040"/>
+	<Color Key="CommonGridRowSelectedBGColor" Val="0x00404040"/>
+	<Color Key="CommonGridRowSelectedBorderColor" Val="0x00404040"/>
+	<Color Key="CommonGridRowTextL1Color" Val="0x00cccccc"/>
+	<Color Key="CommonGridRowTextL2Color" Val="0x008c8c8c"/>
+	<Color Key="CommonGridCutLinesColor" Val="0x00404040"/>
+</Skins>

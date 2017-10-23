@@ -2,7 +2,7 @@ unit BaseCacheImpl;
 
 ////////////////////////////////////////////////////////////////////////////////
 //
-// Description： Base Cache interface implementation
+// Description： Base Cache Interface Implementation
 // Author：      lksoulman
 // Date：        2017-8-11
 // Comments：
@@ -26,22 +26,22 @@ uses
 
 type
 
-  // Base Cache interface implementation
+  // Base Cache Interface Implementation
   TBaseCacheImpl = class(TCacheImpl, IBaseCache)
   private
   protected
-    // 同步从表里面更新数据后处理
+    // After Sync Update Cache Data
     procedure DoAfterSyncUpdateCacheData(ATable: TCacheTable; ADataSet: IWNDataSet); override;
-    // 同步从表里面删除数据后处理
+    // After Sync Delete Cache Data
     procedure DoAfterSyncDeleteCacheData(ATable: TCacheTable; ADataSet: IWNDataSet); override;
-    // 异步从表里面更新数据后处理
+    // After ASync Update Cache Data
     procedure DoAfterASyncUpdateCacheData(ATable: TCacheTable; ADataSet: IWNDataSet); override;
-    // 异步从表里面删除数据后处理
+    // After ASync Delete Cache Data
     procedure DoAfterASyncDeleteCacheData(ATable: TCacheTable; ADataSet: IWNDataSet); override;
   public
-    // Constructor method
+    // Constructor
     constructor Create; override;
-    // Destructor method
+    // Destructor
     destructor Destroy; override;
 
     { ISyncAsync }
@@ -68,8 +68,8 @@ type
 implementation
 
 uses
-  Config,
-  FastLogLevel;
+  Cfg,
+  LogLevel;
 
 { TBaseCacheImpl }
 
@@ -87,10 +87,10 @@ end;
 
 procedure TBaseCacheImpl.Initialize(AContext: IAppContext);
 begin
-  FAppContext := AContext;
-  if FAppContext.GetConfig <> nil then begin
-    FCacheDataAdapter.DataBaseName := (FAppContext.GetConfig as IConfig).GetCachePath + 'BaseDB';
-    FCfgFile := (FAppContext.GetConfig as IConfig).GetCfgPath + 'Cache/BaseCfg.xml';
+  inherited Initialize(AContext);
+  if FAppContext <> nil then begin
+    FCacheDataAdapter.DataBaseName := FAppContext.GetCfg.GetCachePath + 'Base/BaseDB';
+    FCfgFile := FAppContext.GetCfg.GetCfgPath + 'Cache/BaseCfg.xml';
     LoadTables;
     InitConnCache;
     InitSysTable;
@@ -101,7 +101,7 @@ procedure TBaseCacheImpl.UnInitialize;
 begin
   UnInitConnCache;
   UnLoadTables;
-  FAppContext := nil;
+  inherited UnInitialize;
 end;
 
 procedure TBaseCacheImpl.SyncBlockExecute;

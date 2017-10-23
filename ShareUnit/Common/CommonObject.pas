@@ -19,13 +19,15 @@ uses
 type
 
   // Int64 动态数组
-  TInt64DynArray = array Of Int64;
+  TInt64DynArray = Array Of Int64;
   // Doule 动态数组
   TDoubleDynArray = Array Of Double;
   // Integer 动态数组
-  TIntegerDynArray = array of Integer;
+  TIntegerDynArray = Array Of Integer;
   // String 动态数组
-  TStringDynArray = array of string;
+  TStringDynArray = Array Of string;
+
+  TAnsiCharDynArray = Array Of AnsiChar;
 
 implementation
 
