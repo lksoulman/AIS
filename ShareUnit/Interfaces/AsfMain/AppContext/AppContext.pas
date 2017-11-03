@@ -17,6 +17,7 @@ uses
   GFData,
   EDCrypt,
   Windows,
+  Vcl.Forms,
   Classes,
   SysUtils,
   LogLevel,
@@ -41,6 +42,8 @@ type
     procedure Initialize; safecall;
     // Un Initialize
     procedure UnInitialize; safecall;
+    // Get Application
+    function GetApp: TApplication; safecall;
     // Get Config
     function GetCfg: ICfg; safecall;
     // Get Login
