@@ -12,13 +12,14 @@ unit MainFrameUIImpl;
 interface
 
 uses
-  MDI,
   Windows,
   Classes,
   SysUtils,
+  AppStatus,
   AppContext,
   MainFrameUI,
   SyncAsyncImpl,
+  AppMainFormUI,
   Generics.Collections;
 
 type
@@ -26,9 +27,10 @@ type
   // Main Frame UI Implementation
   TMainFrameUIImpl = class(TSyncAsyncImpl, IMainFrameUI)
   private
-    FCurrentMDIForm: TMDIForm;
-    // MDI Form Dic
-    FMDIFormDic: TDictionary<Integer, TMDIForm>;
+    // App Status
+    FAppStatus: IAppStatus;
+    // App Main Form
+    FAppMainFormUI: TAppMainFormUI;
   protected
     // Clear Form
     procedure DoClearFormDic;
@@ -54,40 +56,42 @@ type
 
 implementation
 
+uses
+  AppStatusImpl;
+
 { TMainFrameUIImpl }
 
 constructor TMainFrameUIImpl.Create;
 begin
   inherited;
-  FMDIFormDic := TDictionary<Integer, TMDIForm>.Create(9);
-
+  FAppStatus := TAppStatusImpl.Create as IAppStatus;
+  FAppMainFormUI := TAppMainFormUI.Create(FAppStatus);
 end;
 
 destructor TMainFrameUIImpl.Destroy;
 begin
-
-  FMDIFormDic.Free;
+  FAppMainFormUI.Free;
+  FAppStatus := nil;
   inherited;
 end;
 
 procedure TMainFrameUIImpl.Initialize(AContext: IAppContext);
 begin
   inherited Initialize(AContext);
-
-  FCurrentMDIForm := TMDIForm.Create(nil);
-  FCurrentMDIForm.Initialize(AContext);
-  FMDIFormDic.AddOrSetValue(FCurrentMDIForm.Handle, FCurrentMDIForm);
+  FAppStatus.Initialize(AContext);
+  FAppMainFormUI.Initialize(AContext);
 end;
 
 procedure TMainFrameUIImpl.UnInitialize;
 begin
-
+  FAppMainFormUI.UnInitialize;
+  FAppStatus.UnInitialize;
   inherited UnInitialize;
 end;
 
 procedure TMainFrameUIImpl.SyncBlockExecute;
 begin
-  FCurrentMDIForm.Show;
+  FAppMainFormUI.Show;
 end;
 
 procedure TMainFrameUIImpl.AsyncNoBlockExecute;
@@ -101,22 +105,22 @@ begin
 end;
 
 procedure TMainFrameUIImpl.DoClearFormDic;
-var
-  LMDIForm: TMDIForm;
-  LEnum: TDictionary<Integer, TMDIForm>.TPairEnumerator;
+//var
+//  LMDIForm: TMDIForm;
+//  LEnum: TDictionary<Integer, TMDIForm>.TPairEnumerator;
 begin
-  LEnum := FMDIFormDic.GetEnumerator;
-  try
-    while LEnum.MoveNext do begin
-      LMDIForm := LEnum.Current.Value;
-      if LMDIForm <> nil then begin
-        LMDIForm.UnInitialize;
-        LMDIForm.Free;
-      end;
-    end;
-  finally
-    LEnum.Free;
-  end;
+//  LEnum := FMDIFormDic.GetEnumerator;
+//  try
+//    while LEnum.MoveNext do begin
+//      LMDIForm := LEnum.Current.Value;
+//      if LMDIForm <> nil then begin
+//        LMDIForm.UnInitialize;
+//        LMDIForm.Free;
+//      end;
+//    end;
+//  finally
+//    LEnum.Free;
+//  end;
 end;
 
 end.

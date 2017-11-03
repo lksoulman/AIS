@@ -38,7 +38,8 @@ uses
   BasicServiceImpl in 'BasicService\Impl\BasicServiceImpl.pas',
   AssetServiceImpl in 'AssetService\Impl\AssetServiceImpl.pas',
   BasicServicePlugInImpl in 'WDPlugIn\Impl\BasicServicePlugInImpl.pas',
-  AssetServicePlugInImpl in 'WDPlugIn\Impl\AssetServicePlugInImpl.pas';
+  AssetServicePlugInImpl in 'WDPlugIn\Impl\AssetServicePlugInImpl.pas',
+  ExecutorThreadHttp in 'Executor\ExecutorThreadHttp.pas';
 
 {$R *.res}
 

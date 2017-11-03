@@ -25,7 +25,7 @@ uses
   ExecutorThread,
   QuoteCodeInfosEx,
   CommonRefCounter,
-  HqServerTypeInfo,
+//  HqServerTypeInfo,
   QuoteManagerEvents,
   Generics.Collections;
 
@@ -53,7 +53,7 @@ type
     // 服务器类型个数
     FServerTypes: TServerTypeEnumDynArray;
     // 行情服务器类型信息
-    FHqServerTypeInfo: IHqServerTypeInfo;
+//    FHqServerTypeInfo: IHqServerTypeInfo;
     // 监控服务器连接线程
     FMonitorServerThread: TExecutorThread;
     // 行情事件
@@ -141,14 +141,13 @@ type
 implementation
 
 uses
+  Cfg,
   Forms,
-  Config,
   Manager,
+  LogLevel,
   ProxyInfo,
   QuoteConst,
   QuoteStruct,
-  FastLogLevel,
-  AsfSdkExport,
   QuoteCodeInfosExImpl;
 
 { TQuoteManagerExImpl }
@@ -262,9 +261,9 @@ end;
 function TQuoteManagerExImpl.GetServerTypeName(AServerType: ServerTypeEnum): WideString;
 begin
   Result := '';
-  if FHqServerTypeInfo <> nil then begin
-    Result := FHqServerTypeInfo.GetHqServerTypeNameByEnum(AServerType);
-  end;
+//  if FHqServerTypeInfo <> nil then begin
+//    Result := FHqServerTypeInfo.GetHqServerTypeNameByEnum(AServerType);
+//  end;
 end;
 
 function TQuoteManagerExImpl.GetServerTypeConnected(AServerTypes: TServerTypeEnumDynArray): WordBool; safecall;
@@ -357,14 +356,14 @@ end;
 
 procedure TQuoteManagerExImpl.DoSetProxy;
 begin
-  if FAppContext.GetConfig <> nil then begin
-    if (FAppContext.GetConfig as IConfig).GetProxyInfo.GetUse then begin
-      FQuoteManager.Proxy1Setting((FAppContext.GetConfig as IConfig).GetProxyInfo.GetProxyKindEnum,
-                                (FAppContext.GetConfig as IConfig).GetProxyInfo.GetIP,
-                                (FAppContext.GetConfig as IConfig).GetProxyInfo.GetPort,
-                                (FAppContext.GetConfig as IConfig).GetProxyInfo.GetUserName,
-                                (FAppContext.GetConfig as IConfig).GetProxyInfo.GetPassword);
-    end;
+  if FAppContext.GetCfg <> nil then begin
+//    if (FAppContext.GetConfig as IConfig).GetProxyInfo.GetUse then begin
+//      FQuoteManager.Proxy1Setting((FAppContext.GetConfig as IConfig).GetProxyInfo.GetProxyKindEnum,
+//                                (FAppContext.GetConfig as IConfig).GetProxyInfo.GetIP,
+//                                (FAppContext.GetConfig as IConfig).GetProxyInfo.GetPort,
+//                                (FAppContext.GetConfig as IConfig).GetProxyInfo.GetUserName,
+//                                (FAppContext.GetConfig as IConfig).GetProxyInfo.GetPassword);
+//    end;
   end;
 end;
 
@@ -387,13 +386,13 @@ begin
     OLEcheck(LoadTypeLibEx(PChar(LFileName), REGKIND_NONE, FTypeLib));
   except
     on Ex: Exception do begin
-      FastSysLog(llError, Format('[TQuoteManagerExImpl][DoInitTypeLib] Load data is exception, exception is %s.', [Ex.Message]));
+//      FastSysLog(llError, Format('[TQuoteManagerExImpl][DoInitTypeLib] Load data is exception, exception is %s.', [Ex.Message]));
     end;
   end;
 
 {$IFDEF DEBUG}
   LTick := GetTickCount - LTick;
-  FastHQLog(llSLOW, Format('[TQuoteManagerExImpl][DoInitTypeLib] Execute use time is %d ms.', [LTick]), LTick);
+//  FastHQLog(llSLOW, Format('[TQuoteManagerExImpl][DoInitTypeLib] Execute use time is %d ms.', [LTick]), LTick);
 {$ENDIF}
 end;
 
@@ -409,7 +408,7 @@ begin
 {$ENDIF}
 
     FQuoteManager := TQuoteManager.Create;
-    FQuoteManager.SetWorkPath((FAppContext.GetConfig as IConfig).GetCacheHQPath);
+//    FQuoteManager.SetWorkPath((FAppContext.GetConfig as IConfig).GetCacheHQPath);
     FQuoteManagerEvent := TQuoteManagerEvents.Create(nil);
     FQuoteManagerEvent.ConnectTo(FQuoteManager);
     FQuoteManagerEvent.OnConnected := DoConnected;
@@ -427,7 +426,7 @@ begin
 {$IFDEF DEBUG}
   finally
     LTick := GetTickCount - LTick;
-    FastHQLog(llSLOW, Format('[TQuoteManagerExImpl][DoInitQuoteManager] Execute use time is %d ms.', [LTick]), LTick);
+//    FastHQLog(llSLOW, Format('[TQuoteManagerExImpl][DoInitQuoteManager] Execute use time is %d ms.', [LTick]), LTick);
   end;
 {$ENDIF}
 end;
@@ -451,51 +450,51 @@ var
   LServer, LIP: string;
   LStringList: TStringList;
   LIndex, LServerIndex, LPos, LCount: Integer;
-  LHqServerTypeItem: PHqServerTypeItem;
+//  LHqServerTypeItem: PHqServerTypeItem;
 begin
-  if FHqServerTypeInfo = nil then Exit;
-
-  LStringList := TStringList.Create;
-  try
-    LCount := 0;
-    SetLength(FServerTypes, FHqServerTypeInfo.GetHqServerTypeItemCount);
-    for LIndex := 0 to FHqServerTypeInfo.GetHqServerTypeItemCount - 1 do begin
-      LHqServerTypeItem := FHqServerTypeInfo.GetHqServerTypeItem(LIndex);
-      if LHqServerTypeItem <> nil then begin
-        case LHqServerTypeItem.FTypeEnum of
-          stStockLevelI:
-            LHqServerTypeItem.FIsUsed := not FIsHasLevelII;
-          stStockLevelII:
-            LHqServerTypeItem.FIsUsed := FIsHasLevelII;
-          stHKDelay:
-            LHqServerTypeItem.FIsUsed := not FIsHasHKReal;
-          stStockHK:
-            LHqServerTypeItem.FIsUsed := FIsHasHKReal;
-        end;
-        LHqServerTypeItem.FLastHeartBeatTime := 0;
-        LHqServerTypeItem.FServers := (FAppContext.GetConfig as IConfig).GetServers(LHqServerTypeItem.FName);
-
-        LStringList.DelimitedText := LHqServerTypeItem.FServers;
-        for LServerIndex := 0 to LStringList.Count - 1 do begin
-          LServer := Trim(LStringList.Strings[LServerIndex]);
-          LPos := Pos(':', LServer);
-          if LPos >= 1 then begin
-            LIP := Trim(Copy(LServer, 1, LPos - 1));
-            LPort := StrToIntDef(trim(Copy(LServer, LPos + 1, 16)), 0);
-            FQuoteManager.ServerSetting(LIP, LPort, LHqServerTypeItem.FTypeEnum);
-          end;
-        end;
-
-        if LHqServerTypeItem.FIsUsed then begin
-          FServerTypes[LCount] := LHqServerTypeItem.FTypeEnum;
-          Inc(LCount);
-        end;
-      end;
-    end;
-    SetLength(FServerTypes, LCount);
-  finally
-    LStringList.Free;
-  end;
+//  if FHqServerTypeInfo = nil then Exit;
+//
+//  LStringList := TStringList.Create;
+//  try
+//    LCount := 0;
+//    SetLength(FServerTypes, FHqServerTypeInfo.GetHqServerTypeItemCount);
+//    for LIndex := 0 to FHqServerTypeInfo.GetHqServerTypeItemCount - 1 do begin
+//      LHqServerTypeItem := FHqServerTypeInfo.GetHqServerTypeItem(LIndex);
+//      if LHqServerTypeItem <> nil then begin
+//        case LHqServerTypeItem.FTypeEnum of
+//          stStockLevelI:
+//            LHqServerTypeItem.FIsUsed := not FIsHasLevelII;
+//          stStockLevelII:
+//            LHqServerTypeItem.FIsUsed := FIsHasLevelII;
+//          stHKDelay:
+//            LHqServerTypeItem.FIsUsed := not FIsHasHKReal;
+//          stStockHK:
+//            LHqServerTypeItem.FIsUsed := FIsHasHKReal;
+//        end;
+//        LHqServerTypeItem.FLastHeartBeatTime := 0;
+//        LHqServerTypeItem.FServers := (FAppContext.GetConfig as IConfig).GetServers(LHqServerTypeItem.FName);
+//
+//        LStringList.DelimitedText := LHqServerTypeItem.FServers;
+//        for LServerIndex := 0 to LStringList.Count - 1 do begin
+//          LServer := Trim(LStringList.Strings[LServerIndex]);
+//          LPos := Pos(':', LServer);
+//          if LPos >= 1 then begin
+//            LIP := Trim(Copy(LServer, 1, LPos - 1));
+//            LPort := StrToIntDef(trim(Copy(LServer, LPos + 1, 16)), 0);
+//            FQuoteManager.ServerSetting(LIP, LPort, LHqServerTypeItem.FTypeEnum);
+//          end;
+//        end;
+//
+//        if LHqServerTypeItem.FIsUsed then begin
+//          FServerTypes[LCount] := LHqServerTypeItem.FTypeEnum;
+//          Inc(LCount);
+//        end;
+//      end;
+//    end;
+//    SetLength(FServerTypes, LCount);
+//  finally
+//    LStringList.Free;
+//  end;
 end;
 
 procedure TQuoteManagerExImpl.DoConnectServers;
@@ -504,56 +503,56 @@ var
   LTick: Cardinal;
 {$ENDIF}
   LIndex, LIntervalTick: Integer;
-  LHqServerTypeItem: PHqServerTypeItem;
+//  LHqServerTypeItem: PHqServerTypeItem;
 begin
 {$IFDEF DEBUG}
   LTick := GetTickCount;
   try
 {$ENDIF}
-    if FHqServerTypeInfo = nil then Exit;
+//    if FHqServerTypeInfo = nil then Exit;
 
-    FHqServerTypeInfo.Lock;
-    try
-       for LIndex := 0 to FHqServerTypeInfo.GetHqServerTypeItemCount - 1 do begin
-        LHqServerTypeItem := FHqServerTypeInfo.GetHqServerTypeItem(LIndex);
-        if (LHqServerTypeItem <> nil)
-          and LHqServerTypeItem.FIsUsed then begin
-
-          // 连接断开的直接重连
-          if LHqServerTypeItem.FServerStatus = ssDisConnected then begin
-            FQuoteManager.Connect(LHqServerTypeItem.FTypeEnum);
-            LHqServerTypeItem.FServerStatus := ssConnecting;
-            LHqServerTypeItem.FLastHeartBeatTime := GetTickCount;
-          end else if (LHqServerTypeItem.FServerStatus = ssConnecting) then begin
-            LIntervalTick := GetTickCount - LHqServerTypeItem.FLastHeartBeatTime;
-            if LIntervalTick > 10000 then begin         // 10秒检测一下正在连接是不是超时
-              FQuoteManager.Connect(LHqServerTypeItem.FTypeEnum);
-            end;
-          end else if LHqServerTypeItem.FServerStatus = ssInit then begin
-            FQuoteManager.Connect(LHqServerTypeItem.FTypeEnum);
-            LHqServerTypeItem.FServerStatus := ssConnecting;
-            LHqServerTypeItem.FLastHeartBeatTime := GetTickCount;
-            FastHQLog(llWARN, Format('[TQuoteManagerExImpl][DoConnectServers] [%s] HqServer Init Connecting.', [LHqServerTypeItem.FName]));
-          end else begin
-            LIntervalTick := GetTickCount - LHqServerTypeItem.FLastHeartBeatTime;
-            if LIntervalTick > 90000 then begin        // 一分半钟发一次心跳
-              if FQuoteManager.Connected[LHqServerTypeItem.FTypeEnum] then begin
-                FQuoteManager.SendKeepActiveTime(LHqServerTypeItem.FTypeEnum);
-                FQuoteManager.Connect(LHqServerTypeItem.FTypeEnum);
-                LHqServerTypeItem.FLastHeartBeatTime := GetTickCount;
-              end;
-            end;
-          end;
-        end;
-      end;
-    finally
-      FHqServerTypeInfo.UnLock;
-    end;
+//    FHqServerTypeInfo.Lock;
+//    try
+//       for LIndex := 0 to FHqServerTypeInfo.GetHqServerTypeItemCount - 1 do begin
+//        LHqServerTypeItem := FHqServerTypeInfo.GetHqServerTypeItem(LIndex);
+//        if (LHqServerTypeItem <> nil)
+//          and LHqServerTypeItem.FIsUsed then begin
+//
+//          // 连接断开的直接重连
+//          if LHqServerTypeItem.FServerStatus = ssDisConnected then begin
+//            FQuoteManager.Connect(LHqServerTypeItem.FTypeEnum);
+//            LHqServerTypeItem.FServerStatus := ssConnecting;
+//            LHqServerTypeItem.FLastHeartBeatTime := GetTickCount;
+//          end else if (LHqServerTypeItem.FServerStatus = ssConnecting) then begin
+//            LIntervalTick := GetTickCount - LHqServerTypeItem.FLastHeartBeatTime;
+//            if LIntervalTick > 10000 then begin         // 10秒检测一下正在连接是不是超时
+//              FQuoteManager.Connect(LHqServerTypeItem.FTypeEnum);
+//            end;
+//          end else if LHqServerTypeItem.FServerStatus = ssInit then begin
+//            FQuoteManager.Connect(LHqServerTypeItem.FTypeEnum);
+//            LHqServerTypeItem.FServerStatus := ssConnecting;
+//            LHqServerTypeItem.FLastHeartBeatTime := GetTickCount;
+//            FastHQLog(llWARN, Format('[TQuoteManagerExImpl][DoConnectServers] [%s] HqServer Init Connecting.', [LHqServerTypeItem.FName]));
+//          end else begin
+//            LIntervalTick := GetTickCount - LHqServerTypeItem.FLastHeartBeatTime;
+//            if LIntervalTick > 90000 then begin        // 一分半钟发一次心跳
+//              if FQuoteManager.Connected[LHqServerTypeItem.FTypeEnum] then begin
+//                FQuoteManager.SendKeepActiveTime(LHqServerTypeItem.FTypeEnum);
+//                FQuoteManager.Connect(LHqServerTypeItem.FTypeEnum);
+//                LHqServerTypeItem.FLastHeartBeatTime := GetTickCount;
+//              end;
+//            end;
+//          end;
+//        end;
+//      end;
+//    finally
+//      FHqServerTypeInfo.UnLock;
+//    end;
 
 {$IFDEF DEBUG}
   finally
     LTick := GetTickCount - LTick;
-    FastHQLog(llSLOW, Format('[TQuoteManagerExImpl][DoConnectServers] Execute use time is %d ms.', [LTick]), LTick);
+//    FastHQLog(llSLOW, Format('[TQuoteManagerExImpl][DoConnectServers] Execute use time is %d ms.', [LTick]), LTick);
   end;
 {$ENDIF}
 end;
@@ -561,20 +560,20 @@ end;
 procedure TQuoteManagerExImpl.DoDisConnectServers;
 var
   LIndex: Integer;
-  LHqServerTypeItem: PHqServerTypeItem;
+//  LHqServerTypeItem: PHqServerTypeItem;
 begin
-  try
-    for LIndex := 0 to FHqServerTypeInfo.GetHqServerTypeItemCount - 1 do begin
-      LHqServerTypeItem := FHqServerTypeInfo.GetHqServerTypeItem(LIndex);
-      if (LHqServerTypeItem <> nil)
-        and LHqServerTypeItem.FIsUsed
-        and (LHqServerTypeItem.FServerStatus in [ssConnecting, ssConnected]) then begin
-        FQuoteManager.Disconnect(LHqServerTypeItem.FTypeEnum);
-      end;
-    end;
-  finally
-    FHqServerTypeInfo.UnLock;
-  end;
+//  try
+//    for LIndex := 0 to FHqServerTypeInfo.GetHqServerTypeItemCount - 1 do begin
+//      LHqServerTypeItem := FHqServerTypeInfo.GetHqServerTypeItem(LIndex);
+//      if (LHqServerTypeItem <> nil)
+//        and LHqServerTypeItem.FIsUsed
+//        and (LHqServerTypeItem.FServerStatus in [ssConnecting, ssConnected]) then begin
+//        FQuoteManager.Disconnect(LHqServerTypeItem.FTypeEnum);
+//      end;
+//    end;
+//  finally
+//    FHqServerTypeInfo.UnLock;
+//  end;
 end;
 
 procedure TQuoteManagerExImpl.DoInitMonitorThread;
@@ -591,7 +590,7 @@ begin
 
 {$IFDEF DEBUG}
   LTick := GetTickCount - LTick;
-  FastHQLog(llSLOW, Format('[TQuoteManagerExImpl][DoConnectServers] Execute use time is %d ms.', [LTick]), LTick);
+//  FastHQLog(llSLOW, Format('[TQuoteManagerExImpl][DoConnectServers] Execute use time is %d ms.', [LTick]), LTick);
 {$ENDIF}
 end;
 
@@ -607,52 +606,52 @@ end;
 
 procedure TQuoteManagerExImpl.DoWriteLog(const ALog: WideString);
 begin
-  FastHQLog(llWARN, Format('[TQuoteManagerExImpl][DoWriteLog] [%s] HqServer Connected.',[ALog]));
+//  FastHQLog(llWARN, Format('[TQuoteManagerExImpl][DoWriteLog] [%s] HqServer Connected.',[ALog]));
 end;
 
 procedure TQuoteManagerExImpl.DoProgress(const AMsg: WideString; AMax, AValue: Integer);
 begin
-  FastHQLog(llWARN, Format('[TQuoteManagerExImpl][DoProgress] [%s][%d][%d] .',[AMsg, AMax, AValue]));
+//  FastHQLog(llWARN, Format('[TQuoteManagerExImpl][DoProgress] [%s][%d][%d] .',[AMsg, AMax, AValue]));
 end;
 
 procedure TQuoteManagerExImpl.DoConnected(const AIP: WideString; APort: Word; AServerType: ServerTypeEnum);
 var
   LServerName: string;
-  LHqServerTypeItem: PHqServerTypeItem;
+//  LHqServerTypeItem: PHqServerTypeItem;
 begin
-  FHqServerTypeInfo.Lock;
-  try
-    LHqServerTypeItem := FHqServerTypeInfo.GetHqServerTypeItemByEnum(AServerType);
-    if LHqServerTypeItem <> nil then begin
-      LServerName := LHqServerTypeItem.FName;
-      LHqServerTypeItem.FServerStatus := ssConnected;
-    end else begin
-      LServerName := '';
-    end;
-  finally
-    FHqServerTypeInfo.UnLock;
-  end;
-  FastHQLog(llWARN, Format('[TQuoteManagerExImpl][DoConnected] [%s][%s][%d] HqServer Connected.',[LServerName, AIP, APort]));
+//  FHqServerTypeInfo.Lock;
+//  try
+//    LHqServerTypeItem := FHqServerTypeInfo.GetHqServerTypeItemByEnum(AServerType);
+//    if LHqServerTypeItem <> nil then begin
+//      LServerName := LHqServerTypeItem.FName;
+//      LHqServerTypeItem.FServerStatus := ssConnected;
+//    end else begin
+//      LServerName := '';
+//    end;
+//  finally
+//    FHqServerTypeInfo.UnLock;
+//  end;
+//  FastHQLog(llWARN, Format('[TQuoteManagerExImpl][DoConnected] [%s][%s][%d] HqServer Connected.',[LServerName, AIP, APort]));
 end;
 
 procedure TQuoteManagerExImpl.DoDisconnected(const AIP: WideString; APort: Word; AServerType: ServerTypeEnum);
 var
   LServerName: string;
-  LHqServerTypeItem: PHqServerTypeItem;
+//  LHqServerTypeItem: PHqServerTypeItem;
 begin
-  FHqServerTypeInfo.Lock;
-  try
-    LHqServerTypeItem := FHqServerTypeInfo.GetHqServerTypeItemByEnum(AServerType);
-    if LHqServerTypeItem <> nil then begin
-      LServerName := LHqServerTypeItem.FName;
-      LHqServerTypeItem.FServerStatus := ssDisConnected;
-    end else begin
-      LServerName := '';
-    end;
-  finally
-    FHqServerTypeInfo.UnLock;
-  end;
-  FastHQLog(llWARN, Format('[TQuoteManagerExImpl][DoDisconnected] [%s][%s][%d] HqServer DisConnected.',[LServerName, AIP, APort]));
+//  FHqServerTypeInfo.Lock;
+//  try
+//    LHqServerTypeItem := FHqServerTypeInfo.GetHqServerTypeItemByEnum(AServerType);
+//    if LHqServerTypeItem <> nil then begin
+//      LServerName := LHqServerTypeItem.FName;
+//      LHqServerTypeItem.FServerStatus := ssDisConnected;
+//    end else begin
+//      LServerName := '';
+//    end;
+//  finally
+//    FHqServerTypeInfo.UnLock;
+//  end;
+//  FastHQLog(llWARN, Format('[TQuoteManagerExImpl][DoDisconnected] [%s][%s][%d] HqServer DisConnected.',[LServerName, AIP, APort]));
 end;
 
 procedure TQuoteManagerExImpl.DoMonitorServerThreadExecute(AObject: TObject);

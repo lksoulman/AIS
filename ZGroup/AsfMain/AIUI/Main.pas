@@ -21,7 +21,8 @@ uses
   Variants,
   Graphics,
   Controls,
-  AppContext, Vcl.StdCtrls;
+  AppContext,
+  Vcl.StdCtrls;
 
 type
 
@@ -51,7 +52,8 @@ type
   protected
     // Application Context
     FAppContext: IAppContext;
-
+//    //
+//    FGPGraphics: TGPGraphics;
 
     // 初始化事件
     procedure InitEvent;
@@ -66,6 +68,7 @@ var
 implementation
 
 uses
+  GDIPOBJ,
   ServiceType,
   PlugInConst,
   AppContextImpl;

@@ -2,12 +2,33 @@
 COLORSCFG RCDATA .\ColorsCfg.xml
 
 //   AppMenu
+SKIN_APP_81 RCDATA .\Skins\AppMenu\Hot_81.png
+SKIN_APP_F3 RCDATA .\Skins\AppMenu\Hot_F3.png
+SKIN_APP_F4 RCDATA .\Skins\AppMenu\Hot_F4.png
+SKIN_APP_F6 RCDATA .\Skins\AppMenu\Hot_F6.png
+SKIN_APP_HELP RCDATA .\Skins\AppMenu\Help.png
 SKIN_APP_SKIN RCDATA .\Skins\AppMenu\Skin.png
+SKIN_APP_LOGO RCDATA .\Skins\AppMenu\Logo.png
+SKIN_APP_NEWWORK RCDATA .\Skins\AppMenu\NewWork.png
+SKIN_APP_REFRESH RCDATA .\Skins\AppMenu\Refresh.png
+SKIN_APP_FORWARD RCDATA .\Skins\AppMenu\Forward.png
+SKIN_APP_BACKSPACE RCDATA .\Skins\AppMenu\BackSpace.png
+
 SKIN_APP_CLOSE RCDATA .\Skins\AppMenu\Close.png
 SKIN_APP_RESTORE RCDATA .\Skins\AppMenu\Restore.png
 SKIN_APP_MAXIMIZE RCDATA .\Skins\AppMenu\Maximize.png
 SKIN_APP_MINIMIZE RCDATA .\Skins\AppMenu\Minimize.png
 
-//   AppSuperTab
-SKIN_APP_BIGLOGO RCDATA .\Skins\AppSuperTab\Logo.png
+// AppStatus
+SKIN_APP_ALARM RCDATA .\Skins\AppStatus\Alarm.png
+SKIN_APP_REPORT RCDATA .\Skins\AppStatus\Report.png
+SKIN_APP_NETWORK RCDATA .\Skins\AppStatus\Network.png
+
+// AppSuperTab
+SKIN_APP_HQ RCDATA .\Skins\AppSuperTab\Hq.png
+SKIN_APP_ASSET RCDATA .\Skins\AppSuperTab\Asset.png
+SKIN_APP_PARAMSSETTING RCDATA .\Skins\AppSuperTab\ParamsSetting.png
+SKIN_APP_MANAGEMENTVIEW RCDATA .\Skins\AppSuperTab\ManagementView.png
+SKIN_APP_RISKMANAGEMENT RCDATA .\Skins\AppSuperTab\RiskManagement.png
+
 

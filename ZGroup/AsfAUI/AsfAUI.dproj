@@ -111,32 +111,27 @@
         </DelphiCompile>
         <DCCReference Include="WExport\WExport.pas"/>
         <DCCReference Include="WExport\Impl\FactoryAsfAUIImpl.pas"/>
-        <DCCReference Include="Common\ImageUI.pas"/>
-        <DCCReference Include="Common\RenderEngine.pas"/>
-        <DCCReference Include="Common\ButtonUI.pas"/>
-        <DCCReference Include="Common\ControlUI.pas"/>
-        <DCCReference Include="Common\PageControlUI.pas"/>
-        <DCCReference Include="FormUI\FormUI.pas">
-            <Form>FormUI</Form>
-        </DCCReference>
-        <DCCReference Include="MDI\MDI.pas">
-            <Form>MDIForm</Form>
-        </DCCReference>
         <DCCReference Include="MDIChild\MDIChild.pas">
             <Form>MDIChildForm</Form>
         </DCCReference>
         <DCCReference Include="MainFrameUI\MainFrameUI.pas"/>
         <DCCReference Include="MainFrameUI\Impl\MainFrameUIImpl.pas"/>
-        <DCCReference Include="Common\ImageButtonUI.pas"/>
-        <DCCReference Include="Common\amMouseWheel.pas"/>
-        <DCCReference Include="Common\RenderClip.pas"/>
-        <DCCReference Include="Common\RenderGdi.pas"/>
-        <DCCReference Include="Common\RenderDC.pas"/>
-        <DCCReference Include="Common\FrameUI.pas"/>
-        <DCCReference Include="AppMenu\AppMenuUI.pas"/>
-        <DCCReference Include="AppMenu\AppMenuButtonUI.pas"/>
-        <DCCReference Include="Command\CommandInfo.pas"/>
         <DCCReference Include="WDPlugIn\Impl\MainFrameUIPlugInImpl.pas"/>
+        <DCCReference Include="UI\Render\RenderDC.pas"/>
+        <DCCReference Include="UI\Render\RenderGDI.pas"/>
+        <DCCReference Include="UI\Render\RenderUtil.pas"/>
+        <DCCReference Include="UI\Frame\FrameUI.pas"/>
+        <DCCReference Include="UI\Form\BaseFormUI.pas"/>
+        <DCCReference Include="UI\Component\ComponentUI.pas"/>
+        <DCCReference Include="AppMainForm\AppMainFormUI.pas">
+            <Form>AppMainFormUI</Form>
+        </DCCReference>
+        <DCCReference Include="AppMainForm\Menu\AppMenu.pas"/>
+        <DCCReference Include="AppMainForm\Menu\AppMenuUI.pas"/>
+        <DCCReference Include="AppMainForm\SuperTab\AppSuperTabUI.pas"/>
+        <DCCReference Include="AppMainForm\StatusBar\AppStatusUI.pas"/>
+        <DCCReference Include="AppMainForm\StatusBar\AppStatus.pas"/>
+        <DCCReference Include="AppMainForm\StatusBar\AppStatusImpl.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

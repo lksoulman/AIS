@@ -93,6 +93,8 @@ type
     procedure Initialize; safecall;
     // Un Initialize
     procedure UnInitialize; safecall;
+    // Get Application
+    function GetApp: TApplication; safecall;
     // Get Config
     function GetCfg: ICfg; safecall;
     // Get Login
@@ -207,6 +209,8 @@ procedure TAppContextImpl.UnInitialize;
 begin
   FInterfaceDic.Clear;
   FLogin := nil;
+  FBaseCache := nil;
+  FUserCache := nil;
   FBasicService := nil;
   FAssetService := nil;
   FFactoryMgr.UnInitialize;
@@ -221,6 +225,11 @@ begin
   FEDCrypt := nil;
   FLog.UnInitialize;
   FLog := nil;
+end;
+
+function TAppContextImpl.GetApp: TApplication;
+begin
+
 end;
 
 function TAppContextImpl.GetCfg: ICfg;

@@ -37,7 +37,7 @@ type
     // Application Context
     FAppContext: IAppContext;
     // PlugIn
-    FPlugIns: TSafeQueue<IPlugIn>;
+    FPlugIns: TList<IPlugIn>;
     // Libary Info Array
     FLibaryInfos: TList<TLibaryInfo>;
 
@@ -73,6 +73,7 @@ implementation
 
 uses
   Forms,
+//  GDIPOBJ,
   FactoryAsfMainImpl;
 
 { TFactoryMgrImpl }
@@ -81,7 +82,7 @@ constructor TFactoryMgrImpl.Create;
 begin
   inherited;
   FLock := TCSLock.Create;
-  FPlugIns := TSafeQueue<IPlugIn>.Create;
+  FPlugIns := TList<IPlugIn>.Create;
   FLibaryInfos := TList<TLibaryInfo>.Create;
 end;
 
@@ -123,7 +124,9 @@ begin
         Result := LLibaryInfo.WFactory.CreatePlugInById(APlugInId);
         if Result <> nil then begin
           LPlugIn := Result as IPlugIn;
-          FPlugIns.Enqueue(LPlugIn);
+          if FPlugIns.IndexOf(LPlugIn) < 0 then begin
+            FPlugIns.Add(LPlugIn);
+          end;
           LPlugIn.SyncBlockExecute;
         end;
       end;
@@ -135,15 +138,24 @@ end;
 
 procedure TFactoryMgrImpl.DoClearPlugIns;
 var
+  LIndex: Integer;
   LPlugIn: IPlugIn;
 begin
-  while not FPlugIns.IsEmpty do begin
-    LPlugIn := FPlugIns.Dequeue;
+  for LIndex := FPlugIns.Count - 1 downto 0 do begin
+     LPlugIn := FPlugIns.Items[LIndex];
     if LPlugIn <> nil then begin
       LPlugIn.UnInitialize;
       LPlugIn := nil;
     end;
   end;
+  FPlugIns.Clear;
+//  while not FPlugIns.IsEmpty do begin
+//    LPlugIn := FPlugIns.Dequeue;
+//    if LPlugIn <> nil then begin
+//      LPlugIn.UnInitialize;
+//      LPlugIn := nil;
+//    end;
+//  end;
 end;
 
 procedure TFactoryMgrImpl.DoInitLibaryInfos;
@@ -193,6 +205,7 @@ end;
 function TFactoryMgrImpl.GetLibaryInfo(AId: Integer): TLibaryInfo;
 var
   LIndex: Integer;
+//  LGraph: TGPGraphics;
 begin
   LIndex := AId div 1000000 - 1;
   if (LIndex >= 0)

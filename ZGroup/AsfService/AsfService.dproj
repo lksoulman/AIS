@@ -135,6 +135,7 @@
         <DCCReference Include="AssetService\Impl\AssetServiceImpl.pas"/>
         <DCCReference Include="WDPlugIn\Impl\BasicServicePlugInImpl.pas"/>
         <DCCReference Include="WDPlugIn\Impl\AssetServicePlugInImpl.pas"/>
+        <DCCReference Include="Executor\ExecutorThreadHttp.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

@@ -13,30 +13,40 @@ library AsfAUI;
 uses
   System.SysUtils,
   System.Classes,
+  Forms,
+  Windows,
   WExport in 'WExport\WExport.pas',
   FactoryAsfAUIImpl in 'WExport\Impl\FactoryAsfAUIImpl.pas',
-  ImageUI in 'Common\ImageUI.pas',
-  RenderEngine in 'Common\RenderEngine.pas',
-  ButtonUI in 'Common\ButtonUI.pas',
-  ControlUI in 'Common\ControlUI.pas',
-  PageControlUI in 'Common\PageControlUI.pas',
-  FormUI in 'FormUI\FormUI.pas' {FormUI},
-  MDI in 'MDI\MDI.pas' {MDIForm},
   MDIChild in 'MDIChild\MDIChild.pas' {MDIChildForm},
   MainFrameUI in 'MainFrameUI\MainFrameUI.pas',
   MainFrameUIImpl in 'MainFrameUI\Impl\MainFrameUIImpl.pas',
-  ImageButtonUI in 'Common\ImageButtonUI.pas',
-  amMouseWheel in 'Common\amMouseWheel.pas',
-  RenderClip in 'Common\RenderClip.pas',
-  RenderGdi in 'Common\RenderGdi.pas',
-  RenderDC in 'Common\RenderDC.pas',
-  FrameUI in 'Common\FrameUI.pas',
-  AppMenuUI in 'AppMenu\AppMenuUI.pas',
-  AppMenuButtonUI in 'AppMenu\AppMenuButtonUI.pas',
-  CommandInfo in 'Command\CommandInfo.pas',
-  MainFrameUIPlugInImpl in 'WDPlugIn\Impl\MainFrameUIPlugInImpl.pas';
+  MainFrameUIPlugInImpl in 'WDPlugIn\Impl\MainFrameUIPlugInImpl.pas',
+  RenderDC in 'UI\Render\RenderDC.pas',
+  RenderGDI in 'UI\Render\RenderGDI.pas',
+  RenderUtil in 'UI\Render\RenderUtil.pas',
+  FrameUI in 'UI\Frame\FrameUI.pas',
+  BaseFormUI in 'UI\Form\BaseFormUI.pas',
+  ComponentUI in 'UI\Component\ComponentUI.pas',
+  AppMainFormUI in 'AppMainForm\AppMainFormUI.pas' {AppMainFormUI},
+  AppMenu in 'AppMainForm\Menu\AppMenu.pas',
+  AppMenuUI in 'AppMainForm\Menu\AppMenuUI.pas',
+  AppSuperTabUI in 'AppMainForm\SuperTab\AppSuperTabUI.pas',
+  AppStatusUI in 'AppMainForm\StatusBar\AppStatusUI.pas',
+  AppStatus in 'AppMainForm\StatusBar\AppStatus.pas',
+  AppStatusImpl in 'AppMainForm\StatusBar\AppStatusImpl.pas';
 
 {$R *.res}
 
+var
+  DLLApp: TApplication;
+
+procedure DLLUnloadProc(dwReason: DWORD);
 begin
+  if dwReason = DLL_PROCESS_DETACH then
+    Application := DLLApp; //恢复
+end;
+
+begin
+  DLLApp := Application;     //保存 DLL 中初始的 Application 对象
+  DLLProc := @DLLUnloadProc; //保证 DLL 卸载时恢复原来的 Application
 end.
