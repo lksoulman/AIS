@@ -47,17 +47,19 @@ type
     FNewLock: TCSLock;
     // App Context
     FAppContext: IAppContext;
-    // User Status Item
+    // User Item
     FUserItem: TAppUserItem;
-    // L Hq Status Items
+    // Time Item
+    FTimeItem: TAppTimeItem;
+    // L Hq Items
     FLHqItems: TList<PAppHqItem>;
-    // R Hq Status Items
+    // R Hq Items
     FRHqItems: TList<PAppHqItem>;
-    // News Status Item
+    // News Item
     FNewsItems: TList<PAppNewsItem>;
-    // News Status Item Pool
+    // News Item Pool
     FNewsItemPool: TAppNewsItemPool;
-    // App HqServer Status Item
+    // Network Item
     FNetworkItems: TList<PAppNetworkItem>;
   protected
     //
@@ -92,19 +94,21 @@ type
     procedure NewsLock;
     // Un Lock
     procedure NewsUnLock;
-    // Get L Hq Status Item Count
+    // Get L Hq Item Count
     function GetLHqItemCount: Integer;
-    // Get R Hq Status Item Count
+    // Get R Hq Item Count
     function GetRHqItemCount: Integer;
-    // Get L Hq Status Item
+    // Get L Hq Item
     function GetLHqItem(AIndex: Integer): PAppHqItem;
-    // Get R Hq Status Item
+    // Get R Hq Item
     function GetRHqItem(AIndex: Integer): PAppHqItem;
-    // Get User Status Item
+    // Get User Item
     function GetUserItem: PAppUserItem;
-    // Get HqServer Status Item Count
+    // Get Time Item
+    function GetTimeItem: PAppTimeItem;
+    // Get HqServer Item Count
     function GetNetworkItemCount: Integer;
-    // Get HqServer Status Item
+    // Get HqServer Item
     function GetNetworkItem(AIndex: Integer): PAppNetworkItem;
   end;
 
@@ -213,6 +217,11 @@ end;
 function TAppStatusImpl.GetUserItem: PAppUserItem;
 begin
   Result := @FUserItem;
+end;
+
+function TAppStatusImpl.GetTimeItem: PAppTimeItem;
+begin
+  Result := @FTimeItem;
 end;
 
 function TAppStatusImpl.GetNetworkItemCount: Integer;

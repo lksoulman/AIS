@@ -26,6 +26,8 @@ type
   protected
     // Id
     FId: Integer;
+    //
+    FTag: Integer;
     // Rect
     FRectEx: TRect;
     // Caption
@@ -47,6 +49,7 @@ type
     procedure Paint(ARenderDC: TRenderDC); virtual; abstract;
 
     property Id: Integer read FId write FId;
+    property Tag: Integer read FTag write FTag;
     property RectEx: TRect read FRectEx write FRectEx;
     property Caption: string read FCaption write FCaption;
     property Visible: Boolean read FVisible write FVisible;

@@ -62,6 +62,8 @@ type
     FFrameRectEx: TRect;
     // Render DC
     FFrameRenderDC: TRenderDC;
+    // On Click Item
+    FOnClickItem: TNotifyEvent;
 
     // Size
     procedure WMSize(var Message: TWMSize); message WM_SIZE;
@@ -89,7 +91,7 @@ type
     // Update Component
     procedure DoUpdateComponent(AMouseMoveId: Integer);
     // Paint
-    procedure DoPaint(ADC: HDC; AInvalidateRect: TRect);
+    procedure DoPaint(ADC: HDC; AInvalidateRect: TRect); virtual;
 
     // Size
     procedure DoSize(AWidth: Integer; AHeight: Integer); virtual;
@@ -111,6 +113,7 @@ type
     // Destructor
     destructor Destroy; override;
 
+    property OnClickItem: TNotifyEvent read FOnClickItem write FOnClickItem;
     property SelectComponentId: Integer read FSelectComponentId write FSelectComponentId;
     property MouseMoveComponentId: Integer read FMouseMoveComponentId write FMouseMoveComponentId;
     property MouseDownComponentId: Integer read FMouseDownComponentId write FMouseDownComponentId;
@@ -158,7 +161,7 @@ var
 begin
   BeginPaint(Handle, LPAINTSTRUCT);
   try
-    DoPaint(LPAINTSTRUCT.hdc, LPAINTSTRUCT.rcPaint);
+    DoPaint(LPAINTSTRUCT.hdc, FFrameRectEx);//LPAINTSTRUCT.rcPaint);
   finally
     EndPaint(Handle, LPAINTSTRUCT);
   end;

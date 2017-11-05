@@ -31,9 +31,17 @@ type
     FAppStatus: IAppStatus;
     // App Main Form
     FAppMainFormUI: TAppMainFormUI;
+
+    function CreateAppMainFormUI: TAppMainFormUI;
   protected
+
     // Clear Form
     procedure DoClearFormDic;
+
+    // Close Form
+    procedure DoCloseForm(AForm: TObject);
+    // Click App Menu
+    procedure DoClickAppMenu(AMainForm: TObject; AMenuItem: TObject);
   public
     // Constructor
     constructor Create; override;
@@ -65,7 +73,7 @@ constructor TMainFrameUIImpl.Create;
 begin
   inherited;
   FAppStatus := TAppStatusImpl.Create as IAppStatus;
-  FAppMainFormUI := TAppMainFormUI.Create(FAppStatus);
+  FAppMainFormUI := CreateAppMainFormUI;
 end;
 
 destructor TMainFrameUIImpl.Destroy;
@@ -104,6 +112,13 @@ begin
 
 end;
 
+function TMainFrameUIImpl.CreateAppMainFormUI: TAppMainFormUI;
+begin
+  Result := TAppMainFormUI.Create(FAppStatus);
+  Result.OnCloseForm := DoCloseForm;
+  Result.OnClickAppMenu := DoClickAppMenu;
+end;
+
 procedure TMainFrameUIImpl.DoClearFormDic;
 //var
 //  LMDIForm: TMDIForm;
@@ -121,6 +136,16 @@ begin
 //  finally
 //    LEnum.Free;
 //  end;
+end;
+
+procedure TMainFrameUIImpl.DoCloseForm(AForm: TObject);
+begin
+
+end;
+
+procedure TMainFrameUIImpl.DoClickAppMenu(AMainForm: TObject; AMenuItem: TObject);
+begin
+
 end;
 
 end.

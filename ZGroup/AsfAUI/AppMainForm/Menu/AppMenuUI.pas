@@ -152,6 +152,8 @@ constructor TAppMenuUI.Create;
 begin
   inherited;
   FIncrId := 0;
+  FHitId := -1;
+  FDownHitId := -1;
   FAppLMenuItems := TList<TAppMenuItem>.Create;
   FAppRMenuItems := TList<TAppMenuItem>.Create;
   FAppMenuItemDic := TDictionary<Integer, TAppMenuItem>.Create(15);

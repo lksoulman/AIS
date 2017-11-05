@@ -62,6 +62,8 @@ type
     FBorderStyleEx: TFormBorderStyle;
     // NC Render DC
     FNCRenderDC: TRenderDC;
+    // CLose Form
+    FOnCloseForm: TNotifyEvent;
 
     // Get Hit Status
     function GetHitStatus(ABtnType: Integer): Integer;
@@ -119,6 +121,7 @@ type
     property MinHeight: Integer read FMinHeight write FMinHeight;
     property BorderWidth: Integer read FBorderWidth write FBorderWidth;
     property CaptionHeight: Integer read FCaptionHeight write FCaptionHeight;
+    property OnCloseForm: TNotifyEvent read FOnCloseForm write FOnCloseForm;
   end;
 
 implementation
@@ -235,25 +238,35 @@ end;
 
 procedure TBaseFormUI.WMGetMinMaxInfo(var Message: TWMGetMinMaxInfo);
 var
+//  LMonitor: TMonitor;
   LMonitor: HMONITOR;
   LMonitorInfo: MONITORINFO;
 begin
   if FBorderStyleEx <> bsNone then begin
     Message.MinMaxInfo.ptMinTrackSize.X := FMinWidth;
     Message.MinMaxInfo.ptMinTrackSize.Y := FMinHeight;
-    // 调整窗口最大化时高度，避免窗口最大化时盖住主屏任务栏
+//    // 调整窗口最大化时高度，避免窗口最大化时盖住主屏任务栏
     LMonitorInfo.cbSize := SizeOf(MONITORINFO);
+
     LMonitor := MonitorFromWindow(Handle, MONITOR_DEFAULTTONULL);
     if LMonitor <> 0 then begin
       GetMonitorInfo(LMonitor, @LMonitorInfo);
       // ptMaxSize的默认大小为主屏的分辨率，在不同分辨率的屏幕上是以默认大小为基准按比例设置的。
       // 如主屏分辨率X1*Y1,副屏分辨率X2*Y2，如果该值设为x*y，在副屏上计算的实际大小是x*X2/X1和y*Y2/Y1
+
       Message.MinMaxInfo.ptMaxSize.X :=
         Min(LMonitorInfo.rcWork.Right - LMonitorInfo.rcWork.Left, Message.MinMaxInfo.ptMaxSize.X);
       Message.MinMaxInfo.ptMaxSize.Y :=
         Min(LMonitorInfo.rcWork.Bottom - LMonitorInfo.rcWork.Top, Message.MinMaxInfo.ptMaxSize.Y);
     end;
+//    LMonitor := Screen.MonitorFromWindow(Self.Handle);
+//    if LMonitor <> nil then begin
+//      Message.MinMaxInfo.ptMaxSize.X   :=   LMonitor.WorkareaRect.Width - 600;
+//      Message.MinMaxInfo.ptMaxSize.Y   :=   LMonitor.WorkareaRect.Height - 300;
+//      Message.Result   :=   0;
+//    end;
   end;
+//  Message.Result := 0;
   inherited;
 end;
 
@@ -415,7 +428,12 @@ begin
           SendMessage(Self.Handle, WM_NCPAINT, 0, 0);
         end;
       HTCLOSE:
-        Self.Close;
+        begin
+          Self.Close;
+          if Assigned(FOnCloseForm) then begin
+            FOnCloseForm(Self);
+          end;
+        end;
       HTMAXBUTTON:
         begin
           FHitTest := HTNOWHERE;
@@ -545,6 +563,10 @@ begin
     PaintCaptionAppMenu(FNCRenderDC.MemDC, LAppMenuRect);
 
     FNCRenderDC.BitBltX(LDC);
+
+    Dec(LRect.Right);
+    Dec(LRect.Bottom);
+    DrawBorder(LDC, APPP_MAINFORM_BORDER, LRect, 15);
   finally
     Message.Result := 0;
     ReleaseDC(Handle, LDC);

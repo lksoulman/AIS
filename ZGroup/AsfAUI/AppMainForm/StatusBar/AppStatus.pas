@@ -2,7 +2,7 @@ unit AppStatus;
 
 ////////////////////////////////////////////////////////////////////////////////
 //
-// Description£º App Status Bar Data Interface
+// Description£º App Status Interface
 // Author£º      lksoulman
 // Date£º        2017-11-1
 // Comments£º
@@ -33,32 +33,42 @@ type
     function GetColorValue: Integer;
   end;
 
-  // App Hq Status Item Pointer
+  // App Hq Item Pointer
   PAppHqItem = ^TAppHqItem;
 
-  // App News Status Item
+  // App News Item
   TAppNewsItem = packed record
     FId: Integer;
     FTitle: string;
     FDateTime: TDateTime;
   end;
 
-  // App News Status Item Pointer
+  // App News Item Pointer
   PAppNewsItem = ^TAppNewsItem;
 
-  // App User Status Item
+  // App User Item
   TAppUserItem = packed record
     FUserName: string;
   end;
 
-  // App User Status Item Pointer
+  // App User Item Pointer
   PAppUserItem = ^TAppUserItem;
 
-  // App HqServer Status Item
+  // App Time Item
+  TAppTimeItem = packed record
+    FCurrentTime: TDateTime;
+
+    function GetCurrentTime: string;
+  end;
+
+  // App Time Item Pointer
+  PAppTimeItem = ^TAppTimeItem;
+
+  // App HqServer Item
   TAppNetworkItem = packed record
   end;
 
-  // App HqServer Status Item
+  // App HqServer Item
   PAppNetworkItem = ^TAppNetworkItem;
 
   IAppStatus = interface(IInterface)
@@ -71,19 +81,21 @@ type
     procedure NewsLock;
     // Un Lock
     procedure NewsUnLock;
-    // Get L Hq Status Item Count
+    // Get L Hq Item Count
     function GetLHqItemCount: Integer;
-    // Get R Hq Status Item Count
+    // Get R Hq Item Count
     function GetRHqItemCount: Integer;
-    // Get L Hq Status Item
+    // Get L Hq Item
     function GetLHqItem(AIndex: Integer): PAppHqItem;
-    // Get R Hq Status Item
+    // Get R Hq Item
     function GetRHqItem(AIndex: Integer): PAppHqItem;
-    // Get User Status Item
+    // Get User Item
     function GetUserItem: PAppUserItem;
-    // Get HqServer Status Item Count
+    // Get Time Item
+    function GetTimeItem: PAppTimeItem;
+    // Get HqServer Item Count
     function GetNetworkItemCount: Integer;
-    // Get HqServer Status Item
+    // Get HqServer Item
     function GetNetworkItem(AIndex: Integer): PAppNetworkItem;
   end;
 
@@ -109,5 +121,13 @@ begin
   Result := CompareValue(FNowPrice, FPreClose, 0.000001);
 end;
 
+
+{ TAppTimeItem }
+
+function TAppTimeItem.GetCurrentTime: string;
+begin
+  FCurrentTime := Now;
+  Result := Format('CN %s', [FormatDateTime('MM-DD hh:nn:ss', FCurrentTime)]);
+end;
 
 end.

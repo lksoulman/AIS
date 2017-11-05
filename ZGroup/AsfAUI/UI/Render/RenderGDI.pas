@@ -94,6 +94,7 @@ var
   APPC_MAINFORM_CAPTION_BACK: COLORREF;
   APPC_MAINFORM_SUPERTAB_BACK: COLORREF;
   APPC_MAINFORM_STATUSBAR_BACK: COLORREF;
+  APPC_MAINFORM_BORDER: COLORREF;
 
   APPC_HQ_RED: COLORREF;
   APPC_HQ_GREEN: COLORREF;
@@ -101,7 +102,9 @@ var
 
 var
   APPF_STATUS_TEXT: HGDIOBJ;
-//  APPF_STATUS_HQ_TEXT: HGDIOBJ;
+
+var
+  APPP_MAINFORM_BORDER: HGDIOBJ;
 
 var
   // Image
@@ -128,9 +131,9 @@ begin
   FFontDic := TDictionary<string, HGDIOBJ>.Create(200);
   FBrushDic := TDictionary<string, HGDIOBJ>.Create(200);
   FColorDic := TDictionary<string, COLORREF>.Create(200);
-  InitPen;
   InitFont;
   InitColor;
+  InitPen;
   InitBrush;
 end;
 
@@ -161,7 +164,7 @@ end;
 
 procedure TRenderGDI.InitPen;
 begin
-
+  APPP_MAINFORM_BORDER := CreatePen(PS_SOLID, 1, APPC_MAINFORM_BORDER);
 end;
 
 procedure TRenderGDI.UnInitPen;
@@ -180,7 +183,7 @@ begin
   GetObject(LFont, SizeOf(LOGFONT), @LLogFont);
   LLogFont.lfCharSet := DEFAULT_CHARSET;
   lstrcpy(LLogFont.lfFaceName , PChar('Î¢ÈíÑÅºÚ'));
-  LLogFont.lfHeight := 14;
+  LLogFont.lfHeight := 18;
   LLogFont.lfWeight := FW_BOLD;
   LLogFont.lfItalic := Byte(False);
   LLogFont.lfUnderline := Byte(False);
@@ -221,6 +224,7 @@ begin
   APPC_MAINFORM_CAPTION_BACK := RGB(35, 35, 35);
   APPC_MAINFORM_SUPERTAB_BACK := RGB(35, 35, 35);
   APPC_MAINFORM_STATUSBAR_BACK := RGB(35, 35, 35);
+  APPC_MAINFORM_BORDER := RGB(24, 131, 215);
   APPC_STATUS_TEXT := RGB(200, 200, 200);
 end;
 

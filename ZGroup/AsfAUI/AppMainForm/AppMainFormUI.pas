@@ -34,6 +34,9 @@ uses
 
 type
 
+  // Click App Menu
+  TOnClickAppItem = procedure (AMainForm: TObject; AItem: TObject) of object;
+
   // App Main Form UI
   TAppMainFormUI = class(TBaseFormUI)
     PnlAppSuperTab: TPanel;
@@ -47,11 +50,19 @@ type
     FAppStatusUI: TAppStatusUI;
     // App Super Tab UI
     FAppSuperTabUI: TAppSuperTabUI;
+    // Click App Menu
+    FOnClickAppMenu: TOnClickAppItem;
+    //
+    FOnClickAppSuperTab: TOnClickAppItem;
 
     // Application Context
     FAppContext: IAppContext;
-
   protected
+    // Click Status Item
+    procedure DoClickStatusItem(AObject: TObject);
+    // Click Super Tab Item
+    procedure DoClickSuperTabItem(AObject: TObject);
+
     // Paint Caption App Icon
     procedure PaintCaptionAppIcon(ADC: HDC; AInvalidateRect: TRect); override;
     // Paint Caption App Menu
@@ -61,8 +72,6 @@ type
     // Update Hit test
     procedure UpdateHitTest(AHitTest: Integer; AHitMenu: Integer = -1); override;
 
-    // Click App Menu
-    procedure ClickAppMenu(AMainFormUI: TAppMainFormUI; AMenuItem: TAppMenuItem);
     // NC Left Button Up
     procedure WMNCLButtonUp(var Message: TWMNCLButtonUp); message WM_NCLBUTTONUP;
     // NC Left Button Down
@@ -76,6 +85,9 @@ type
     procedure Initialize(AContext: IAppContext);
     // Un Init
     procedure UnInitialize;
+
+    property OnClickAppMenu: TOnClickAppItem read FOnClickAppMenu write FOnClickAppMenu;
+    property OnClickAppSuperTab: TOnClickAppItem read FOnClickAppSuperTab write FOnClickAppSuperTab;
   end;
 
 implementation
@@ -95,11 +107,13 @@ begin
   FAppStatusUI.Align := alBottom;
   FAppStatusUI.Parent := PnlClient;
   FAppStatusUI.Height := 30;
+  FAppStatusUI.OnClickItem := DoClickStatusItem;
 
   FAppSuperTabUI := TAppSuperTabUI.Create(nil);
   FAppSuperTabUI.Align := alClient;
   FAppSuperTabUI.Parent := PnlAppSuperTab;
   FAppSuperTabUI.Width := 60;
+  FAppSuperTabUI.OnClickItem := DoClickSuperTabItem;
 end;
 
 destructor TAppMainFormUI.Destroy;
@@ -125,6 +139,20 @@ begin
   FAppSuperTabUI.UnInitialize;
   FAppMenuUI.UnInitialize;
   FAppContext := nil;
+end;
+
+procedure TAppMainFormUI.DoClickStatusItem(AObject: TObject);
+begin
+  if Assigned(FOnClickAppMenu) then begin
+    FOnClickAppMenu(Self, AObject);
+  end;
+end;
+
+procedure TAppMainFormUI.DoClickSuperTabItem(AObject: TObject);
+begin
+  if Assigned(FOnClickAppSuperTab) then begin
+    FOnClickAppSuperTab(Self, AObject);
+  end;
 end;
 
 procedure TAppMainFormUI.PaintCaptionAppIcon(ADC: HDC; AInvalidateRect: TRect);
@@ -225,7 +253,9 @@ begin
           if FAppMenuUI <> nil then begin
             if FAppMenuUI.HitId = FAppMenuUI.DownHitId then begin
               LAppMenuItem := FAppMenuUI.GetMenuItemById(FAppMenuUI.HitId);
-              ClickAppMenu(Self, LAppMenuItem);
+              if Assigned(FOnClickAppMenu) then begin
+                FOnClickAppMenu(Self, LAppMenuItem);
+              end;
             end;
             FAppMenuUI.DownHitId := -1;
             SendMessage(Self.Handle, WM_NCPAINT, 0, 0);
@@ -248,11 +278,6 @@ begin
   end;
   FDownHitTest := HTNOWHERE;
   inherited;
-end;
-
-procedure TAppMainFormUI.ClickAppMenu(AMainFormUI: TAppMainFormUI; AMenuItem: TAppMenuItem);
-begin
-
 end;
 
 end.

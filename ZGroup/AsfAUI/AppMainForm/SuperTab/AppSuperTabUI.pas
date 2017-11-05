@@ -52,6 +52,7 @@ type
     FLock: TCSLock;
     // App Context
     FAppContext: IAppContext;
+
     // Items
     FItems: TList<TAppSuperTabItem>;
     // Draw Items
@@ -60,6 +61,8 @@ type
     FSubDrawItems: TList<TAppSuperTabItem>;
     // Super Tab Item Dic
     FSuperTabItemDic: TDictionary<Integer, TAppSuperTabItem>;
+
+
   protected
     // Init Super Tab Items
     procedure DoInitSuperTabItems;
@@ -359,7 +362,9 @@ end;
 
 procedure TAppSuperTabUI.DoClickComponent(AComponent: TComponentUI);
 begin
-
+  if Assigned(FOnClickItem) then begin
+    FOnClickItem(AComponent);
+  end;
 end;
 
 function TAppSuperTabUI.DoFindComponent(APt: TPoint; var AComponent: TComponentUI): Boolean;

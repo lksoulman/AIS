@@ -31,10 +31,12 @@ uses
 
   // ResourceStream To GPImage
   function ResourceStreamToGPImage(AResStream: TResourceStream): TGPImage;
+  //
+  function GetTextSizeX(ADC: HDC; AFont: HFONT; AText: string; var ASize: TSize): Boolean;
   // Draw Image X
   procedure DrawImageX(AGraphics: TGPGraphics; AImage: TGPImage; ADesRect, ASrcRect: TRect);
   // Draw Text Ex X
-  procedure DrawTextExX(ADC: HDC; AGraphics: TGPGraphics; AText: string; ARect: TRect; AFont: HFONT; ABKColor: COLORREF; AHorzAlignment, AVertAlignment: TStringAlignment);
+  procedure DrawTextExX(ADC: HDC; AGraphics: TGPGraphics; AText: string; ARect: TRect; AFont: HFONT; AColorRef: COLORREF; AHorzAlignment, AVertAlignment: TStringAlignment);
 
 implementation
 
@@ -107,6 +109,18 @@ implementation
     Result := TGPImage.Create(LStream);
   end;
 
+  function GetTextSizeX(ADC: HDC; AFont: HFONT; AText: string; var ASize: TSize): Boolean;
+  var
+    LOldObject: HGDIOBJ;
+  begin
+    LOldObject := SelectObject(ADC, AFont);
+    try
+      Result := GetTextExtentPoint32(ADC, PChar(AText), Length(AText), ASize);
+    finally
+      SelectObject(ADC, LOldObject);
+    end;
+  end;
+
   procedure DrawImageX(AGraphics: TGPGraphics; AImage: TGPImage; ADesRect, ASrcRect: TRect);
   var
     LDesRectF, LSrcRectF: TGPRectF;
@@ -117,24 +131,21 @@ implementation
       LSrcRectF.Width, LSrcRectF.Height, UnitPixel);
   end;
 
-  procedure DrawTextExX(ADC: HDC; AGraphics: TGPGraphics; AText: string; ARect: TRect; AFont: HFONT; ABKColor: TGPColor;
+  procedure DrawTextExX(ADC: HDC; AGraphics: TGPGraphics; AText: string; ARect: TRect; AFont: HFONT; AColorRef: COLORREF;
     AHorzAlignment, AVertAlignment: TStringAlignment);
   var
-
     LFont: TGPFont;
+    LColor: TGPColor;
     LRectF: TGPRectF;
     LBrush: TGPBrush;
     LFormat: TGPStringFormat;
   begin
-    LRectF := MakeRect(ARect.Left + 0.0, ARect.Top + 0.0, ARect.Width + 0.0, ARect.Height + 0.0);
-//    LFont := TGPFont.Create(ADC, AFont);
-    LFont := TGPFont.Create('Î¢ÈíÑÅºÚ', 10, FontStyleBold);
+    LColor := ColorRefToARGB(AColorRef);
+    LRectF := MakeRect(ARect.Left + 0.0, ARect.Top + 0.0,
+      ARect.Width + 0.0, ARect.Height + 0.0);
+    LFont := TGPFont.Create(ADC, AFont);
     try
-//    sb := TGPSolidBrush.Create(aclRed);
-
-
-
-      LBrush := TGPSolidBrush.Create(aclRed);      //ABKColor
+      LBrush := TGPSolidBrush.Create(LColor);
       try
         LFormat := TGPStringFormat.Create;
         try

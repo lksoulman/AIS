@@ -120,9 +120,12 @@ type
   // App Time Item
   TAppTimeItem = class(TAppStatusItem)
   private
+    FCurrentTime: string;
   protected
     // Calc Rect
     procedure DoCalcRect; override;
+    // Update Data
+    procedure DoUpdateData; override;
   public
     // Constructor
     constructor Create(AParent: TObject); override;
@@ -138,6 +141,8 @@ type
   protected
     // Calc Rect
     procedure DoCalcRect; override;
+    // Update Data
+    procedure DoUpdateData; override;
   public
     // Constructor
     constructor Create(AParent: TObject); override;
@@ -205,6 +210,7 @@ type
     procedure DoStatusItemsUpdateData;
     // Clear Items
     procedure DoClear(AItems: TList<TAppStatusItem>);
+
     // Size
     procedure DoSize(AWidth: Integer; AHeight: Integer); override;
     // Paint Backgroud
@@ -269,7 +275,7 @@ end;
 constructor TAppHqItem.Create(AParent: TObject);
 begin
   inherited Create(AParent);
-  FWidth := 260;
+  FWidth := 195;
   FAppHqType := hstLeft;
   FItemCount := 0;
   FCurrIndex := 0;
@@ -285,16 +291,16 @@ end;
 procedure TAppHqItem.DoCalcRect;
 begin
   FSecuAbbrRectEx := FRectEx;
-  FSecuAbbrRectEx.Left := 10 + FSecuAbbrRectEx.Left;
+  FSecuAbbrRectEx.Left := 5 + FSecuAbbrRectEx.Left;
   FSecuAbbrRectEx.Right := FSecuAbbrRectEx.Left + 40;
 
   FNowPriceHLRectEx := FRectEx;
-  FNowPriceHLRectEx.Left := FSecuAbbrRectEx.Right + 10;
-  FNowPriceHLRectEx.Right := FNowPriceHLRectEx.Left + 150;
+  FNowPriceHLRectEx.Left := FSecuAbbrRectEx.Right + 5;
+  FNowPriceHLRectEx.Right := FNowPriceHLRectEx.Left + 100;
 
   FTurnoverRectEx := FRectEx;
-  FTurnoverRectEx.Left := FNowPriceHLRectEx.Right + 10;
-  FTurnoverRectEx.Right := FTurnoverRectEx.Left + 40;
+  FTurnoverRectEx.Left := FNowPriceHLRectEx.Right + 5;
+  FTurnoverRectEx.Right := FTurnoverRectEx.Left + 45;
 end;
 
 procedure TAppHqItem.DoUpdateData;
@@ -347,13 +353,13 @@ end;
 procedure TAppHqItem.Paint(ARenderDC: TRenderDC);
 begin
   DrawTextExX(ARenderDC.MemDC, ARenderDC.GPGraphics, FSecuAbbr, FSecuAbbrRectEx,
-    HFONT(APPF_STATUS_TEXT), APPC_STATUS_TEXT, StringAlignmentCenter, StringAlignmentCenter);
+    HFONT(APPF_STATUS_TEXT), APPC_STATUS_TEXT, StringAlignmentNear, StringAlignmentCenter);
 
   DrawTextExX(ARenderDC.MemDC, ARenderDC.GPGraphics, FNowPriceHL, FNowPriceHLRectEx,
-    HFONT(APPF_STATUS_TEXT), APPC_STATUS_TEXT, StringAlignmentCenter, StringAlignmentCenter);
+    HFONT(APPF_STATUS_TEXT), APPC_STATUS_TEXT, StringAlignmentNear, StringAlignmentCenter);
 
   DrawTextExX(ARenderDC.MemDC, ARenderDC.GPGraphics, FTurnover, FTurnoverRectEx,
-    HFONT(APPF_STATUS_TEXT), APPC_STATUS_TEXT, StringAlignmentCenter, StringAlignmentCenter);
+    HFONT(APPF_STATUS_TEXT), APPC_STATUS_TEXT, StringAlignmentNear, StringAlignmentCenter);
 end;
 
 { TAppNewsItem }
@@ -387,7 +393,7 @@ end;
 constructor TAppTimeItem.Create(AParent: TObject);
 begin
   inherited;
-
+  FWidth := 140;
 end;
 
 destructor TAppTimeItem.Destroy;
@@ -402,10 +408,17 @@ begin
 
 end;
 
+procedure TAppTimeItem.DoUpdateData;
+begin
+  if FAppStatusUI.FAppStatus = nil then Exit;
+
+  FCurrentTime := FAppStatusUI.FAppStatus.GetTimeItem^.GetCurrentTime;
+end;
+
 procedure TAppTimeItem.Paint(ARenderDC: TRenderDC);
 begin
-  inherited;
-
+  DrawTextExX(ARenderDC.MemDC, ARenderDC.GPGraphics, FCurrentTime, FRectEx,
+    HFONT(APPF_STATUS_TEXT), APPC_STATUS_TEXT, StringAlignmentCenter, StringAlignmentCenter);
 end;
 
 { TAppAlarmItem }
@@ -425,6 +438,14 @@ end;
 procedure TAppAlarmItem.DoCalcRect;
 begin
   FRectEx.Inflate(-2, -5);
+end;
+
+procedure TAppAlarmItem.DoUpdateData;
+begin
+  if FAppStatusUI.FAppStatus = nil then Exit;
+
+
+//  FCurrentTime := ;
 end;
 
 procedure TAppAlarmItem.Paint(ARenderDC: TRenderDC);
